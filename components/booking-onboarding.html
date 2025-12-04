@@ -10,6 +10,8 @@
     <link rel="stylesheet" href="booking-onboarding.css">
 </head>
 <body>
+    <a href="#main-content" class="skip-link">Skip to main content</a>
+
     <!-- Welcome Section -->
     <section class="welcome" id="welcome-section" role="banner">
         <div class="welcome__container">
@@ -75,7 +77,7 @@
     </section>
 
     <!-- Courses Section -->
-    <section class="courses" id="courses-section" role="region" aria-label="Available courses">
+    <section class="courses" id="main-content" role="region" aria-label="Available courses">
         <div class="courses__container">
             <div class="courses__header">
                 <h2 class="courses__title">We've picked these courses just for you</h2>
@@ -237,8 +239,14 @@
                 <h2 id="booking-form-title" class="booking-form__title">Let's get you signed up!</h2>
                 <p class="booking-form__subtitle">Just a few quick details and you're all set</p>
 
+                <!-- ARIA Live Region for Step Announcements -->
+                <div class="sr-only" role="status" aria-live="polite" aria-atomic="true" id="step-announcer"></div>
+
                 <!-- Progress Bar -->
                 <div class="progress-bar" role="progressbar" aria-valuenow="33" aria-valuemin="0" aria-valuemax="100">
+                    <div class="progress-bar__header">
+                        <span class="time-estimate">About 2 min remaining</span>
+                    </div>
                     <div class="progress-bar__track">
                         <div class="progress-bar__fill" id="progress-fill"></div>
                     </div>
@@ -256,6 +264,7 @@
                             <span class="progress-bar__step-label">Confirm</span>
                         </div>
                     </div>
+                    <p class="progress-bar__reassurance">You can edit any step before confirming</p>
                 </div>
 
                 <!-- Form Steps -->

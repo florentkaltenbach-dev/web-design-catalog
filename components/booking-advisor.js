@@ -313,6 +313,10 @@
         courseContainer: document.getElementById('course-container'),
         courseCount: document.getElementById('course-count'),
         emptyState: document.getElementById('empty-state'),
+        emptyStateMessage: document.getElementById('empty-state-message'),
+        btnClearFilters: document.getElementById('btn-clear-filters'),
+        btnViewAllCourses: document.getElementById('btn-view-all-courses'),
+        btnContact: document.getElementById('btn-contact'),
 
         // Comparison panel
         comparisonPanel: document.getElementById('comparison-panel'),
@@ -363,6 +367,17 @@
         elements.filterLevel.addEventListener('change', handleFilterChange);
         elements.btnClear.addEventListener('click', handleClearFilters);
 
+        // Empty state actions
+        if (elements.btnClearFilters) {
+            elements.btnClearFilters.addEventListener('click', handleClearFilters);
+        }
+        if (elements.btnViewAllCourses) {
+            elements.btnViewAllCourses.addEventListener('click', handleClearFilters);
+        }
+        if (elements.btnContact) {
+            elements.btnContact.addEventListener('click', handleContactRequest);
+        }
+
         // Comparison
         elements.btnCompare.addEventListener('click', showComparisonPanel);
         elements.btnCloseCompare.addEventListener('click', hideComparisonPanel);
@@ -394,6 +409,7 @@
         if (filteredCourses.length === 0) {
             elements.emptyState.style.display = 'block';
             elements.courseCount.textContent = '0 courses found';
+            updateEmptyStateMessage();
             return;
         }
 
@@ -404,6 +420,46 @@
             const row = createCourseRow(course);
             elements.courseContainer.appendChild(row);
         });
+    }
+
+    function updateEmptyStateMessage() {
+        const hasCategory = elements.filterCategory.value !== '';
+        const hasDate = elements.filterDate.value !== '';
+        const hasLevel = elements.filterLevel.value !== '';
+
+        const activeFilters = [];
+        if (hasCategory) {
+            const categoryOption = elements.filterCategory.options[elements.filterCategory.selectedIndex];
+            activeFilters.push(categoryOption.text);
+        }
+        if (hasDate) {
+            const dateOption = elements.filterDate.options[elements.filterDate.selectedIndex];
+            activeFilters.push(dateOption.text);
+        }
+        if (hasLevel) {
+            const levelOption = elements.filterLevel.options[elements.filterLevel.selectedIndex];
+            activeFilters.push(levelOption.text);
+        }
+
+        let message = '';
+        if (activeFilters.length > 0) {
+            message = `No courses found matching: <strong>${activeFilters.join(', ')}</strong>`;
+        } else {
+            message = 'No courses available at this time.';
+        }
+
+        elements.emptyStateMessage.innerHTML = message;
+
+        // Show/hide suggestion buttons based on context
+        if (elements.btnClearFilters && elements.btnViewAllCourses) {
+            const hasAnyFilter = hasCategory || hasDate || hasLevel;
+            elements.btnClearFilters.style.display = hasAnyFilter ? 'inline-block' : 'none';
+            elements.btnViewAllCourses.style.display = hasAnyFilter ? 'inline-block' : 'none';
+        }
+    }
+
+    function handleContactRequest() {
+        alert('Contact form would open here. In production, this would open a modal or redirect to a contact page.');
     }
 
     function createCourseRow(course) {
@@ -695,7 +751,7 @@
             </div>
         `;
 
-        elements.courseDetailModal.style.display = 'flex';
+        openModalWithFocusTrap(elements.courseDetailModal);
     }
 
     // ===================================
@@ -720,7 +776,14 @@
 
         // Close detail modal and show booking modal
         closeModal('detail');
-        elements.bookingModal.style.display = 'flex';
+        openModalWithFocusTrap(elements.bookingModal);
+    }
+
+    function announceStep(stepNumber, totalSteps, stepTitle) {
+        const announcer = document.getElementById('step-announcer');
+        if (announcer) {
+            announcer.textContent = `Step ${stepNumber} of ${totalSteps}: ${stepTitle}`;
+        }
     }
 
     function showStep(step) {
@@ -746,6 +809,10 @@
                 stepEl.classList.add('progress-stepper__step--active');
             }
         });
+
+        // Announce step change for screen readers
+        const stepTitles = ['Participant', 'Billing', 'Review'];
+        announceStep(step, 3, stepTitles[step - 1]);
 
         // Update buttons
         elements.btnPrev.style.display = step > 1 ? 'block' : 'none';
@@ -901,27 +968,95 @@
             </div>
         `;
 
-        elements.confirmationModal.style.display = 'flex';
+        openModalWithFocusTrap(elements.confirmationModal);
     }
 
     // ===================================
     // Modal Management
     // ===================================
+    let lastFocusedElement = null;
+    let modalKeydownHandler = null;
+
+    function trapFocus(modal) {
+        const focusableElements = modal.querySelectorAll(
+            'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])'
+        );
+        const firstElement = focusableElements[0];
+        const lastElement = focusableElements[focusableElements.length - 1];
+
+        // Remove previous handler if it exists
+        if (modalKeydownHandler) {
+            modal.removeEventListener('keydown', modalKeydownHandler);
+        }
+
+        modalKeydownHandler = function(e) {
+            if (e.key === 'Tab') {
+                if (e.shiftKey && document.activeElement === firstElement) {
+                    e.preventDefault();
+                    lastElement.focus();
+                } else if (!e.shiftKey && document.activeElement === lastElement) {
+                    e.preventDefault();
+                    firstElement.focus();
+                }
+            }
+            if (e.key === 'Escape') {
+                // Determine which modal is open and close it
+                if (modal.style.display === 'flex') {
+                    if (modal === elements.courseDetailModal) {
+                        closeModal('detail');
+                    } else if (modal === elements.bookingModal) {
+                        closeModal('booking');
+                    } else if (modal === elements.confirmationModal) {
+                        closeModal('confirmation');
+                    }
+                }
+            }
+        };
+
+        modal.addEventListener('keydown', modalKeydownHandler);
+
+        if (firstElement) firstElement.focus();
+    }
+
+    function openModalWithFocusTrap(modal) {
+        lastFocusedElement = document.activeElement;
+        modal.style.display = 'flex';
+        document.body.style.overflow = 'hidden';
+
+        // Setup focus trap
+        setTimeout(() => {
+            trapFocus(modal);
+        }, 100);
+    }
+
     function closeModal(type) {
+        let modalElement = null;
+
         switch(type) {
             case 'detail':
                 elements.courseDetailModal.style.display = 'none';
+                modalElement = elements.courseDetailModal;
                 break;
             case 'booking':
                 elements.bookingModal.style.display = 'none';
+                modalElement = elements.bookingModal;
                 break;
             case 'confirmation':
                 elements.confirmationModal.style.display = 'none';
+                modalElement = elements.confirmationModal;
                 // Reset for next booking
                 currentBookingCourse = null;
                 formData = {};
                 elements.bookingForm.reset();
                 break;
+        }
+
+        document.body.style.overflow = '';
+
+        // Return focus to the element that opened the modal
+        if (lastFocusedElement) {
+            lastFocusedElement.focus();
+            lastFocusedElement = null;
         }
     }
 

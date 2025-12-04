@@ -7,8 +7,10 @@
     <link rel="stylesheet" href="booking-advisor.css">
 </head>
 <body>
+    <a href="#main-content" class="skip-link">Skip to main content</a>
+
     <!-- Main Container -->
-    <div class="advisor-container">
+    <div class="advisor-container" id="main-content">
 
         <!-- Header -->
         <header class="advisor-header">
@@ -77,9 +79,24 @@
                 <!-- Courses will be rendered here by JavaScript -->
             </div>
 
-            <div class="course-list__empty" id="empty-state" style="display: none;">
-                <p class="empty-state__text">No courses found matching your criteria. Adjust filters or contact us for custom training.</p>
-                <button type="button" class="empty-state__btn" id="btn-contact">Request Custom Training</button>
+            <div class="course-list__empty" id="empty-state" role="status" style="display: none;">
+                <div class="empty-state__icon" aria-hidden="true">🔍</div>
+                <h3 class="empty-state__title">No courses found</h3>
+                <p class="empty-state__text" id="empty-state-message">
+                    No courses found matching your criteria.
+                </p>
+                <div class="empty-state__suggestions">
+                    <p class="empty-state__suggestions-title">Try:</p>
+                    <button type="button" class="btn-suggestion-secondary" id="btn-clear-filters">
+                        Clear all filters
+                    </button>
+                    <button type="button" class="btn-suggestion-secondary" id="btn-view-all-courses">
+                        View all courses
+                    </button>
+                    <button type="button" class="btn-suggestion-secondary" id="btn-contact">
+                        Request custom training
+                    </button>
+                </div>
             </div>
         </main>
 
@@ -110,6 +127,9 @@
             <div class="modal__overlay" id="booking-overlay"></div>
             <div class="modal__content modal__content--medium">
                 <button type="button" class="modal__close" id="btn-close-booking" aria-label="Close booking form">×</button>
+
+                <!-- ARIA Live Region for Step Announcements -->
+                <div class="sr-only" role="status" aria-live="polite" aria-atomic="true" id="step-announcer"></div>
 
                 <!-- Progress Stepper -->
                 <div class="progress-stepper" id="progress-stepper">

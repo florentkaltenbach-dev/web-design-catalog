@@ -356,10 +356,27 @@
                 break-inside: avoid;
             }
         }
+        /* Skip Link (Accessibility) */
+        .skip-link {
+            position: absolute;
+            top: -40px;
+            left: 0;
+            background: var(--color-primary, #4A7C8C);
+            color: #fff;
+            padding: 8px 16px;
+            text-decoration: none;
+            z-index: 1000;
+            border-radius: 0 0 4px 0;
+        }
+        .skip-link:focus {
+            top: 0;
+        }
     </style>
 </head>
 <body>
-    <div class="timeline-container">
+    <a href="#main-content" class="skip-link">Skip to main content</a>
+
+    <div class="timeline-container" id="main-content">
         <!-- Header -->
         <header class="timeline-header">
             <h1>Our Journey Together</h1>

@@ -1,0 +1,96 @@
+{
+  "id": "booking-balanced",
+  "title": "Smart Booking",
+  "subtitle": "The right amount of information at the right time",
+  "emotional_position": {
+    "curiosity_clarity": 50,
+    "spark_friction": 50,
+    "exploration_efficiency": 50
+  },
+  "rationale": {
+    "target_user": "Mixed audience with varying familiarity and intent",
+    "mindset": "Some know what they want, others are exploring. Need to serve both without alienating either.",
+    "key_insight": "Progressive disclosure lets users self-select their depth. Quick path visible, details available."
+  },
+  "design_tokens": {
+    "colors": {
+      "primary": "#0D9488",
+      "secondary": "#0F766E",
+      "accent": "#F97316",
+      "background": "#F0FDFA",
+      "surface": "#FFFFFF",
+      "text": "#134E4A",
+      "text_secondary": "#5F9EA0",
+      "success": "#10B981",
+      "error": "#EF4444"
+    },
+    "typography": {
+      "font_primary": "IBM Plex Sans, system-ui, sans-serif",
+      "font_secondary": "IBM Plex Serif, Georgia, serif",
+      "scale": "normal"
+    },
+    "spacing": "normal",
+    "animation": "subtle",
+    "border_radius": "soft"
+  },
+  "components": {
+    "course_card": {
+      "layout": "detailed",
+      "show_price": true,
+      "show_duration": true,
+      "show_instructor": true,
+      "show_spots": true,
+      "image_style": "thumbnail"
+    },
+    "availability_indicator": {
+      "style": "bar",
+      "show_exact_count": true,
+      "urgency_threshold": 5
+    },
+    "booking_form": {
+      "layout": "sidebar",
+      "fields": [
+        { "name": "name", "type": "text", "required": true, "placeholder": "Full name" },
+        { "name": "email", "type": "email", "required": true, "placeholder": "Email address" },
+        { "name": "company", "type": "text", "required": false, "placeholder": "Company (optional)" },
+        { "name": "dietary", "type": "text", "required": false, "placeholder": "Dietary requirements" }
+      ],
+      "show_summary": true,
+      "show_progress": false
+    },
+    "confirmation": {
+      "style": "modal",
+      "show_calendar_add": true,
+      "show_share": true,
+      "next_actions": ["Add to calendar", "Share with colleague", "View all bookings"]
+    }
+  },
+  "user_flow": {
+    "steps": [
+      { "name": "Scan", "action": "View course list", "feedback": "Clear cards with key info" },
+      { "name": "Select", "action": "Click course", "feedback": "Sidebar opens with details + form" },
+      { "name": "Review", "action": "Expand details if needed", "feedback": "Accordion reveals more" },
+      { "name": "Book", "action": "Fill form and submit", "feedback": "Inline validation" },
+      { "name": "Confirm", "action": "See success modal", "feedback": "Clear next steps" }
+    ],
+    "estimated_time": "45 seconds - 2 minutes",
+    "escape_hatches": ["Close sidebar", "Clear selection", "Contact support", "Save draft"]
+  },
+  "microcopy": {
+    "cta_primary": "Reserve Your Spot",
+    "cta_secondary": "See Details",
+    "empty_state": "No courses match your filters. Try adjusting your search.",
+    "loading": "Confirming availability...",
+    "success": "Booking confirmed! We've sent the details to your email.",
+    "error": "Unable to complete booking. Please check your details and try again.",
+    "availability_high": "{n} spots available",
+    "availability_low": "Only {n} spots remaining",
+    "availability_none": "Currently full - join waitlist"
+  },
+  "accessibility": {
+    "focus_visible": true,
+    "reduced_motion": true,
+    "screen_reader_hints": true,
+    "color_contrast": "AA"
+  }
+}

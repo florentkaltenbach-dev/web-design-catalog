@@ -61,6 +61,7 @@
     const cancelBookingBtn = document.getElementById('cancel-booking');
     const submitBookingBtn = document.getElementById('submit-booking');
     const addToCalendarBtn = document.getElementById('add-to-calendar');
+    const editBookingBtn = document.getElementById('edit-booking');
     const bookAnotherBtn = document.getElementById('book-another');
 
     // Form inputs
@@ -98,9 +99,16 @@
             addToCalendarBtn.addEventListener('click', handleAddToCalendar);
         }
 
+        if (editBookingBtn) {
+            editBookingBtn.addEventListener('click', handleEditBooking);
+        }
+
         if (bookAnotherBtn) {
             bookAnotherBtn.addEventListener('click', handleBookAnother);
         }
+
+        // Restore form data on load
+        restoreFormData();
 
         // Real-time validation
         if (nameInput) {
@@ -194,6 +202,23 @@
     }
 
     /**
+     * Error messages with recovery guidance
+     */
+    const errorMessages = {
+        name: {
+            required: 'Please enter your name so we know who to expect',
+            minLength: 'Please enter your full name (at least 2 characters)'
+        },
+        email: {
+            required: 'We need your email to send confirmation',
+            invalid: 'Please check your email format (e.g., name@example.com)'
+        },
+        phone: {
+            invalid: 'Please enter a valid phone number (e.g., +1 555-123-4567)'
+        }
+    };
+
+    /**
      * Validate individual field
      */
     function validateField(fieldName) {
@@ -209,10 +234,10 @@
             case 'name':
                 if (!input.value.trim()) {
                     isValid = false;
-                    errorMessage = 'Name is required';
+                    errorMessage = errorMessages.name.required;
                 } else if (input.value.trim().length < 2) {
                     isValid = false;
-                    errorMessage = 'Name must be at least 2 characters';
+                    errorMessage = errorMessages.name.minLength;
                 }
                 break;
 
@@ -220,23 +245,61 @@
                 const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
                 if (!input.value.trim()) {
                     isValid = false;
-                    errorMessage = 'Email is required';
+                    errorMessage = errorMessages.email.required;
                 } else if (!emailRegex.test(input.value)) {
                     isValid = false;
-                    errorMessage = 'Please enter a valid email';
+                    errorMessage = errorMessages.email.invalid;
+                }
+                break;
+
+            case 'phone':
+                if (input.value.trim()) {
+                    const phoneRegex = /^[\d\s\-\+\(\)]+$/;
+                    if (!phoneRegex.test(input.value)) {
+                        isValid = false;
+                        errorMessage = errorMessages.phone.invalid;
+                    }
                 }
                 break;
         }
 
         if (!isValid) {
-            input.classList.add('error');
-            errorSpan.textContent = errorMessage;
+            showFieldError(input, errorSpan, errorMessage);
         } else {
-            input.classList.remove('error');
-            errorSpan.textContent = '';
+            showFieldSuccess(input, errorSpan);
         }
 
         return isValid;
+    }
+
+    /**
+     * Show field error with styling
+     */
+    function showFieldError(input, errorSpan, errorMessage) {
+        input.classList.add('error');
+        input.classList.remove('success');
+        errorSpan.textContent = errorMessage;
+
+        const wrapper = input.closest('.form-group');
+        if (wrapper) {
+            wrapper.classList.add('has-error');
+            wrapper.classList.remove('has-success');
+        }
+    }
+
+    /**
+     * Show field success with checkmark
+     */
+    function showFieldSuccess(input, errorSpan) {
+        input.classList.remove('error');
+        input.classList.add('success');
+        errorSpan.textContent = '';
+
+        const wrapper = input.closest('.form-group');
+        if (wrapper) {
+            wrapper.classList.remove('has-error');
+            wrapper.classList.add('has-success');
+        }
     }
 
     /**
@@ -248,7 +311,14 @@
 
         if (input && errorSpan) {
             input.classList.remove('error');
+            input.classList.remove('success');
             errorSpan.textContent = '';
+
+            const wrapper = input.closest('.form-group');
+            if (wrapper) {
+                wrapper.classList.remove('has-error');
+                wrapper.classList.remove('has-success');
+            }
         }
     }
 
@@ -272,6 +342,9 @@
         if (!validateForm()) {
             return;
         }
+
+        // Save form data to sessionStorage
+        saveFormData();
 
         // Show loading state
         submitBookingBtn.classList.add('loading');
@@ -382,17 +455,69 @@
     }
 
     /**
+     * Handle edit booking
+     */
+    function handleEditBooking() {
+        // Hide success, show form
+        bookingSuccess.hidden = true;
+        bookingFormContainer.hidden = false;
+
+        // Form data already preserved in fields - user can edit and resubmit
+        nameInput.focus();
+
+        // Smooth scroll to form
+        bookingFormContainer.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+    }
+
+    /**
      * Handle book another course
      */
     function handleBookAnother() {
         deselectCourse();
         resetForm();
 
+        // Optionally restore previous data for quick re-booking
+        const shouldPrefill = sessionStorage.getItem('bookingData');
+        if (shouldPrefill) {
+            // Show a subtle notification that previous data is available
+            restoreFormData();
+        }
+
         // Scroll back to courses
         document.querySelector('.courses-grid').scrollIntoView({
             behavior: 'smooth',
             block: 'start'
         });
+    }
+
+    /**
+     * Save form data to sessionStorage
+     */
+    function saveFormData() {
+        const data = {
+            name: nameInput.value,
+            email: emailInput.value,
+            phone: phoneInput.value
+        };
+        sessionStorage.setItem('bookingData', JSON.stringify(data));
+    }
+
+    /**
+     * Restore form data from sessionStorage
+     */
+    function restoreFormData() {
+        const savedData = sessionStorage.getItem('bookingData');
+        if (savedData) {
+            try {
+                const data = JSON.parse(savedData);
+                if (data.name) nameInput.value = data.name;
+                if (data.email) emailInput.value = data.email;
+                if (data.phone) phoneInput.value = data.phone;
+            } catch (e) {
+                // Invalid data, ignore
+                console.warn('Failed to restore form data:', e);
+            }
+        }
     }
 
     /**
@@ -410,11 +535,27 @@
 
     /**
      * Escape HTML to prevent XSS
+     * Uses robust string replacement approach to sanitize user input
      */
-    function escapeHtml(text) {
-        const div = document.createElement('div');
-        div.textContent = text;
-        return div.innerHTML;
+    function escapeHtml(unsafe) {
+        if (typeof unsafe !== 'string') return '';
+        return unsafe
+            .replace(/&/g, "&amp;")
+            .replace(/</g, "&lt;")
+            .replace(/>/g, "&gt;")
+            .replace(/"/g, "&quot;")
+            .replace(/'/g, "&#039;");
+    }
+
+    /**
+     * Create a safe DOM element with text content
+     * Alternative to innerHTML for dynamic content creation
+     */
+    function createSafeElement(tag, className, textContent) {
+        const el = document.createElement(tag);
+        if (className) el.className = className;
+        if (textContent) el.textContent = textContent; // textContent is safe
+        return el;
     }
 
     // Initialize on DOM ready

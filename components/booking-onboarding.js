@@ -76,24 +76,69 @@ function scrollToCourses() {
     coursesSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
 }
 
-function openModal(modalId) {
-    const modal = document.getElementById(modalId);
-    modal.classList.add('modal--open');
-    document.body.style.overflow = 'hidden';
+let lastFocusedElement = null;
+let modalKeydownHandler = null;
 
-    // Trap focus in modal
+function trapFocus(modal) {
     const focusableElements = modal.querySelectorAll(
         'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])'
     );
-    if (focusableElements.length > 0) {
-        focusableElements[0].focus();
+    const firstElement = focusableElements[0];
+    const lastElement = focusableElements[focusableElements.length - 1];
+
+    // Remove previous handler if it exists
+    if (modalKeydownHandler) {
+        modal.removeEventListener('keydown', modalKeydownHandler);
     }
+
+    modalKeydownHandler = function(e) {
+        if (e.key === 'Tab') {
+            if (e.shiftKey && document.activeElement === firstElement) {
+                e.preventDefault();
+                lastElement.focus();
+            } else if (!e.shiftKey && document.activeElement === lastElement) {
+                e.preventDefault();
+                firstElement.focus();
+            }
+        }
+        if (e.key === 'Escape') {
+            if (modal.id === 'course-details-modal') {
+                closeModal();
+            } else if (modal.id === 'booking-form-modal') {
+                closeBookingForm();
+            } else if (modal.id === 'confirmation-modal') {
+                closeConfirmation();
+            }
+        }
+    };
+
+    modal.addEventListener('keydown', modalKeydownHandler);
+
+    if (firstElement) firstElement.focus();
+}
+
+function openModal(modalId) {
+    const modal = document.getElementById(modalId);
+    lastFocusedElement = document.activeElement;
+    modal.classList.add('modal--open');
+    document.body.style.overflow = 'hidden';
+
+    // Setup focus trap
+    setTimeout(() => {
+        trapFocus(modal);
+    }, 100);
 }
 
 function closeModal() {
     const modal = document.getElementById('course-details-modal');
     modal.classList.remove('modal--open');
     document.body.style.overflow = '';
+
+    // Return focus to the element that opened the modal
+    if (lastFocusedElement) {
+        lastFocusedElement.focus();
+        lastFocusedElement = null;
+    }
 }
 
 function closeBookingForm() {
@@ -101,12 +146,24 @@ function closeBookingForm() {
     modal.classList.remove('modal--open');
     document.body.style.overflow = '';
     resetForm();
+
+    // Return focus to the element that opened the modal
+    if (lastFocusedElement) {
+        lastFocusedElement.focus();
+        lastFocusedElement = null;
+    }
 }
 
 function closeConfirmation() {
     const modal = document.getElementById('confirmation-modal');
     modal.classList.remove('modal--open');
     document.body.style.overflow = '';
+
+    // Return focus to the element that opened the modal
+    if (lastFocusedElement) {
+        lastFocusedElement.focus();
+        lastFocusedElement = null;
+    }
 
     // Scroll to courses section for potential next booking
     setTimeout(() => {
@@ -264,6 +321,26 @@ function resetForm() {
     updateProgress();
 }
 
+function announceStep(stepNumber, totalSteps, stepTitle) {
+    const announcer = document.getElementById('step-announcer');
+    if (announcer) {
+        announcer.textContent = `Step ${stepNumber} of ${totalSteps}: ${stepTitle}`;
+    }
+}
+
+function updateTimeEstimate(currentStep, totalSteps) {
+    const secondsPerStep = 45;
+    const remaining = (totalSteps - currentStep) * secondsPerStep;
+    const text = remaining > 60
+        ? `About ${Math.ceil(remaining/60)} min remaining`
+        : `About ${remaining} seconds remaining`;
+
+    const timeEstimate = document.querySelector('.time-estimate');
+    if (timeEstimate) {
+        timeEstimate.textContent = text;
+    }
+}
+
 function updateProgress() {
     const progressFill = document.getElementById('progress-fill');
     const progressBar = document.querySelector('.progress-bar');
@@ -274,9 +351,36 @@ function updateProgress() {
     progressBar.setAttribute('aria-valuenow', progressPercent);
 
     steps.forEach((step, index) => {
-        step.classList.toggle('progress-bar__step--active', index + 1 === currentStep);
+        const stepNumber = index + 1;
+        step.classList.remove('progress-bar__step--active', 'progress-bar__step--completed');
+
+        if (stepNumber === currentStep) {
+            step.classList.add('progress-bar__step--active');
+        } else if (stepNumber < currentStep) {
+            step.classList.add('progress-bar__step--completed');
+        }
     });
+
+    // Update time estimate
+    updateTimeEstimate(currentStep, 3);
 }
+
+/**
+ * Error messages with recovery guidance
+ */
+const errorMessages = {
+    name: {
+        required: 'Please enter your name so we know who to expect',
+        minLength: 'Please enter your full name (at least 2 characters)'
+    },
+    email: {
+        required: 'We need your email to send you course details and confirmation',
+        invalid: 'Please check your email format (e.g., name@example.com)'
+    },
+    phone: {
+        invalid: 'Please enter a valid phone number (e.g., +1 555-123-4567)'
+    }
+};
 
 function validateStep(step) {
     let isValid = true;
@@ -286,12 +390,15 @@ function validateStep(step) {
         const nameError = document.getElementById('name-error');
 
         if (!nameInput.value.trim()) {
-            nameError.textContent = "We'd love to know your name! It helps us personalize your experience.";
-            nameError.classList.add('form-error--visible');
+            showStepError(nameInput, nameError, errorMessages.name.required);
+            nameInput.focus();
+            isValid = false;
+        } else if (nameInput.value.trim().length < 2) {
+            showStepError(nameInput, nameError, errorMessages.name.minLength);
             nameInput.focus();
             isValid = false;
         } else {
-            nameError.classList.remove('form-error--visible');
+            showStepSuccess(nameInput, nameError);
             formData.name = nameInput.value.trim();
         }
     }
@@ -300,27 +407,78 @@ function validateStep(step) {
         const emailInput = document.getElementById('email');
         const emailError = document.getElementById('email-error');
         const phoneInput = document.getElementById('phone');
+        const phoneError = document.getElementById('phone-error');
 
         const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
         if (!emailInput.value.trim()) {
-            emailError.textContent = "We need your email to send you course details and confirmation!";
-            emailError.classList.add('form-error--visible');
+            showStepError(emailInput, emailError, errorMessages.email.required);
             emailInput.focus();
             isValid = false;
         } else if (!emailRegex.test(emailInput.value.trim())) {
-            emailError.textContent = "Hmm, that doesn't look like a valid email. Can you double-check it?";
-            emailError.classList.add('form-error--visible');
+            showStepError(emailInput, emailError, errorMessages.email.invalid);
             emailInput.focus();
             isValid = false;
         } else {
-            emailError.classList.remove('form-error--visible');
+            showStepSuccess(emailInput, emailError);
             formData.email = emailInput.value.trim();
-            formData.phone = phoneInput.value.trim() || 'Not provided';
+        }
+
+        // Validate phone if provided
+        if (phoneInput && phoneInput.value.trim()) {
+            const phoneRegex = /^[\d\s\-\+\(\)]+$/;
+            if (!phoneRegex.test(phoneInput.value.trim())) {
+                if (phoneError) {
+                    showStepError(phoneInput, phoneError, errorMessages.phone.invalid);
+                }
+                if (isValid) {
+                    phoneInput.focus();
+                    isValid = false;
+                }
+            } else {
+                if (phoneError) {
+                    showStepSuccess(phoneInput, phoneError);
+                }
+                formData.phone = phoneInput.value.trim();
+            }
+        } else {
+            formData.phone = 'Not provided';
         }
     }
 
     return isValid;
+}
+
+/**
+ * Show step error with styling
+ */
+function showStepError(input, errorElement, errorMessage) {
+    errorElement.textContent = errorMessage;
+    errorElement.classList.add('form-error--visible');
+    input.classList.add('error');
+    input.classList.remove('success');
+
+    const wrapper = input.closest('.form-group');
+    if (wrapper) {
+        wrapper.classList.add('has-error');
+        wrapper.classList.remove('has-success');
+    }
+}
+
+/**
+ * Show step success with checkmark
+ */
+function showStepSuccess(input, errorElement) {
+    errorElement.classList.remove('form-error--visible');
+    errorElement.textContent = '';
+    input.classList.remove('error');
+    input.classList.add('success');
+
+    const wrapper = input.closest('.form-group');
+    if (wrapper) {
+        wrapper.classList.remove('has-error');
+        wrapper.classList.add('has-success');
+    }
 }
 
 function nextStep() {
@@ -338,6 +496,10 @@ function nextStep() {
         document.querySelector(`.form-step[data-step="${currentStep}"]`).classList.add('form-step--active');
 
         updateProgress();
+
+        // Announce step change for screen readers
+        const stepTitles = ['Your Info', 'Contact', 'Confirm'];
+        announceStep(currentStep, 3, stepTitles[currentStep - 1]);
 
         // If step 3, populate summary
         if (currentStep === 3) {
@@ -366,6 +528,10 @@ function previousStep() {
         document.querySelector(`.form-step[data-step="${currentStep}"]`).classList.add('form-step--active');
 
         updateProgress();
+
+        // Announce step change for screen readers
+        const stepTitles = ['Your Info', 'Contact', 'Confirm'];
+        announceStep(currentStep, 3, stepTitles[currentStep - 1]);
 
         // Focus first input in new step
         setTimeout(() => {
@@ -506,24 +672,8 @@ document.getElementById('booking-form')?.addEventListener('submit', function(e) 
     }, 1500);
 });
 
-// Keyboard navigation for modals
-document.addEventListener('keydown', function(e) {
-    if (e.key === 'Escape') {
-        const openModal = document.querySelector('.modal--open');
-        if (openModal) {
-            if (openModal.id === 'course-details-modal') {
-                closeModal();
-            } else if (openModal.id === 'booking-form-modal') {
-                const confirmClose = confirm('Are you sure you want to close? Your progress will be lost.');
-                if (confirmClose) {
-                    closeBookingForm();
-                }
-            } else if (openModal.id === 'confirmation-modal') {
-                closeConfirmation();
-            }
-        }
-    }
-});
+// Keyboard navigation for modals (Escape is now handled in trapFocus function)
+// Additional keyboard shortcuts can be added here if needed
 
 // Smooth scroll polyfill for older browsers
 if (!('scrollBehavior' in document.documentElement.style)) {

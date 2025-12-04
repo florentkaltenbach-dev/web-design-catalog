@@ -7,9 +7,11 @@
     <link rel="stylesheet" href="booking-balanced.css">
 </head>
 <body>
+    <a href="#main-content" class="skip-link">Skip to main content</a>
+
     <div class="booking-container">
         <!-- Main Course List -->
-        <main class="course-list" role="main" aria-label="Available courses">
+        <main class="course-list" id="main-content" role="main" aria-label="Available courses">
             <div class="course-list__header">
                 <h1 class="course-list__title">Professional Development Courses</h1>
                 <p class="course-list__subtitle">Select a course to view details and reserve your spot</p>
@@ -93,7 +95,7 @@
                             <div class="availability-bar availability-bar--low">
                                 <div class="availability-bar__fill" style="width: 20%"></div>
                             </div>
-                            <span class="availability-text availability-text--urgent">Only 4 spots remaining</span>
+                            <span class="availability-text availability-text--urgent" aria-label="Low availability: only 4 spots remaining"><span aria-hidden="true">⚠️</span> Only 4 spots remaining</span>
                         </div>
                     </div>
                 </article>
@@ -175,7 +177,7 @@
                             <div class="availability-bar availability-bar--low">
                                 <div class="availability-bar__fill" style="width: 15%"></div>
                             </div>
-                            <span class="availability-text availability-text--urgent">Only 3 spots remaining</span>
+                            <span class="availability-text availability-text--urgent" aria-label="Low availability: only 3 spots remaining"><span aria-hidden="true">⚠️</span> Only 3 spots remaining</span>
                         </div>
                     </div>
                 </article>
@@ -340,6 +342,9 @@
                             <path d="M14 7l2-2m0 0l2 2m-2-2v6M4 13v2a2 2 0 002 2h8a2 2 0 002-2v-2"/>
                         </svg>
                         Share with Colleague
+                    </button>
+                    <button class="modal__action modal__action--link" id="modalEditDetails">
+                        Edit your details
                     </button>
                     <button class="modal__action modal__action--secondary" id="modalViewAll">
                         View All Bookings

@@ -192,17 +192,39 @@ accordionTrigger.addEventListener('click', () => {
     accordionContent.setAttribute('aria-hidden', isExpanded);
 });
 
+// Error messages with recovery guidance
+const errorMessages = {
+    name: {
+        required: 'Please enter your name so we know who to expect',
+        minLength: 'Please enter your full name (at least 2 characters)'
+    },
+    email: {
+        required: 'We need your email to send confirmation',
+        invalid: 'Please check your email format (e.g., name@example.com)'
+    },
+    phone: {
+        invalid: 'Please enter a valid phone number (e.g., +1 555-123-4567)'
+    }
+};
+
 // Form validation
 const validators = {
     name: (value) => {
-        if (!value.trim()) return 'Name is required';
-        if (value.trim().length < 2) return 'Name must be at least 2 characters';
+        if (!value.trim()) return errorMessages.name.required;
+        if (value.trim().length < 2) return errorMessages.name.minLength;
         return null;
     },
     email: (value) => {
-        if (!value.trim()) return 'Email is required';
+        if (!value.trim()) return errorMessages.email.required;
         const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-        if (!emailRegex.test(value)) return 'Please enter a valid email address';
+        if (!emailRegex.test(value)) return errorMessages.email.invalid;
+        return null;
+    },
+    phone: (value) => {
+        if (value.trim()) {
+            const phoneRegex = /^[\d\s\-\+\(\)]+$/;
+            if (!phoneRegex.test(value)) return errorMessages.phone.invalid;
+        }
         return null;
     }
 };
@@ -218,10 +240,24 @@ function showFieldError(fieldName, errorMessage) {
 
     if (errorMessage) {
         input.classList.add('error');
+        input.classList.remove('success');
         errorElement.textContent = errorMessage;
+
+        const wrapper = input.closest('.form-group');
+        if (wrapper) {
+            wrapper.classList.add('has-error');
+            wrapper.classList.remove('has-success');
+        }
     } else {
         input.classList.remove('error');
+        input.classList.add('success');
         errorElement.textContent = '';
+
+        const wrapper = input.closest('.form-group');
+        if (wrapper) {
+            wrapper.classList.remove('has-error');
+            wrapper.classList.add('has-success');
+        }
     }
 }
 
@@ -267,6 +303,9 @@ bookingForm.addEventListener('submit', (e) => {
     });
 
     if (!hasErrors) {
+        // Save form data to sessionStorage
+        saveFormData();
+
         // Simulate booking process
         const submitButton = bookingForm.querySelector('.form-submit');
         const originalText = submitButton.innerHTML;
@@ -287,6 +326,47 @@ bookingForm.addEventListener('submit', (e) => {
     }
 });
 
+// Save form data to sessionStorage
+function saveFormData() {
+    const data = {
+        name: document.getElementById('name').value,
+        email: document.getElementById('email').value,
+        company: document.getElementById('company').value,
+        dietary: document.getElementById('dietary').value
+    };
+    sessionStorage.setItem('bookingData', JSON.stringify(data));
+}
+
+// Restore form data from sessionStorage
+function restoreFormData() {
+    const savedData = sessionStorage.getItem('bookingData');
+    if (savedData) {
+        try {
+            const data = JSON.parse(savedData);
+            if (data.name) document.getElementById('name').value = data.name;
+            if (data.email) document.getElementById('email').value = data.email;
+            if (data.company) document.getElementById('company').value = data.company;
+            if (data.dietary) document.getElementById('dietary').value = data.dietary;
+        } catch (e) {
+            console.warn('Failed to restore form data:', e);
+        }
+    }
+}
+
+// Handle edit booking details
+function handleEditBooking() {
+    // Close modal first
+    modal.classList.remove('open');
+    modal.setAttribute('aria-hidden', 'true');
+
+    // Keep sidebar open and scroll to form
+    // Form data is already in fields - user can edit and resubmit
+    setTimeout(() => {
+        document.getElementById('name').focus();
+        bookingForm.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+    }, 300);
+}
+
 // Modal functions
 function openModal() {
     modal.classList.add('open');
@@ -297,6 +377,7 @@ function openModal() {
         modalClose,
         document.getElementById('modalAddCalendar'),
         document.getElementById('modalShare'),
+        document.getElementById('modalEditDetails'),
         document.getElementById('modalViewAll')
     ];
 
@@ -333,6 +414,8 @@ document.getElementById('modalShare').addEventListener('click', () => {
     // In a real app, this would open share dialog
     closeModal();
 });
+
+document.getElementById('modalEditDetails').addEventListener('click', handleEditBooking);
 
 document.getElementById('modalViewAll').addEventListener('click', () => {
     console.log('View all bookings clicked');
@@ -408,7 +491,8 @@ openModal = function() {
     announceToScreenReader('Booking confirmed! Success dialog opened.');
 };
 
-// Initialize: Focus first course card for keyboard users
+// Initialize: Restore form data and focus first course card for keyboard users
 window.addEventListener('load', () => {
     console.log('Smart Booking showcase loaded');
+    restoreFormData();
 });

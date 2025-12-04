@@ -32,118 +32,263 @@
         solutionCards: document.querySelectorAll('.solution-card'),
         solutionsGrid: document.querySelector('.solutions-grid'),
         emptyState: document.querySelector('.empty-state'),
+        emptyStateMessage: document.getElementById('empty-state-message'),
         resultsCount: document.getElementById('results-count'),
         countNumber: document.querySelector('.count-number'),
-        resetButton: document.getElementById('reset-filters')
+        resetButton: document.getElementById('reset-filters'),
+        btnViewAll: document.getElementById('btn-view-all'),
+        btnClearSearch: document.getElementById('btn-clear-search')
     };
+
+    // ============================================
+    // Safe DOM Query Helper
+    // ============================================
+    function safeQuerySelector(selector, context = document) {
+        try {
+            const el = context.querySelector(selector);
+            if (!el) {
+                console.warn(`Element not found: ${selector}`);
+            }
+            return el;
+        } catch (error) {
+            console.error(`Error querying selector "${selector}":`, error);
+            return null;
+        }
+    }
+
+    // ============================================
+    // Error Display
+    // ============================================
+    function showInitError() {
+        const container = document.querySelector('.solution-hub');
+        if (container) {
+            const msg = document.createElement('div');
+            msg.className = 'init-error';
+            msg.setAttribute('role', 'alert');
+            msg.style.cssText = 'padding: 1rem; margin: 1rem 0; background: #fee; border-left: 4px solid #c00; color: #c00;';
+            msg.textContent = 'Unable to load Solution Hub. Please refresh the page.';
+            container.prepend(msg);
+        }
+    }
 
     // ============================================
     // Initialize
     // ============================================
     function init() {
-        // Store all cards for filtering
-        state.allCards = Array.from(elements.solutionCards);
+        try {
+            // Validate required elements
+            if (!elements.searchInput || !elements.solutionsGrid) {
+                console.warn('Solution Hub: Required elements missing');
+                showInitError();
+                return;
+            }
 
-        // Set up event listeners
-        setupSearchListeners();
-        setupFilterListeners();
-        setupKeyboardNavigation();
-        setupBehaviorTracking();
+            // Store all cards for filtering
+            state.allCards = Array.from(elements.solutionCards);
 
-        // Initial count
-        updateResultsCount();
+            if (state.allCards.length === 0) {
+                console.warn('Solution Hub: No solution cards found');
+            }
 
-        console.log('Solution Hub initialized');
+            // Set up event listeners
+            setupSearchListeners();
+            setupFilterListeners();
+            setupKeyboardNavigation();
+            setupBehaviorTracking();
+
+            // Initial count
+            updateResultsCount();
+
+            console.log('Solution Hub initialized');
+        } catch (error) {
+            console.error('Solution Hub initialization failed:', error);
+            showInitError();
+        }
     }
 
     // ============================================
     // Search Functionality
     // ============================================
     function setupSearchListeners() {
-        // Real-time search
-        elements.searchInput.addEventListener('input', debounce(handleSearch, 300));
-
-        // Show/hide clear button
-        elements.searchInput.addEventListener('input', function() {
-            elements.searchClear.hidden = this.value.length === 0;
-        });
-
-        // Clear search
-        elements.searchClear.addEventListener('click', function() {
-            elements.searchInput.value = '';
-            elements.searchClear.hidden = true;
-            state.searchQuery = '';
-            filterSolutions();
-            elements.searchInput.focus();
-        });
-
-        // Handle Enter key in search
-        elements.searchInput.addEventListener('keydown', function(e) {
-            if (e.key === 'Enter') {
-                e.preventDefault();
-                handleSearch.call(this);
+        try {
+            if (!elements.searchInput) {
+                console.warn('Search input not found, skipping search setup');
+                return;
             }
-        });
+
+            // Real-time search
+            elements.searchInput.addEventListener('input', debounce(handleSearch, 300));
+
+            // Show/hide clear button
+            elements.searchInput.addEventListener('input', function() {
+                if (elements.searchClear) {
+                    elements.searchClear.hidden = this.value.length === 0;
+                }
+            });
+
+            // Clear search
+            if (elements.searchClear) {
+                elements.searchClear.addEventListener('click', function() {
+                    if (elements.searchInput) {
+                        elements.searchInput.value = '';
+                        elements.searchClear.hidden = true;
+                        state.searchQuery = '';
+                        filterSolutions();
+                        elements.searchInput.focus();
+                    }
+                });
+            }
+
+            // Handle Enter key in search
+            elements.searchInput.addEventListener('keydown', function(e) {
+                if (e.key === 'Enter') {
+                    e.preventDefault();
+                    handleSearch.call(this);
+                }
+            });
+        } catch (error) {
+            console.error('Error setting up search listeners:', error);
+        }
     }
 
     function handleSearch() {
-        state.searchQuery = this.value.toLowerCase().trim();
-        state.userBehavior.searchAttempts++;
+        try {
+            if (!this || !this.value) {
+                console.warn('Invalid search input');
+                return;
+            }
 
-        // Adjust behavior score: more searches = more intent (pushing)
-        adjustBehaviorScore('search');
+            state.searchQuery = this.value.toLowerCase().trim();
+            state.userBehavior.searchAttempts++;
 
-        filterSolutions();
+            // Adjust behavior score: more searches = more intent (pushing)
+            adjustBehaviorScore('search');
+
+            filterSolutions();
+        } catch (error) {
+            console.error('Error handling search:', error);
+        }
     }
 
     // ============================================
     // Filter Functionality
     // ============================================
     function setupFilterListeners() {
-        elements.filterButtons.forEach(button => {
-            button.addEventListener('click', handleFilterClick);
-        });
+        try {
+            if (elements.filterButtons && elements.filterButtons.length > 0) {
+                elements.filterButtons.forEach(button => {
+                    if (button) {
+                        button.addEventListener('click', handleFilterClick);
+                    }
+                });
+            } else {
+                console.warn('No filter buttons found');
+            }
 
-        // Reset button in empty state
-        if (elements.resetButton) {
-            elements.resetButton.addEventListener('click', resetFilters);
+            // Reset button in empty state
+            if (elements.resetButton) {
+                elements.resetButton.addEventListener('click', resetFilters);
+            }
+
+            // New empty state action buttons
+            if (elements.btnViewAll) {
+                elements.btnViewAll.addEventListener('click', resetFilters);
+            }
+
+            if (elements.btnClearSearch) {
+                elements.btnClearSearch.addEventListener('click', clearSearch);
+            }
+        } catch (error) {
+            console.error('Error setting up filter listeners:', error);
+        }
+    }
+
+    function clearSearch() {
+        try {
+            if (elements.searchInput) {
+                elements.searchInput.value = '';
+                state.searchQuery = '';
+
+                if (elements.searchClear) {
+                    elements.searchClear.hidden = true;
+                }
+
+                filterSolutions();
+                elements.searchInput.focus();
+            }
+        } catch (error) {
+            console.error('Error clearing search:', error);
         }
     }
 
     function handleFilterClick(e) {
-        const category = e.currentTarget.dataset.category;
+        try {
+            if (!e || !e.currentTarget || !e.currentTarget.dataset) {
+                console.warn('Invalid filter click event');
+                return;
+            }
 
-        state.userBehavior.filterClicks++;
+            const category = e.currentTarget.dataset.category;
+            if (!category) {
+                console.warn('Filter button missing category data');
+                return;
+            }
 
-        // Adjust behavior score: filters = exploration (capturing)
-        adjustBehaviorScore('filter');
+            state.userBehavior.filterClicks++;
 
-        // Update active state
-        elements.filterButtons.forEach(btn => {
-            const isActive = btn.dataset.category === category;
-            btn.classList.toggle('active', isActive);
-            btn.setAttribute('aria-pressed', isActive);
-        });
+            // Adjust behavior score: filters = exploration (capturing)
+            adjustBehaviorScore('filter');
 
-        state.currentCategory = category;
-        filterSolutions();
+            // Update active state
+            if (elements.filterButtons && elements.filterButtons.length > 0) {
+                elements.filterButtons.forEach(btn => {
+                    if (btn && btn.dataset) {
+                        const isActive = btn.dataset.category === category;
+                        btn.classList.toggle('active', isActive);
+                        btn.setAttribute('aria-pressed', isActive);
+                    }
+                });
+            }
+
+            state.currentCategory = category;
+            filterSolutions();
+        } catch (error) {
+            console.error('Error handling filter click:', error);
+        }
     }
 
     function resetFilters() {
-        // Reset to "All Solutions"
-        elements.filterButtons.forEach(btn => {
-            const isAll = btn.dataset.category === 'all';
-            btn.classList.toggle('active', isAll);
-            btn.setAttribute('aria-pressed', isAll);
-        });
+        try {
+            // Reset to "All Solutions"
+            if (elements.filterButtons && elements.filterButtons.length > 0) {
+                elements.filterButtons.forEach(btn => {
+                    if (btn && btn.dataset) {
+                        const isAll = btn.dataset.category === 'all';
+                        btn.classList.toggle('active', isAll);
+                        btn.setAttribute('aria-pressed', isAll);
+                    }
+                });
+            }
 
-        state.currentCategory = 'all';
-        elements.searchInput.value = '';
-        state.searchQuery = '';
-        elements.searchClear.hidden = true;
+            state.currentCategory = 'all';
 
-        filterSolutions();
-        elements.searchInput.focus();
+            if (elements.searchInput) {
+                elements.searchInput.value = '';
+                state.searchQuery = '';
+            }
+
+            if (elements.searchClear) {
+                elements.searchClear.hidden = true;
+            }
+
+            filterSolutions();
+
+            if (elements.searchInput) {
+                elements.searchInput.focus();
+            }
+        } catch (error) {
+            console.error('Error resetting filters:', error);
+        }
     }
 
     // ============================================
@@ -175,150 +320,280 @@
     }
 
     function setupBehaviorTracking() {
-        // Track card interactions
-        state.allCards.forEach(card => {
-            const link = card.querySelector('.card-link');
-            if (link) {
-                link.addEventListener('click', function() {
-                    // Track which type of content users engage with
-                    const category = card.dataset.category;
-                    console.log('Card clicked:', {
-                        category,
-                        currentMode: state.userBehavior.explorationScore > 0.5 ? 'exploring' : 'searching'
-                    });
-                });
+        try {
+            if (!state.allCards || state.allCards.length === 0) {
+                console.warn('No cards available for behavior tracking');
+                return;
             }
-        });
+
+            // Track card interactions
+            state.allCards.forEach(card => {
+                if (!card) return;
+
+                const link = card.querySelector('.card-link');
+                if (link) {
+                    link.addEventListener('click', function() {
+                        try {
+                            // Track which type of content users engage with
+                            const category = card.dataset ? card.dataset.category : null;
+                            console.log('Card clicked:', {
+                                category,
+                                currentMode: state.userBehavior.explorationScore > 0.5 ? 'exploring' : 'searching'
+                            });
+                        } catch (error) {
+                            console.error('Error tracking card click:', error);
+                        }
+                    });
+                }
+            });
+        } catch (error) {
+            console.error('Error setting up behavior tracking:', error);
+        }
     }
 
     // ============================================
     // Filter Solutions Logic
     // ============================================
     function filterSolutions() {
-        let visibleCount = 0;
-
-        state.allCards.forEach(card => {
-            const matchesCategory = state.currentCategory === 'all' ||
-                                   card.dataset.category === state.currentCategory;
-
-            const matchesSearch = state.searchQuery === '' ||
-                                 cardMatchesSearch(card, state.searchQuery);
-
-            const isVisible = matchesCategory && matchesSearch;
-
-            // Use hidden attribute for better accessibility
-            card.hidden = !isVisible;
-
-            if (isVisible) {
-                visibleCount++;
-                state.visibleCards.push(card);
+        try {
+            if (!state.allCards || state.allCards.length === 0) {
+                console.warn('No cards to filter');
+                return;
             }
-        });
 
-        // Update UI
-        updateResultsCount(visibleCount);
-        toggleEmptyState(visibleCount === 0);
+            let visibleCount = 0;
+            state.visibleCards = []; // Clear visible cards array
 
-        // Announce results to screen readers
-        announceResults(visibleCount);
+            state.allCards.forEach(card => {
+                if (!card) return;
+
+                const matchesCategory = state.currentCategory === 'all' ||
+                                       (card.dataset && card.dataset.category === state.currentCategory);
+
+                const matchesSearch = state.searchQuery === '' ||
+                                     cardMatchesSearch(card, state.searchQuery);
+
+                const isVisible = matchesCategory && matchesSearch;
+
+                // Use hidden attribute for better accessibility
+                card.hidden = !isVisible;
+
+                if (isVisible) {
+                    visibleCount++;
+                    state.visibleCards.push(card);
+                }
+            });
+
+            // Update UI
+            updateResultsCount(visibleCount);
+            toggleEmptyState(visibleCount === 0);
+
+            // Announce results to screen readers
+            announceResults(visibleCount);
+        } catch (error) {
+            console.error('Error filtering solutions:', error);
+        }
     }
 
     function cardMatchesSearch(card, query) {
-        // Search in title
-        const titleLink = card.querySelector('.card-title .card-link');
-        const title = titleLink ? titleLink.textContent.toLowerCase() : '';
+        try {
+            if (!card || !query) {
+                return false;
+            }
 
-        // Search in description
-        const description = card.querySelector('.card-description');
-        const descText = description ? description.textContent.toLowerCase() : '';
+            // Search in title
+            const titleLink = card.querySelector('.card-title .card-link');
+            const title = titleLink && titleLink.textContent ? titleLink.textContent.toLowerCase() : '';
 
-        // Search in category
-        const category = card.querySelector('.card-category');
-        const catText = category ? category.textContent.toLowerCase() : '';
+            // Search in description
+            const description = card.querySelector('.card-description');
+            const descText = description && description.textContent ? description.textContent.toLowerCase() : '';
 
-        return title.includes(query) ||
-               descText.includes(query) ||
-               catText.includes(query);
+            // Search in category
+            const category = card.querySelector('.card-category');
+            const catText = category && category.textContent ? category.textContent.toLowerCase() : '';
+
+            return title.includes(query) ||
+                   descText.includes(query) ||
+                   catText.includes(query);
+        } catch (error) {
+            console.error('Error matching card to search:', error);
+            return false;
+        }
     }
 
     // ============================================
     // UI Updates
     // ============================================
     function updateResultsCount(count) {
-        const total = count !== undefined ? count : state.allCards.length;
-        elements.countNumber.textContent = total;
+        try {
+            const total = count !== undefined ? count : (state.allCards ? state.allCards.length : 0);
 
-        // Update grammar
-        const solutionText = total === 1 ? 'solution' : 'solutions';
-        elements.resultsCount.innerHTML = `Showing <span class="count-number">${total}</span> ${solutionText}`;
+            if (elements.countNumber) {
+                elements.countNumber.textContent = total;
+            }
+
+            // Update grammar
+            if (elements.resultsCount) {
+                const solutionText = total === 1 ? 'solution' : 'solutions';
+                elements.resultsCount.innerHTML = `Showing <span class="count-number">${total}</span> ${solutionText}`;
+            }
+        } catch (error) {
+            console.error('Error updating results count:', error);
+        }
     }
 
     function toggleEmptyState(show) {
-        elements.solutionsGrid.hidden = show;
-        elements.emptyState.hidden = !show;
+        try {
+            if (elements.solutionsGrid) {
+                elements.solutionsGrid.hidden = show;
+            }
+
+            if (elements.emptyState) {
+                elements.emptyState.hidden = !show;
+            }
+
+            if (show) {
+                updateEmptyStateMessage();
+            }
+        } catch (error) {
+            console.error('Error toggling empty state:', error);
+        }
+    }
+
+    function updateEmptyStateMessage() {
+        try {
+            const hasSearch = state.searchQuery && state.searchQuery.length > 0;
+            const activeFilter = state.currentCategory !== 'all';
+            const filterName = getActiveFilterName();
+
+            let message = '';
+
+            if (hasSearch && activeFilter) {
+                message = `No matches for "<strong>${state.searchQuery}</strong>" in <strong>${filterName}</strong>`;
+            } else if (hasSearch) {
+                message = `No matches for "<strong>${state.searchQuery}</strong>"`;
+            } else if (activeFilter) {
+                message = `No solutions found in <strong>${filterName}</strong>`;
+            } else {
+                message = 'Try adjusting your search or browse all categories to discover resources that might help';
+            }
+
+            if (elements.emptyStateMessage) {
+                elements.emptyStateMessage.innerHTML = message;
+            }
+
+            // Show/hide relevant suggestion buttons
+            if (elements.btnViewAll && elements.btnClearSearch) {
+                elements.btnViewAll.style.display = activeFilter ? 'inline-block' : 'none';
+                elements.btnClearSearch.style.display = hasSearch ? 'inline-block' : 'none';
+            }
+        } catch (error) {
+            console.error('Error updating empty state message:', error);
+        }
+    }
+
+    function getActiveFilterName() {
+        try {
+            const activeButton = document.querySelector('.filter-pill.active');
+            return activeButton && activeButton.textContent ? activeButton.textContent.trim() : 'All Solutions';
+        } catch (error) {
+            console.error('Error getting active filter name:', error);
+            return 'All Solutions';
+        }
     }
 
     function announceResults(count) {
-        // Update the live region for screen readers
-        const message = count === 0
-            ? 'No solutions found. Try adjusting your search or filters.'
-            : `${count} ${count === 1 ? 'solution' : 'solutions'} found`;
+        try {
+            // Update the live region for screen readers
+            const message = count === 0
+                ? 'No solutions found. Try adjusting your search or filters.'
+                : `${count} ${count === 1 ? 'solution' : 'solutions'} found`;
 
-        // Update the aria-live region
-        elements.resultsCount.setAttribute('aria-label', message);
+            // Update the aria-live region
+            if (elements.resultsCount) {
+                elements.resultsCount.setAttribute('aria-label', message);
+            }
+        } catch (error) {
+            console.error('Error announcing results:', error);
+        }
     }
 
     // ============================================
     // Keyboard Navigation
     // ============================================
     function setupKeyboardNavigation() {
-        // Arrow key navigation for filter pills
-        const filterContainer = document.querySelector('.filter-controls');
+        try {
+            // Arrow key navigation for filter pills
+            const filterContainer = document.querySelector('.filter-controls');
 
-        filterContainer.addEventListener('keydown', function(e) {
-            const current = document.activeElement;
+            if (filterContainer && elements.filterButtons && elements.filterButtons.length > 0) {
+                filterContainer.addEventListener('keydown', function(e) {
+                    try {
+                        const current = document.activeElement;
 
-            if (!current.classList.contains('filter-pill')) return;
+                        if (!current || !current.classList.contains('filter-pill')) return;
 
-            const pills = Array.from(elements.filterButtons);
-            const currentIndex = pills.indexOf(current);
+                        const pills = Array.from(elements.filterButtons);
+                        const currentIndex = pills.indexOf(current);
 
-            let nextIndex;
+                        if (currentIndex === -1) return;
 
-            switch(e.key) {
-                case 'ArrowRight':
-                case 'ArrowDown':
-                    e.preventDefault();
-                    nextIndex = (currentIndex + 1) % pills.length;
-                    pills[nextIndex].focus();
-                    break;
+                        let nextIndex;
 
-                case 'ArrowLeft':
-                case 'ArrowUp':
-                    e.preventDefault();
-                    nextIndex = currentIndex - 1;
-                    if (nextIndex < 0) nextIndex = pills.length - 1;
-                    pills[nextIndex].focus();
-                    break;
+                        switch(e.key) {
+                            case 'ArrowRight':
+                            case 'ArrowDown':
+                                e.preventDefault();
+                                nextIndex = (currentIndex + 1) % pills.length;
+                                if (pills[nextIndex]) {
+                                    pills[nextIndex].focus();
+                                }
+                                break;
 
-                case 'Home':
-                    e.preventDefault();
-                    pills[0].focus();
-                    break;
+                            case 'ArrowLeft':
+                            case 'ArrowUp':
+                                e.preventDefault();
+                                nextIndex = currentIndex - 1;
+                                if (nextIndex < 0) nextIndex = pills.length - 1;
+                                if (pills[nextIndex]) {
+                                    pills[nextIndex].focus();
+                                }
+                                break;
 
-                case 'End':
-                    e.preventDefault();
-                    pills[pills.length - 1].focus();
-                    break;
+                            case 'Home':
+                                e.preventDefault();
+                                if (pills[0]) {
+                                    pills[0].focus();
+                                }
+                                break;
+
+                            case 'End':
+                                e.preventDefault();
+                                if (pills[pills.length - 1]) {
+                                    pills[pills.length - 1].focus();
+                                }
+                                break;
+                        }
+                    } catch (error) {
+                        console.error('Error in keyboard navigation handler:', error);
+                    }
+                });
             }
-        });
 
-        // Escape key clears search
-        document.addEventListener('keydown', function(e) {
-            if (e.key === 'Escape' && elements.searchInput.value) {
-                elements.searchClear.click();
-            }
-        });
+            // Escape key clears search
+            document.addEventListener('keydown', function(e) {
+                try {
+                    if (e.key === 'Escape' && elements.searchInput && elements.searchInput.value && elements.searchClear) {
+                        elements.searchClear.click();
+                    }
+                } catch (error) {
+                    console.error('Error in escape key handler:', error);
+                }
+            });
+        } catch (error) {
+            console.error('Error setting up keyboard navigation:', error);
+        }
     }
 
     // ============================================

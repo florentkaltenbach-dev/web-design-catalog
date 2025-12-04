@@ -10,8 +10,10 @@
     <link rel="stylesheet" href="booking-discovery.css">
 </head>
 <body>
+    <a href="#main-content" class="skip-link">Skip to main content</a>
+
     <!-- Hero Section -->
-    <section class="hero" role="banner" aria-labelledby="hero-headline">
+    <section class="hero" id="main-content" role="banner" aria-labelledby="hero-headline">
         <div class="hero__container">
             <h1 id="hero-headline" class="hero__headline">
                 Discover Your
@@ -63,8 +65,14 @@
             </button>
 
             <div class="booking-form">
+                <!-- ARIA Live Region for Step Announcements -->
+                <div class="sr-only" role="status" aria-live="polite" aria-atomic="true" id="step-announcer"></div>
+
                 <!-- Progress Indicator -->
                 <div class="progress" role="progressbar" aria-valuenow="1" aria-valuemin="1" aria-valuemax="3">
+                    <div class="progress__header">
+                        <span class="time-estimate">About 2 min remaining</span>
+                    </div>
                     <div class="progress__steps">
                         <div class="progress__step progress__step--active" data-step="1">
                             <div class="progress__step-number">1</div>
@@ -82,6 +90,7 @@
                     <div class="progress__bar">
                         <div class="progress__bar-fill" style="width: 33.33%"></div>
                     </div>
+                    <p class="progress__reassurance">You can edit any step before confirming</p>
                 </div>
 
                 <form id="booking-form" novalidate>
@@ -202,7 +211,7 @@
                 </div>
 
                 <h1 class="confirmation__title">Welcome aboard!</h1>
-                <p class="confirmation__message">Your learning adventure begins now.</p>
+                <p class="confirmation__message">We're excited to learn alongside you. Your spot is confirmed.</p>
             </div>
 
             <div class="confirmation__details" id="confirmation-details">

@@ -297,14 +297,30 @@
                 gap: var(--spacing-md);
             }
         }
+        /* Skip Link (Accessibility) */
+        .skip-link {
+            position: absolute;
+            top: -40px;
+            left: 0;
+            background: var(--color-primary, #4A7C8C);
+            color: #fff;
+            padding: 8px 16px;
+            text-decoration: none;
+            z-index: 1000;
+            border-radius: 0 0 4px 0;
+        }
+        .skip-link:focus {
+            top: 0;
+        }
     </style>
 </head>
 <body>
+    <a href="#main-content" class="skip-link">Skip to main content</a>
 
     <!-- ===========================
          OUTCOME-BASED HELP COMPONENT
          =========================== -->
-    <section class="outcome-help" aria-labelledby="outcome-help-title">
+    <section class="outcome-help" id="main-content" aria-labelledby="outcome-help-title">
         <header class="outcome-help__header">
             <h2 id="outcome-help-title" class="outcome-help__title">
                 Ich möchte...

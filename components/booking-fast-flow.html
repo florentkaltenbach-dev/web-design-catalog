@@ -10,6 +10,8 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 </head>
 <body>
+    <a href="#main-content" class="skip-link">Skip to main content</a>
+
     <!-- Pattern Documentation Header -->
     <header class="pattern-header">
         <div class="pattern-header__container">
@@ -25,7 +27,7 @@
     </header>
 
     <!-- Demo Section -->
-    <main class="demo-container">
+    <main class="demo-container" id="main-content">
         <section class="booking-section" aria-labelledby="booking-title">
             <div class="booking__header">
                 <h2 id="booking-title" class="booking__title">Available Courses</h2>
@@ -43,8 +45,8 @@
                         </div>
                         <div class="course-card__footer">
                             <span class="course-card__price">$299</span>
-                            <span class="course-card__spots course-card__spots--low" aria-label="3 spots remaining">
-                                3 spots left
+                            <span class="course-card__spots course-card__spots--low" aria-label="Low availability: 3 spots remaining">
+                                <span aria-hidden="true">⚠️</span> 3 spots left
                             </span>
                         </div>
                     </div>
@@ -91,8 +93,8 @@
                         </div>
                         <div class="course-card__footer">
                             <span class="course-card__price">$379</span>
-                            <span class="course-card__spots course-card__spots--low" aria-label="2 spots remaining">
-                                2 spots left
+                            <span class="course-card__spots course-card__spots--low" aria-label="Low availability: 2 spots remaining">
+                                <span aria-hidden="true">⚠️</span> 2 spots left
                             </span>
                         </div>
                     </div>
@@ -153,11 +155,13 @@
                                 id="email"
                                 name="email"
                                 class="form-input"
-                                placeholder="john@example.com"
+                                placeholder="yourname@email.com"
                                 required
                                 autocomplete="email"
                                 aria-required="true"
+                                aria-describedby="email-hint email-error"
                             >
+                            <span class="form-hint" id="email-hint">We'll send your confirmation here</span>
                             <span class="form-error" id="email-error" role="alert"></span>
                         </div>
 
@@ -191,12 +195,15 @@
                     </svg>
                 </div>
                 <h3 class="booking-success__title">You're booked!</h3>
-                <p class="booking-success__message">Check your email for confirmation.</p>
+                <p class="booking-success__message">All set! Your confirmation is on its way.</p>
                 <div class="booking-success__details" id="success-details"></div>
                 <div class="booking-success__actions">
                     <button type="button" class="btn-primary" id="add-to-calendar">
                         <span class="btn-text">Add to Calendar</span>
                         <span class="btn-icon" aria-hidden="true">📅</span>
+                    </button>
+                    <button type="button" class="btn-link" id="edit-booking">
+                        Edit your details
                     </button>
                     <button type="button" class="btn-secondary" id="book-another">
                         Book Another Course

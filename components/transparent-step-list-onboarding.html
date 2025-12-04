@@ -590,10 +590,27 @@
             white-space: nowrap;
             border-width: 0;
         }
+        /* Skip Link (Accessibility) */
+        .skip-link {
+            position: absolute;
+            top: -40px;
+            left: 0;
+            background: var(--color-primary, #4A7C8C);
+            color: #fff;
+            padding: 8px 16px;
+            text-decoration: none;
+            z-index: 1000;
+            border-radius: 0 0 4px 0;
+        }
+        .skip-link:focus {
+            top: 0;
+        }
     </style>
 </head>
 <body>
-    <div class="onboarding-container" role="main">
+    <a href="#main-content" class="skip-link">Skip to main content</a>
+
+    <div class="onboarding-container" id="main-content" role="main">
         <!-- Header -->
         <header class="onboarding-header">
             <h1 class="onboarding-title">Welcome to Your Journey</h1>
@@ -644,7 +661,7 @@
                             <input type="text"
                                    id="fullName"
                                    class="form-input"
-                                   placeholder="Enter your full name"
+                                   placeholder="What should we call you?"
                                    aria-describedby="nameHint">
                             <p class="form-hint" id="nameHint">This helps us personalize your experience</p>
                         </div>
@@ -653,7 +670,7 @@
                             <input type="email"
                                    id="email"
                                    class="form-input"
-                                   placeholder="your.email@example.com"
+                                   placeholder="Where can we reach you?"
                                    aria-describedby="emailHint">
                             <p class="form-hint" id="emailHint">We'll use this to send you important updates</p>
                         </div>

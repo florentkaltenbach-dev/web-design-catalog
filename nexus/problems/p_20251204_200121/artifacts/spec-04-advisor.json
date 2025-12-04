@@ -1,0 +1,101 @@
+{
+  "id": "booking-advisor",
+  "title": "Expert Advisor Booking",
+  "subtitle": "Professional-grade tools for informed decisions",
+  "emotional_position": {
+    "curiosity_clarity": 85,
+    "spark_friction": 70,
+    "exploration_efficiency": 60
+  },
+  "rationale": {
+    "target_user": "HR professional or team lead booking for others, or expert seeking advanced courses",
+    "mindset": "Needs comprehensive information to justify decisions. Values data, credentials, outcomes.",
+    "key_insight": "Trust comes from transparency. Show the data, prove the value, enable comparison."
+  },
+  "design_tokens": {
+    "colors": {
+      "primary": "#1E3A5F",
+      "secondary": "#2C5282",
+      "accent": "#D69E2E",
+      "background": "#F7FAFC",
+      "surface": "#FFFFFF",
+      "text": "#1A202C",
+      "text_secondary": "#4A5568",
+      "success": "#38A169",
+      "error": "#E53E3E"
+    },
+    "typography": {
+      "font_primary": "Roboto, system-ui, sans-serif",
+      "font_secondary": "Roboto Slab, Georgia, serif",
+      "scale": "normal"
+    },
+    "spacing": "normal",
+    "animation": "minimal",
+    "border_radius": "sharp"
+  },
+  "components": {
+    "course_card": {
+      "layout": "list",
+      "show_price": true,
+      "show_duration": true,
+      "show_instructor": true,
+      "show_spots": true,
+      "image_style": "thumbnail"
+    },
+    "availability_indicator": {
+      "style": "dots",
+      "show_exact_count": true,
+      "urgency_threshold": 3
+    },
+    "booking_form": {
+      "layout": "multi-step",
+      "fields": [
+        { "name": "name", "type": "text", "required": true, "placeholder": "Participant full name" },
+        { "name": "email", "type": "email", "required": true, "placeholder": "Work email" },
+        { "name": "company", "type": "text", "required": true, "placeholder": "Organization" },
+        { "name": "role", "type": "text", "required": false, "placeholder": "Job title" },
+        { "name": "billing_email", "type": "email", "required": false, "placeholder": "Invoice email (if different)" },
+        { "name": "po_number", "type": "text", "required": false, "placeholder": "PO Number (optional)" },
+        { "name": "notes", "type": "textarea", "required": false, "placeholder": "Special requirements or notes" }
+      ],
+      "show_summary": true,
+      "show_progress": true
+    },
+    "confirmation": {
+      "style": "page",
+      "show_calendar_add": true,
+      "show_share": true,
+      "next_actions": ["Download invoice", "Book another participant", "Request group discount", "Download syllabus"]
+    }
+  },
+  "user_flow": {
+    "steps": [
+      { "name": "Filter", "action": "Apply filters (date, topic, level)", "feedback": "Real-time list update" },
+      { "name": "Compare", "action": "View multiple courses", "feedback": "Side-by-side comparison available" },
+      { "name": "Evaluate", "action": "Check instructor credentials, reviews", "feedback": "Detailed course page" },
+      { "name": "Select", "action": "Choose date and session", "feedback": "Calendar view with availability" },
+      { "name": "Register", "action": "Complete participant details", "feedback": "Multi-step with validation" },
+      { "name": "Invoice", "action": "Add billing information", "feedback": "Corporate invoicing options" },
+      { "name": "Confirm", "action": "Review and submit", "feedback": "Full summary before commit" }
+    ],
+    "estimated_time": "2-4 minutes",
+    "escape_hatches": ["Save as draft", "Email quote", "Request callback", "Download brochure", "Compare courses"]
+  },
+  "microcopy": {
+    "cta_primary": "Register Participant",
+    "cta_secondary": "View Full Details",
+    "empty_state": "No courses found matching your criteria. Adjust filters or contact us for custom training.",
+    "loading": "Processing registration...",
+    "success": "Registration complete. Confirmation and invoice sent to specified email addresses.",
+    "error": "Registration could not be processed. Please verify all required fields.",
+    "availability_high": "{n} places available",
+    "availability_low": "{n} places left - book soon",
+    "availability_none": "Session full - view alternatives"
+  },
+  "accessibility": {
+    "focus_visible": true,
+    "reduced_motion": true,
+    "screen_reader_hints": true,
+    "color_contrast": "AAA"
+  }
+}

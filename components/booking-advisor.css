@@ -5,8 +5,8 @@
 
 :root {
     /* Colors - Professional Navy and Gold */
-    --color-primary: #1E3A5F;
-    --color-primary-hover: #2C5282;
+    --color-primary: #4A7C8C;
+    --color-primary-hover: #2F5A68;
     --color-accent: #D69E2E;
     --color-accent-hover: #B8862A;
     --color-background: #F7FAFC;
@@ -18,7 +18,7 @@
     --color-border-light: #E2E8F0;
     --color-success: #38A169;
     --color-error: #E53E3E;
-    --color-warning: #DD6B20;
+    --color-warning: #B45309;
 
     /* Typography */
     --font-primary: Roboto, system-ui, -apple-system, sans-serif;
@@ -32,18 +32,50 @@
     --space-xl: 2rem;
     --space-2xl: 3rem;
 
-    /* Border radius - Sharp */
-    --radius-sm: 2px;
-    --radius-md: 4px;
+    /* Border radius - Standardized */
+    --radius-sm: 4px;
+    --radius-md: 8px;
 
     /* Shadows - Minimal */
-    --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.05);
-    --shadow-md: 0 2px 4px rgba(0, 0, 0, 0.08);
-    --shadow-lg: 0 4px 8px rgba(0, 0, 0, 0.12);
+    --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.06);
+    --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.08);
+    --shadow-lg: 0 8px 24px rgba(0, 0, 0, 0.10);
 
     /* Animation - Minimal, fast */
     --transition-fast: 0.15s ease;
     --transition-normal: 0.2s ease;
+}
+
+/* ===================================
+   Accessibility - Screen Reader Only
+   =================================== */
+.sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
+}
+
+/* Skip Link */
+.skip-link {
+    position: absolute;
+    top: -40px;
+    left: 0;
+    background: var(--color-primary, #4A7C8C);
+    color: #fff;
+    padding: 8px 16px;
+    text-decoration: none;
+    z-index: 1000;
+    border-radius: 0 0 4px 0;
+}
+
+.skip-link:focus {
+    top: 0;
 }
 
 /* ===================================
@@ -384,13 +416,84 @@ body {
 
 .course-list__empty {
     text-align: center;
-    padding: var(--space-2xl);
+    padding: var(--space-3xl) var(--space-2xl);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.empty-state__icon {
+    font-size: 48px;
+    margin-bottom: var(--space-lg);
+    opacity: 0.5;
+}
+
+.empty-state__title {
+    font-size: 20px;
+    font-weight: 600;
+    color: var(--color-text-primary);
+    margin-bottom: var(--space-md);
 }
 
 .empty-state__text {
     font-size: 14px;
     color: var(--color-text-secondary);
     margin-bottom: var(--space-lg);
+    line-height: 1.6;
+    max-width: 500px;
+}
+
+.empty-state__text strong {
+    color: var(--color-text-primary);
+    font-weight: 600;
+}
+
+.empty-state__suggestions {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--space-md);
+    margin-top: var(--space-md);
+}
+
+.empty-state__suggestions-title {
+    font-size: 12px;
+    color: var(--color-text-tertiary);
+    font-weight: 500;
+    margin-bottom: var(--space-xs);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+.btn-suggestion-secondary {
+    font-family: var(--font-primary);
+    font-size: 13px;
+    font-weight: 500;
+    padding: var(--space-sm) var(--space-lg);
+    background-color: var(--color-surface);
+    color: var(--color-primary);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-sm);
+    cursor: pointer;
+    transition: all var(--transition-fast);
+    min-width: 180px;
+}
+
+.btn-suggestion-secondary:hover {
+    background-color: var(--color-background);
+    border-color: var(--color-primary);
+    transform: translateY(-1px);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+}
+
+.btn-suggestion-secondary:focus {
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.2);
+}
+
+.btn-suggestion-secondary:active {
+    transform: translateY(0);
 }
 
 .empty-state__btn {
@@ -884,7 +987,7 @@ body {
 .form-textarea:focus {
     outline: none;
     border-color: var(--color-primary);
-    box-shadow: 0 0 0 3px rgba(30, 58, 95, 0.1);
+    box-shadow: 0 0 0 3px rgba(74, 124, 140, 0.1);
 }
 
 .form-textarea {

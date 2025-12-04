@@ -1,0 +1,97 @@
+{
+  "id": "booking-discovery",
+  "title": "Course Discovery",
+  "subtitle": "Explore and find your perfect learning path",
+  "emotional_position": {
+    "curiosity_clarity": 15,
+    "spark_friction": 10,
+    "exploration_efficiency": 10
+  },
+  "rationale": {
+    "target_user": "Newcomer exploring professional development options",
+    "mindset": "Curious but uncertain. Wants to browse, learn, and be inspired before committing.",
+    "key_insight": "The journey is part of the value. Rich content builds confidence and desire."
+  },
+  "design_tokens": {
+    "colors": {
+      "primary": "#7C3AED",
+      "secondary": "#5B21B6",
+      "accent": "#F59E0B",
+      "background": "#FFFBEB",
+      "surface": "#FFFFFF",
+      "text": "#1F2937",
+      "text_secondary": "#6B7280",
+      "success": "#10B981",
+      "error": "#EF4444"
+    },
+    "typography": {
+      "font_primary": "Source Sans Pro, system-ui, sans-serif",
+      "font_secondary": "Merriweather, Georgia, serif",
+      "scale": "spacious"
+    },
+    "spacing": "relaxed",
+    "animation": "expressive",
+    "border_radius": "rounded"
+  },
+  "components": {
+    "course_card": {
+      "layout": "visual",
+      "show_price": false,
+      "show_duration": true,
+      "show_instructor": true,
+      "show_spots": false,
+      "image_style": "hero"
+    },
+    "availability_indicator": {
+      "style": "text",
+      "show_exact_count": false,
+      "urgency_threshold": 3
+    },
+    "booking_form": {
+      "layout": "multi-step",
+      "fields": [
+        { "name": "name", "type": "text", "required": true, "placeholder": "What should we call you?" },
+        { "name": "email", "type": "email", "required": true, "placeholder": "Your email address" },
+        { "name": "goals", "type": "textarea", "required": false, "placeholder": "What do you hope to learn?" },
+        { "name": "experience", "type": "select", "required": false, "placeholder": "Your experience level" }
+      ],
+      "show_summary": true,
+      "show_progress": true
+    },
+    "confirmation": {
+      "style": "page",
+      "show_calendar_add": true,
+      "show_share": true,
+      "next_actions": ["Explore related courses", "Meet your instructor", "Join the community", "Download preparation guide"]
+    }
+  },
+  "user_flow": {
+    "steps": [
+      { "name": "Browse", "action": "Scroll through courses", "feedback": "Rich cards with images and descriptions" },
+      { "name": "Discover", "action": "Click to learn more", "feedback": "Expanded view with instructor bio, curriculum" },
+      { "name": "Decide", "action": "Read reviews, check dates", "feedback": "Social proof, clear scheduling" },
+      { "name": "Personalize", "action": "Share your goals", "feedback": "Multi-step form with progress" },
+      { "name": "Commit", "action": "Complete booking", "feedback": "Celebration moment" },
+      { "name": "Connect", "action": "Explore next steps", "feedback": "Community and resources" }
+    ],
+    "estimated_time": "3-5 minutes",
+    "escape_hatches": ["Save for later", "Get notified", "Ask a question", "Compare courses"]
+  },
+  "microcopy": {
+    "cta_primary": "Start Your Journey",
+    "cta_secondary": "Learn More",
+    "empty_state": "New courses coming soon! Get notified when we add more.",
+    "loading": "Finding your perfect course...",
+    "success": "Welcome aboard! Your learning adventure begins now.",
+    "error": "Something went wrong. Let's try that again.",
+    "availability_high": "Spots available",
+    "availability_low": "Filling up fast",
+    "availability_none": "Join the waitlist"
+  },
+  "accessibility": {
+    "focus_visible": true,
+    "reduced_motion": true,
+    "screen_reader_hints": true,
+    "color_contrast": "AA"
+  }
+}

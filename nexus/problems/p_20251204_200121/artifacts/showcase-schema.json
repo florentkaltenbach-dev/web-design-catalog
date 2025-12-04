@@ -1,0 +1,222 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Booking Showcase Specification",
+  "description": "Schema for booking system implementation showcases in the web design catalog",
+  "type": "object",
+  "required": [
+    "id",
+    "title",
+    "emotional_position",
+    "rationale",
+    "design_tokens",
+    "components",
+    "user_flow",
+    "microcopy"
+  ],
+  "properties": {
+    "id": {
+      "type": "string",
+      "pattern": "^booking-[a-z-]+$",
+      "description": "Unique identifier for the showcase (e.g., booking-fast-flow)"
+    },
+    "title": {
+      "type": "string",
+      "description": "Human-readable title for the showcase"
+    },
+    "subtitle": {
+      "type": "string",
+      "description": "Brief tagline describing the approach"
+    },
+    "emotional_position": {
+      "type": "object",
+      "required": ["curiosity_clarity", "spark_friction", "exploration_efficiency"],
+      "properties": {
+        "curiosity_clarity": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 100,
+          "description": "0 = full curiosity, 100 = full clarity"
+        },
+        "spark_friction": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 100,
+          "description": "0 = spark interest, 100 = reduce friction"
+        },
+        "exploration_efficiency": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 100,
+          "description": "0 = exploration, 100 = efficiency"
+        }
+      }
+    },
+    "rationale": {
+      "type": "object",
+      "required": ["target_user", "mindset", "key_insight"],
+      "properties": {
+        "target_user": {
+          "type": "string",
+          "description": "Primary user persona"
+        },
+        "mindset": {
+          "type": "string",
+          "description": "User's mental state when arriving"
+        },
+        "key_insight": {
+          "type": "string",
+          "description": "Core design insight driving this approach"
+        }
+      }
+    },
+    "design_tokens": {
+      "type": "object",
+      "required": ["colors", "typography", "spacing", "animation"],
+      "properties": {
+        "colors": {
+          "type": "object",
+          "properties": {
+            "primary": { "type": "string" },
+            "secondary": { "type": "string" },
+            "accent": { "type": "string" },
+            "background": { "type": "string" },
+            "surface": { "type": "string" },
+            "text": { "type": "string" },
+            "text_secondary": { "type": "string" },
+            "success": { "type": "string" },
+            "error": { "type": "string" }
+          }
+        },
+        "typography": {
+          "type": "object",
+          "properties": {
+            "font_primary": { "type": "string" },
+            "font_secondary": { "type": "string" },
+            "scale": {
+              "type": "string",
+              "enum": ["compact", "normal", "spacious"]
+            }
+          }
+        },
+        "spacing": {
+          "type": "string",
+          "enum": ["tight", "normal", "relaxed"]
+        },
+        "animation": {
+          "type": "string",
+          "enum": ["minimal", "subtle", "expressive"]
+        },
+        "border_radius": {
+          "type": "string",
+          "enum": ["sharp", "soft", "rounded", "pill"]
+        }
+      }
+    },
+    "components": {
+      "type": "object",
+      "required": ["course_card", "availability_indicator", "booking_form", "confirmation"],
+      "properties": {
+        "course_card": {
+          "type": "object",
+          "properties": {
+            "layout": { "type": "string", "enum": ["minimal", "detailed", "visual", "list"] },
+            "show_price": { "type": "boolean" },
+            "show_duration": { "type": "boolean" },
+            "show_instructor": { "type": "boolean" },
+            "show_spots": { "type": "boolean" },
+            "image_style": { "type": "string", "enum": ["none", "thumbnail", "hero", "background"] }
+          }
+        },
+        "availability_indicator": {
+          "type": "object",
+          "properties": {
+            "style": { "type": "string", "enum": ["badge", "bar", "dots", "text"] },
+            "show_exact_count": { "type": "boolean" },
+            "urgency_threshold": { "type": "integer" }
+          }
+        },
+        "booking_form": {
+          "type": "object",
+          "properties": {
+            "layout": { "type": "string", "enum": ["single-page", "multi-step", "sidebar", "modal"] },
+            "fields": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "name": { "type": "string" },
+                  "type": { "type": "string" },
+                  "required": { "type": "boolean" },
+                  "placeholder": { "type": "string" }
+                }
+              }
+            },
+            "show_summary": { "type": "boolean" },
+            "show_progress": { "type": "boolean" }
+          }
+        },
+        "confirmation": {
+          "type": "object",
+          "properties": {
+            "style": { "type": "string", "enum": ["inline", "modal", "page", "toast"] },
+            "show_calendar_add": { "type": "boolean" },
+            "show_share": { "type": "boolean" },
+            "next_actions": {
+              "type": "array",
+              "items": { "type": "string" }
+            }
+          }
+        }
+      }
+    },
+    "user_flow": {
+      "type": "object",
+      "required": ["steps", "estimated_time"],
+      "properties": {
+        "steps": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "name": { "type": "string" },
+              "action": { "type": "string" },
+              "feedback": { "type": "string" }
+            }
+          }
+        },
+        "estimated_time": {
+          "type": "string",
+          "description": "Expected time to complete booking (e.g., '15 seconds', '2 minutes')"
+        },
+        "escape_hatches": {
+          "type": "array",
+          "items": { "type": "string" },
+          "description": "Ways user can get help or exit gracefully"
+        }
+      }
+    },
+    "microcopy": {
+      "type": "object",
+      "properties": {
+        "cta_primary": { "type": "string" },
+        "cta_secondary": { "type": "string" },
+        "empty_state": { "type": "string" },
+        "loading": { "type": "string" },
+        "success": { "type": "string" },
+        "error": { "type": "string" },
+        "availability_high": { "type": "string" },
+        "availability_low": { "type": "string" },
+        "availability_none": { "type": "string" }
+      }
+    },
+    "accessibility": {
+      "type": "object",
+      "properties": {
+        "focus_visible": { "type": "boolean" },
+        "reduced_motion": { "type": "boolean" },
+        "screen_reader_hints": { "type": "boolean" },
+        "color_contrast": { "type": "string", "enum": ["AA", "AAA"] }
+      }
+    }
+  }
+}

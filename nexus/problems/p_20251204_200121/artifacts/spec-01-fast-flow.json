@@ -1,0 +1,94 @@
+{
+  "id": "booking-fast-flow",
+  "title": "Lightning Booking",
+  "subtitle": "15-second path for busy professionals",
+  "emotional_position": {
+    "curiosity_clarity": 95,
+    "spark_friction": 95,
+    "exploration_efficiency": 95
+  },
+  "rationale": {
+    "target_user": "Busy professional who knows exactly what they want",
+    "mindset": "Time-pressured, decisive, task-oriented. Already researched, ready to commit.",
+    "key_insight": "Every extra click is friction. Show only what's needed to confirm and book."
+  },
+  "design_tokens": {
+    "colors": {
+      "primary": "#2563EB",
+      "secondary": "#1E40AF",
+      "accent": "#10B981",
+      "background": "#F8FAFC",
+      "surface": "#FFFFFF",
+      "text": "#1E293B",
+      "text_secondary": "#64748B",
+      "success": "#10B981",
+      "error": "#EF4444"
+    },
+    "typography": {
+      "font_primary": "Inter, system-ui, sans-serif",
+      "font_secondary": "Inter, system-ui, sans-serif",
+      "scale": "compact"
+    },
+    "spacing": "tight",
+    "animation": "minimal",
+    "border_radius": "soft"
+  },
+  "components": {
+    "course_card": {
+      "layout": "minimal",
+      "show_price": true,
+      "show_duration": true,
+      "show_instructor": false,
+      "show_spots": true,
+      "image_style": "none"
+    },
+    "availability_indicator": {
+      "style": "badge",
+      "show_exact_count": true,
+      "urgency_threshold": 5
+    },
+    "booking_form": {
+      "layout": "single-page",
+      "fields": [
+        { "name": "name", "type": "text", "required": true, "placeholder": "Full name" },
+        { "name": "email", "type": "email", "required": true, "placeholder": "Email" },
+        { "name": "phone", "type": "tel", "required": false, "placeholder": "Phone (optional)" }
+      ],
+      "show_summary": true,
+      "show_progress": false
+    },
+    "confirmation": {
+      "style": "inline",
+      "show_calendar_add": true,
+      "show_share": false,
+      "next_actions": ["Add to calendar", "View booking details"]
+    }
+  },
+  "user_flow": {
+    "steps": [
+      { "name": "Select", "action": "Click course", "feedback": "Instant highlight" },
+      { "name": "Confirm", "action": "Review summary", "feedback": "Price and date visible" },
+      { "name": "Book", "action": "Enter details + submit", "feedback": "Single form, auto-focus" },
+      { "name": "Done", "action": "See confirmation", "feedback": "Immediate success state" }
+    ],
+    "estimated_time": "15 seconds",
+    "escape_hatches": ["Back button", "Cancel link", "Help icon"]
+  },
+  "microcopy": {
+    "cta_primary": "Book Now",
+    "cta_secondary": "View Details",
+    "empty_state": "No courses available for this date",
+    "loading": "Reserving your spot...",
+    "success": "You're booked! Check your email for confirmation.",
+    "error": "Couldn't complete booking. Please try again.",
+    "availability_high": "Available",
+    "availability_low": "Only {n} spots left",
+    "availability_none": "Fully booked"
+  },
+  "accessibility": {
+    "focus_visible": true,
+    "reduced_motion": true,
+    "screen_reader_hints": true,
+    "color_contrast": "AA"
+  }
+}

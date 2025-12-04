@@ -1,0 +1,98 @@
+{
+  "id": "booking-onboarding",
+  "title": "Guided First Booking",
+  "subtitle": "Friendly guidance for your first course",
+  "emotional_position": {
+    "curiosity_clarity": 40,
+    "spark_friction": 30,
+    "exploration_efficiency": 25
+  },
+  "rationale": {
+    "target_user": "First-time visitor unfamiliar with professional training",
+    "mindset": "Interested but hesitant. Needs reassurance, guidance, and gentle encouragement.",
+    "key_insight": "Reduce anxiety through progressive revelation and constant reassurance. Make the unfamiliar feel safe."
+  },
+  "design_tokens": {
+    "colors": {
+      "primary": "#059669",
+      "secondary": "#047857",
+      "accent": "#EC4899",
+      "background": "#ECFDF5",
+      "surface": "#FFFFFF",
+      "text": "#064E3B",
+      "text_secondary": "#6B7280",
+      "success": "#10B981",
+      "error": "#F87171"
+    },
+    "typography": {
+      "font_primary": "Nunito, system-ui, sans-serif",
+      "font_secondary": "Nunito, system-ui, sans-serif",
+      "scale": "spacious"
+    },
+    "spacing": "relaxed",
+    "animation": "subtle",
+    "border_radius": "rounded"
+  },
+  "components": {
+    "course_card": {
+      "layout": "visual",
+      "show_price": true,
+      "show_duration": true,
+      "show_instructor": true,
+      "show_spots": false,
+      "image_style": "hero"
+    },
+    "availability_indicator": {
+      "style": "text",
+      "show_exact_count": false,
+      "urgency_threshold": 5
+    },
+    "booking_form": {
+      "layout": "multi-step",
+      "fields": [
+        { "name": "name", "type": "text", "required": true, "placeholder": "Your name" },
+        { "name": "email", "type": "email", "required": true, "placeholder": "Email (we'll send confirmation here)" },
+        { "name": "phone", "type": "tel", "required": false, "placeholder": "Phone (optional, for reminders)" },
+        { "name": "hear_about", "type": "select", "required": false, "placeholder": "How did you hear about us?" }
+      ],
+      "show_summary": true,
+      "show_progress": true
+    },
+    "confirmation": {
+      "style": "page",
+      "show_calendar_add": true,
+      "show_share": false,
+      "next_actions": ["What to expect", "Preparation checklist", "Meet other participants", "Contact your instructor"]
+    }
+  },
+  "user_flow": {
+    "steps": [
+      { "name": "Welcome", "action": "Land on page", "feedback": "Friendly intro with 'How it works'" },
+      { "name": "Explore", "action": "Browse recommended courses", "feedback": "Curated selection with explanations" },
+      { "name": "Learn", "action": "Click for details", "feedback": "'What you'll learn' emphasized" },
+      { "name": "Prepare", "action": "See what to expect", "feedback": "Schedule, location, requirements" },
+      { "name": "Decide", "action": "Ready to book?", "feedback": "Reassuring message, clear pricing" },
+      { "name": "Register", "action": "Step-by-step form", "feedback": "Progress bar, helpful hints" },
+      { "name": "Celebrate", "action": "Booking complete!", "feedback": "Warm confirmation, next steps clear" }
+    ],
+    "estimated_time": "2-3 minutes",
+    "escape_hatches": ["Chat with us", "Call us", "Email a question", "Not sure? Take our quiz"]
+  },
+  "microcopy": {
+    "cta_primary": "Sign Me Up",
+    "cta_secondary": "Tell Me More",
+    "empty_state": "We're adding new courses all the time! Leave your email to be notified.",
+    "loading": "Setting everything up for you...",
+    "success": "You did it! We're excited to have you. Check your inbox for a welcome email with everything you need.",
+    "error": "Oops! Something didn't work. Don't worry - your information is safe. Let's try again.",
+    "availability_high": "Plenty of room",
+    "availability_low": "A few spots left",
+    "availability_none": "This one's full, but we can notify you of the next one"
+  },
+  "accessibility": {
+    "focus_visible": true,
+    "reduced_motion": true,
+    "screen_reader_hints": true,
+    "color_contrast": "AA"
+  }
+}

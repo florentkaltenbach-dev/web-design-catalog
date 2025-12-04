@@ -3,8 +3,8 @@
    ============================================ */
 :root {
     /* Colors */
-    --color-primary: #7C3AED;
-    --color-secondary: #5B21B6;
+    --color-primary: #4A7C8C;
+    --color-secondary: #2F5A68;
     --color-accent: #F59E0B;
     --color-background: #FFFBEB;
     --color-surface: #FFFFFF;
@@ -16,13 +16,14 @@
     /* Typography */
     --font-primary: 'Source Sans Pro', system-ui, sans-serif;
     --font-secondary: 'Merriweather', Georgia, serif;
-    --font-size-xs: 0.875rem;
-    --font-size-sm: 1rem;
-    --font-size-md: 1.125rem;
-    --font-size-lg: 1.5rem;
-    --font-size-xl: 2rem;
-    --font-size-2xl: 2.5rem;
-    --font-size-3xl: 3.5rem;
+    --font-size-xs: 0.8rem;
+    --font-size-sm: 0.875rem;
+    --font-size-base: 1rem;
+    --font-size-md: 1.25rem;
+    --font-size-lg: 1.563rem;
+    --font-size-xl: 1.953rem;
+    --font-size-2xl: 2.441rem;
+    --font-size-3xl: 3.052rem;
 
     /* Spacing */
     --spacing-xs: 0.5rem;
@@ -33,11 +34,11 @@
     --spacing-2xl: 4rem;
     --spacing-3xl: 6rem;
 
-    /* Border Radius */
-    --radius-sm: 8px;
-    --radius-md: 12px;
-    --radius-lg: 16px;
-    --radius-xl: 24px;
+    /* Border Radius - Standardized */
+    --radius-sm: 4px;
+    --radius-md: 8px;
+    --radius-lg: 12px;
+    --radius-xl: 16px;
 
     /* Shadows */
     --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.06), 0 1px 2px rgba(0, 0, 0, 0.04);
@@ -51,6 +52,38 @@
 }
 
 /* ============================================
+   Accessibility - Screen Reader Only
+   ============================================ */
+.sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
+}
+
+/* Skip Link */
+.skip-link {
+    position: absolute;
+    top: -40px;
+    left: 0;
+    background: var(--color-primary, #4A7C8C);
+    color: #fff;
+    padding: 8px 16px;
+    text-decoration: none;
+    z-index: 1000;
+    border-radius: 0 0 4px 0;
+}
+
+.skip-link:focus {
+    top: 0;
+}
+
+/* ============================================
    Reset & Base Styles
    ============================================ */
 * {
@@ -61,7 +94,7 @@
 
 body {
     font-family: var(--font-primary);
-    line-height: 1.7;
+    line-height: 1.6;
     color: var(--color-text);
     background-color: var(--color-background);
     -webkit-font-smoothing: antialiased;
@@ -70,7 +103,7 @@ body {
 
 h1, h2, h3, h4, h5, h6 {
     font-family: var(--font-secondary);
-    line-height: 1.2;
+    line-height: 1.25;
     font-weight: 700;
 }
 
@@ -504,6 +537,27 @@ img {
     margin-bottom: var(--spacing-xl);
 }
 
+.progress__header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: var(--spacing-sm);
+}
+
+.time-estimate {
+    font-size: var(--font-size-sm);
+    color: var(--color-text-secondary);
+    font-weight: 500;
+}
+
+.progress__reassurance {
+    text-align: center;
+    font-size: var(--font-size-sm);
+    color: var(--color-text-secondary);
+    margin-top: var(--spacing-sm);
+    font-style: italic;
+}
+
 .progress__steps {
     display: flex;
     justify-content: space-between;
@@ -539,6 +593,14 @@ img {
 .progress__step--completed .progress__step-number {
     background: var(--color-success);
     color: white;
+}
+
+.progress__step--completed .progress__step-number::after {
+    content: '✓';
+    position: absolute;
+    color: white;
+    font-weight: bold;
+    font-size: 1.2em;
 }
 
 .progress__step-number {
@@ -627,7 +689,7 @@ img {
 .form-input:focus {
     outline: none;
     border-color: var(--color-primary);
-    box-shadow: 0 0 0 3px rgba(124, 58, 237, 0.1);
+    box-shadow: 0 0 0 3px rgba(74, 124, 140, 0.1);
 }
 
 .form-input--textarea {
@@ -745,7 +807,7 @@ img {
 }
 
 .btn--link:hover {
-    background: rgba(124, 58, 237, 0.1);
+    background: rgba(74, 124, 140, 0.1);
 }
 
 .btn__icon {
@@ -1021,6 +1083,103 @@ img {
 *:focus-visible {
     outline: 2px solid var(--color-primary);
     outline-offset: 2px;
+}
+
+/* ============================================
+   Loading Skeleton States
+   ============================================ */
+.skeleton {
+    background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+    background-size: 200% 100%;
+    animation: skeleton-pulse 1.5s ease-in-out infinite;
+    border-radius: var(--radius-sm);
+}
+
+@keyframes skeleton-pulse {
+    0% { background-position: 200% 0; }
+    100% { background-position: -200% 0; }
+}
+
+/* Skeleton Card (for grid loading states) */
+.skeleton-card {
+    background: var(--color-surface);
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+    box-shadow: var(--shadow-md);
+}
+
+.skeleton-content {
+    padding: var(--spacing-xl);
+}
+
+.skeleton-image {
+    width: 100%;
+    height: 200px;
+}
+
+.skeleton-title {
+    height: 24px;
+    width: 70%;
+    margin: 16px 0 8px;
+}
+
+.skeleton-text {
+    height: 16px;
+    margin: 8px 0;
+}
+
+.skeleton-text.short {
+    width: 50%;
+}
+
+/* Skeleton Detail (for modal loading states) */
+.course-detail--skeleton {
+    padding: var(--spacing-xl);
+}
+
+.skeleton-detail-image {
+    width: 100%;
+    height: 400px;
+    border-radius: var(--radius-md);
+    margin-bottom: var(--spacing-lg);
+}
+
+.skeleton-detail-title {
+    height: 36px;
+    width: 80%;
+    margin-bottom: var(--spacing-md);
+}
+
+.skeleton-detail-subtitle {
+    height: 28px;
+    width: 40%;
+    margin-bottom: var(--spacing-md);
+}
+
+.skeleton-detail-meta {
+    height: 20px;
+    width: 60%;
+    margin-bottom: var(--spacing-lg);
+}
+
+.skeleton-detail-text {
+    height: 18px;
+    margin-bottom: var(--spacing-md);
+}
+
+.skeleton-detail-text.short {
+    width: 65%;
+}
+
+.skeleton-detail-list-item {
+    height: 48px;
+    margin-bottom: var(--spacing-sm);
+    border-radius: var(--radius-sm);
+}
+
+.skeleton-detail-instructor {
+    height: 120px;
+    border-radius: var(--radius-md);
 }
 
 /* ============================================

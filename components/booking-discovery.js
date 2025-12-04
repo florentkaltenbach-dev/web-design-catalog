@@ -221,6 +221,53 @@
     }
 
     // ============================================
+    // Skeleton Loading States
+    // ============================================
+    function createSkeletonCard() {
+        return `
+            <div class="skeleton-card" aria-hidden="true">
+                <div class="skeleton skeleton-image"></div>
+                <div class="skeleton-content">
+                    <div class="skeleton skeleton-title"></div>
+                    <div class="skeleton skeleton-text"></div>
+                    <div class="skeleton skeleton-text"></div>
+                    <div class="skeleton skeleton-text short"></div>
+                </div>
+            </div>
+        `;
+    }
+
+    function showModalSkeleton() {
+        const content = document.getElementById('course-detail-content');
+        content.innerHTML = `
+            <div class="course-detail course-detail--skeleton">
+                <div class="skeleton skeleton-detail-image"></div>
+                <div class="skeleton skeleton-detail-title"></div>
+                <div class="skeleton skeleton-detail-meta"></div>
+                <div class="skeleton skeleton-detail-text"></div>
+                <div class="skeleton skeleton-detail-text"></div>
+                <div class="skeleton skeleton-detail-text short"></div>
+
+                <div style="margin-top: var(--spacing-xl);">
+                    <div class="skeleton skeleton-detail-subtitle"></div>
+                    <div class="skeleton skeleton-detail-list-item"></div>
+                    <div class="skeleton skeleton-detail-list-item"></div>
+                    <div class="skeleton skeleton-detail-list-item"></div>
+                </div>
+
+                <div style="margin-top: var(--spacing-xl);">
+                    <div class="skeleton skeleton-detail-subtitle"></div>
+                    <div class="skeleton skeleton-detail-instructor"></div>
+                </div>
+            </div>
+        `;
+    }
+
+    function hideModalSkeleton() {
+        // Skeleton will be replaced by actual content
+    }
+
+    // ============================================
     // Course Detail Modal
     // ============================================
     function showCourseDetail(courseId) {
@@ -232,6 +279,17 @@
         const modal = document.getElementById('course-detail-modal');
         const content = document.getElementById('course-detail-content');
 
+        // Show skeleton first
+        openModal('course-detail-modal');
+        showModalSkeleton();
+
+        // Simulate loading delay for demo (remove in production or replace with actual async operation)
+        setTimeout(() => {
+            populateCourseDetailContent(course, content);
+        }, 500);
+    }
+
+    function populateCourseDetailContent(course, content) {
         content.innerHTML = `
             <div class="course-detail__header">
                 <img
@@ -296,8 +354,6 @@
             saveForLater(course);
             closeModal('course-detail-modal');
         });
-
-        openModal('course-detail-modal');
     }
 
     // ============================================
@@ -308,6 +364,19 @@
         updateProgress();
         showStep(1);
         openModal('booking-modal');
+    }
+
+    function updateTimeEstimate(currentStep, totalSteps) {
+        const secondsPerStep = 45;
+        const remaining = (totalSteps - currentStep) * secondsPerStep;
+        const text = remaining > 60
+            ? `About ${Math.ceil(remaining/60)} min remaining`
+            : `About ${remaining} seconds remaining`;
+
+        const timeEstimate = document.querySelector('.time-estimate');
+        if (timeEstimate) {
+            timeEstimate.textContent = text;
+        }
     }
 
     function updateProgress() {
@@ -329,6 +398,9 @@
         const percentage = (state.currentStep / 3) * 100;
         barFill.style.width = `${percentage}%`;
         progress.setAttribute('aria-valuenow', state.currentStep);
+
+        // Update time estimate
+        updateTimeEstimate(state.currentStep, 3);
     }
 
     function showStep(stepNumber) {
@@ -342,11 +414,22 @@
         });
     }
 
+    function announceStep(stepNumber, totalSteps, stepTitle) {
+        const announcer = document.getElementById('step-announcer');
+        if (announcer) {
+            announcer.textContent = `Step ${stepNumber} of ${totalSteps}: ${stepTitle}`;
+        }
+    }
+
     function nextStep() {
         if (validateCurrentStep()) {
             state.currentStep++;
             updateProgress();
             showStep(state.currentStep);
+
+            // Announce step change for screen readers
+            const stepTitles = ['About You', 'Your Goals', 'Confirm'];
+            announceStep(state.currentStep, 3, stepTitles[state.currentStep - 1]);
 
             if (state.currentStep === 3) {
                 populateBookingSummary();
@@ -358,6 +441,10 @@
         state.currentStep--;
         updateProgress();
         showStep(state.currentStep);
+
+        // Announce step change for screen readers
+        const stepTitles = ['About You', 'Your Goals', 'Confirm'];
+        announceStep(state.currentStep, 3, stepTitles[state.currentStep - 1]);
     }
 
     function validateCurrentStep() {
@@ -535,15 +622,42 @@
     // ============================================
     // Modal Management
     // ============================================
+    let lastFocusedElement = null;
+
+    function trapFocus(modal) {
+        const focusableElements = modal.querySelectorAll(
+            'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])'
+        );
+        const firstElement = focusableElements[0];
+        const lastElement = focusableElements[focusableElements.length - 1];
+
+        modal.addEventListener('keydown', function(e) {
+            if (e.key === 'Tab') {
+                if (e.shiftKey && document.activeElement === firstElement) {
+                    e.preventDefault();
+                    lastElement.focus();
+                } else if (!e.shiftKey && document.activeElement === lastElement) {
+                    e.preventDefault();
+                    firstElement.focus();
+                }
+            }
+            if (e.key === 'Escape') {
+                closeModal(modal.id);
+            }
+        });
+
+        if (firstElement) firstElement.focus();
+    }
+
     function openModal(modalId) {
         const modal = document.getElementById(modalId);
+        lastFocusedElement = document.activeElement;
         modal.removeAttribute('hidden');
         document.body.style.overflow = 'hidden';
 
-        // Focus management
+        // Setup focus trap
         setTimeout(() => {
-            const firstFocusable = modal.querySelector('button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])');
-            if (firstFocusable) firstFocusable.focus();
+            trapFocus(modal);
         }, 100);
     }
 
@@ -551,6 +665,12 @@
         const modal = document.getElementById(modalId);
         modal.setAttribute('hidden', '');
         document.body.style.overflow = '';
+
+        // Return focus to the element that opened the modal
+        if (lastFocusedElement) {
+            lastFocusedElement.focus();
+            lastFocusedElement = null;
+        }
     }
 
     // ============================================
@@ -721,15 +841,8 @@
             });
         });
 
-        // Keyboard navigation
-        document.addEventListener('keydown', (e) => {
-            if (e.key === 'Escape') {
-                const openModals = document.querySelectorAll('.modal:not([hidden])');
-                if (openModals.length > 0) {
-                    closeModal(openModals[openModals.length - 1].id);
-                }
-            }
-        });
+        // Keyboard navigation (Escape is now handled in trapFocus function)
+        // Additional keyboard shortcuts can be added here if needed
     }
 
     // ============================================

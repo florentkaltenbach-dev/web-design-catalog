@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Self-Serve Solution Hub - Design Pattern</title>
+    <link rel="stylesheet" href="../css/style.css">
     <link rel="stylesheet" href="solution-hub.css">
 </head>
 <body>
@@ -428,18 +429,24 @@
         </section>
 
         <!-- Empty State (hidden by default) -->
-        <div class="empty-state" hidden>
+        <div class="empty-state" role="status" hidden>
             <svg class="empty-state-icon" width="64" height="64" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
                 <circle cx="32" cy="32" r="30" stroke="currentColor" stroke-width="2" stroke-dasharray="4 4"/>
                 <path d="M32 20v24M20 32h24" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
             </svg>
             <h2 class="empty-state-title">No solutions found</h2>
-            <p class="empty-state-text">
+            <p class="empty-state-text" id="empty-state-message">
                 Try adjusting your search or browse all categories to discover resources that might help
             </p>
-            <button type="button" class="empty-state-button" id="reset-filters">
-                View All Solutions
-            </button>
+            <div class="empty-state-suggestions">
+                <p class="empty-state-suggestions-title">Try:</p>
+                <button type="button" class="btn-suggestion" id="btn-view-all">
+                    View all solutions
+                </button>
+                <button type="button" class="btn-suggestion" id="btn-clear-search">
+                    Clear search
+                </button>
+            </div>
         </div>
     </main>
 

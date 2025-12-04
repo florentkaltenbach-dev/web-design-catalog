@@ -359,10 +359,27 @@
             clip: rect(0, 0, 0, 0);
             border: 0;
         }
+        /* Skip Link (Accessibility) */
+        .skip-link {
+            position: absolute;
+            top: -40px;
+            left: 0;
+            background: var(--color-primary, #4A7C8C);
+            color: #fff;
+            padding: 8px 16px;
+            text-decoration: none;
+            z-index: 1000;
+            border-radius: 0 0 4px 0;
+        }
+        .skip-link:focus {
+            top: 0;
+        }
     </style>
 </head>
 <body>
-    <section class="trust-wall" aria-labelledby="trust-wall-title">
+    <a href="#main-content" class="skip-link">Skip to main content</a>
+
+    <section class="trust-wall" id="main-content" aria-labelledby="trust-wall-title">
         <div class="trust-wall__container">
             <header class="trust-wall__header">
                 <h2 id="trust-wall-title" class="trust-wall__title">Trusted by Families, Backed by Professionals</h2>
@@ -461,7 +478,7 @@
                 <h3 class="trust-wall__cta-title">Ready to Take the Next Step?</h3>
                 <p class="trust-wall__cta-text">Our team is here to support you and your family every step of the way.</p>
                 <a href="#contact" class="trust-wall__cta-button">
-                    Get Started Today
+                    Start Your Journey
                     <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                         <line x1="5" y1="12" x2="19" y2="12"></line>
                         <polyline points="12 5 19 12 12 19"></polyline>
