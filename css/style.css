@@ -415,9 +415,19 @@ body {
 /* ==================== */
 
 .showcases-section {
+    margin-top: var(--spacing-xl);
+}
+
+.patterns-section {
     margin-top: var(--spacing-2xl);
     padding-top: var(--spacing-xl);
     border-top: 2px solid var(--color-border);
+}
+
+.patterns-section h2 {
+    font-size: 1.75rem;
+    color: var(--color-text);
+    margin-bottom: var(--spacing-md);
 }
 
 .showcases-section h2 {
