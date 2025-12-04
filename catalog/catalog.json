@@ -1,0 +1,167 @@
+{
+  "catalog_name": "BKID Web Design Catalog",
+  "version": "1.0.0",
+  "design_system": {
+    "philosophy": "Calm, trust-building, non-clinical, non-triggering design",
+    "accessibility": "WCAG AA compliant",
+    "principles": [
+      "Build trust through transparency",
+      "Reduce anxiety with clear communication",
+      "Respect user autonomy and pace",
+      "Use warm, non-clinical language",
+      "Provide accessible experiences for all"
+    ]
+  },
+  "entries": [
+    {
+      "id": 1,
+      "name": "Ultra-Clear Value Hero",
+      "emotional_axis": "Clarity + Calm + Trust",
+      "audience": ["First-time visitors", "Help-seekers", "Family members"],
+      "component_file": "components/ultra-clear-value-hero.html",
+      "dual_inclusion": {
+        "capturing_ratio": 70,
+        "pushing_ratio": 30,
+        "capturing_elements": ["Visual calm through whitespace", "Clarity-first messaging", "Subtle trust signals", "Non-aggressive color palette"],
+        "pushing_elements": ["Single prominent CTA", "Clear action verb", "Optional secondary CTA"],
+        "blend_strategy": "Trust-building dominates; CTA appears natural, not forced"
+      },
+      "content_notes": "Headline should answer 'What do you offer?' immediately. Keep subheadline under 180 characters. Use warm, empowering language.",
+      "placement_recommendation": "Homepage hero, landing pages, campaign entry points"
+    },
+    {
+      "id": 2,
+      "name": "Still-Life Confidence Hero",
+      "emotional_axis": "Confidence + Safety + Quality",
+      "audience": ["Anxiety-prone visitors", "Those avoiding clinical imagery", "Design-conscious users"],
+      "component_file": "components/still-life-confidence-hero.html",
+      "dual_inclusion": {
+        "capturing_ratio": 75,
+        "pushing_ratio": 25,
+        "capturing_elements": ["Object photography over people", "Warm natural imagery", "Quality through composition", "Non-triggering visuals"],
+        "pushing_elements": ["Confidence-building microcopy", "Gentle CTA placement"],
+        "blend_strategy": "Build confidence through aesthetics before asking for action"
+      },
+      "content_notes": "Use still-life images: tea settings, plants, soft textiles, natural light. Avoid clinical or body imagery.",
+      "placement_recommendation": "Alternative homepage hero, about page, service landing pages"
+    },
+    {
+      "id": 3,
+      "name": "Outcome-Based Help (Ich möchte...)",
+      "emotional_axis": "Empowerment + Self-Identification + Guidance",
+      "audience": ["Users unsure where to start", "Goal-oriented visitors", "Non-German speakers (with translations)"],
+      "component_file": "components/outcome-based-help.html",
+      "dual_inclusion": {
+        "capturing_ratio": 70,
+        "pushing_ratio": 30,
+        "capturing_elements": ["First-person framing creates connection", "Permissionless exploration", "All options visible simultaneously", "Emotional validation through outcome language"],
+        "pushing_elements": ["Clear selection leads to action", "CTA appears on interaction", "Destination preview reduces anxiety"],
+        "blend_strategy": "70/30 split - interface responds to attention rather than directing it"
+      },
+      "content_notes": "Use 4-8 options. Frame as outcomes, not services. Include icon, label, description per option.",
+      "placement_recommendation": "Homepage below hero, help center, navigation enhancement"
+    },
+    {
+      "id": 4,
+      "name": "Self-Serve Solution Hub",
+      "emotional_axis": "Independence + Confidence + Discovery",
+      "audience": ["Self-directed users", "Researchers", "Returning visitors"],
+      "component_file": "components/solution-hub.html",
+      "dual_inclusion": {
+        "capturing_ratio": 60,
+        "pushing_ratio": 40,
+        "capturing_elements": ["Discovery through categories", "Building confidence with available resources", "Reducing anxiety about finding help"],
+        "pushing_elements": ["Search-driven intent", "Progress tracking", "Quick-access shortcuts"],
+        "blend_strategy": "Adapt based on user behavior - explorers vs. seekers"
+      },
+      "content_notes": "Include search, category filters, solution cards, quick shortcuts, and FAQs. Provide empty state with suggestions.",
+      "placement_recommendation": "Resources page, help center, knowledge base"
+    },
+    {
+      "id": 5,
+      "name": "Mission Narrative Panel",
+      "emotional_axis": "Purpose + Authenticity + Connection",
+      "audience": ["Values-driven visitors", "Partnership inquiries", "Job seekers"],
+      "component_file": "components/mission-narrative-panel.html",
+      "dual_inclusion": {
+        "capturing_ratio": 80,
+        "pushing_ratio": 20,
+        "capturing_elements": ["Rich storytelling", "Values presentation", "Founder/team imagery", "Mission prominence"],
+        "pushing_elements": ["Optional CTA at end", "Join our mission invitation"],
+        "blend_strategy": "Story-first approach - pushing only after trust established"
+      },
+      "content_notes": "Use editorial typography. Include mission statement, narrative body, values grid, and optional team imagery.",
+      "placement_recommendation": "About page, mission page, footer expanded section"
+    },
+    {
+      "id": 6,
+      "name": "Inline Contextual Help",
+      "emotional_axis": "Support + Clarity + Empowerment",
+      "audience": ["Form users", "First-time visitors", "Users encountering terminology"],
+      "component_file": "components/inline-contextual-help.html",
+      "dual_inclusion": null,
+      "content_notes": "Three types: tooltip (brief), popover (detailed), inline-expandable (in-flow). Use supportive, non-clinical tone. Include keyboard support.",
+      "placement_recommendation": "Forms, terminology, complex processes, feature explanations"
+    },
+    {
+      "id": 7,
+      "name": "Trust-Wall",
+      "emotional_axis": "Credibility + Social Proof + Reassurance",
+      "audience": ["Decision-makers", "Skeptical visitors", "Comparison shoppers"],
+      "component_file": "components/trust-wall.html",
+      "dual_inclusion": {
+        "capturing_ratio": 70,
+        "pushing_ratio": 30,
+        "capturing_elements": ["Testimonials build passive trust", "Certifications establish authority", "Partner logos create legitimacy", "Statistics presented calmly"],
+        "pushing_elements": ["CTA positioned after trust elements", "Strategic proximity to conversion points"],
+        "blend_strategy": "Trust must feel earned, not sold - curate don't dump"
+      },
+      "content_notes": "Include testimonial cards, certification badges, partner logos (grayscale), and calm statistics. Keep numbers non-aggressive.",
+      "placement_recommendation": "Homepage section, pricing page, checkout sidebar"
+    },
+    {
+      "id": 8,
+      "name": "Brand Progress Timeline",
+      "emotional_axis": "Trust + Longevity + Vision",
+      "audience": ["History-curious visitors", "Partnership evaluators", "Investors"],
+      "component_file": "components/brand-progress-timeline.html",
+      "dual_inclusion": {
+        "capturing_ratio": 75,
+        "pushing_ratio": 25,
+        "capturing_elements": ["Historical storytelling", "Authentic milestones", "Trust through longevity", "Reflective pacing"],
+        "pushing_elements": ["Future milestones invite participation", "Join our journey CTA", "Current moment emphasis"],
+        "blend_strategy": "Story momentum leads naturally to action at end"
+      },
+      "content_notes": "Include 6-10 milestones. Distinguish past (solid) from future (dashed). Use scroll-triggered animation with reduced motion support.",
+      "placement_recommendation": "About page, history section, investor page"
+    },
+    {
+      "id": 9,
+      "name": "Transparent Step-List Onboarding",
+      "emotional_axis": "Safety + Control + Progress",
+      "audience": ["New users", "Registration flows", "Multi-step processes"],
+      "component_file": "components/transparent-step-list-onboarding.html",
+      "dual_inclusion": {
+        "capturing_ratio_start": 80,
+        "pushing_ratio_start": 20,
+        "capturing_ratio_end": 30,
+        "pushing_ratio_end": 70,
+        "capturing_elements": ["All steps visible upfront", "Time estimates per step", "No hidden surprises", "Pause and save options"],
+        "pushing_elements": ["Progress bar motivation", "Completion proximity messaging", "Encouraging micro-copy"],
+        "blend_strategy": "Shift from transparency-dominant to momentum-dominant as user progresses"
+      },
+      "content_notes": "Show all steps from start. Include time estimates, back navigation, and progress percentage. Use calm completion celebrations.",
+      "placement_recommendation": "Registration, assessment intake, onboarding flows"
+    },
+    {
+      "id": 10,
+      "name": "Magazine-Editorial Layout",
+      "emotional_axis": "Authority + Engagement + Reflection",
+      "audience": ["Long-form readers", "Educational content consumers", "Resource seekers"],
+      "component_file": "components/magazine-editorial-layout.html",
+      "dual_inclusion": null,
+      "content_notes": "Use drop caps, pull quotes, sidebars, and inline images. Serif typography for warmth. Include byline with author info and reading time.",
+      "placement_recommendation": "Blog posts, resources, guides, educational content"
+    }
+  ]
+}

@@ -1,0 +1,610 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mission Narrative Panel - BKID Component</title>
+    <style>
+        /* ========================================
+           RESET & BASE STYLES
+           ======================================== */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            /* Warm, trust-building color palette */
+            --color-primary: #2C5F4F;        /* Deep sage green */
+            --color-primary-light: #4A8070;  /* Lighter sage */
+            --color-accent: #D4A574;         /* Warm sand/gold */
+            --color-text-primary: #2D2D2D;   /* Soft black */
+            --color-text-secondary: #5A5A5A; /* Medium gray */
+            --color-background: #FDFCFA;     /* Warm white */
+            --color-surface: #F7F5F2;        /* Subtle warm gray */
+            --color-border: #E5E1DC;         /* Light warm border */
+
+            /* Typography scale */
+            --font-display: 'Georgia', 'Cambria', 'Times New Roman', serif;
+            --font-body: 'Georgia', 'Cambria', 'Times New Roman', serif;
+            --font-ui: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Helvetica', sans-serif;
+
+            /* Type scale (modular scale 1.25 - major third) */
+            --text-xs: 0.8rem;      /* 12.8px */
+            --text-sm: 0.875rem;    /* 14px */
+            --text-base: 1rem;      /* 16px */
+            --text-lg: 1.125rem;    /* 18px */
+            --text-xl: 1.25rem;     /* 20px */
+            --text-2xl: 1.563rem;   /* 25px */
+            --text-3xl: 1.953rem;   /* 31.25px */
+            --text-4xl: 2.441rem;   /* 39px */
+            --text-5xl: 3.052rem;   /* 48.8px */
+
+            /* Spacing scale */
+            --space-xs: 0.5rem;     /* 8px */
+            --space-sm: 0.75rem;    /* 12px */
+            --space-md: 1rem;       /* 16px */
+            --space-lg: 1.5rem;     /* 24px */
+            --space-xl: 2rem;       /* 32px */
+            --space-2xl: 3rem;      /* 48px */
+            --space-3xl: 4rem;      /* 64px */
+            --space-4xl: 6rem;      /* 96px */
+            --space-5xl: 8rem;      /* 128px */
+
+            /* Layout */
+            --max-width: 1200px;
+            --content-width: 720px;
+            --border-radius: 8px;
+
+            /* Transitions */
+            --transition-fast: 150ms ease;
+            --transition-base: 250ms ease;
+            --transition-slow: 400ms ease;
+        }
+
+        body {
+            font-family: var(--font-body);
+            font-size: var(--text-base);
+            line-height: 1.6;
+            color: var(--color-text-primary);
+            background-color: var(--color-background);
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+
+        /* ========================================
+           MISSION NARRATIVE PANEL
+           ======================================== */
+        .mission-panel {
+            width: 100%;
+            background-color: var(--color-background);
+            padding: var(--space-4xl) var(--space-xl);
+        }
+
+        .mission-panel__container {
+            max-width: var(--max-width);
+            margin: 0 auto;
+        }
+
+        /* Mission Statement Section */
+        .mission-panel__statement {
+            max-width: var(--content-width);
+            margin: 0 auto var(--space-4xl);
+            text-align: center;
+        }
+
+        .mission-panel__eyebrow {
+            font-family: var(--font-ui);
+            font-size: var(--text-sm);
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            color: var(--color-accent);
+            margin-bottom: var(--space-md);
+        }
+
+        .mission-panel__title {
+            font-family: var(--font-display);
+            font-size: var(--text-4xl);
+            font-weight: 400;
+            line-height: 1.2;
+            color: var(--color-primary);
+            margin-bottom: var(--space-xl);
+        }
+
+        .mission-panel__subtitle {
+            font-size: var(--text-xl);
+            font-weight: 400;
+            line-height: 1.5;
+            color: var(--color-text-secondary);
+            font-style: italic;
+        }
+
+        /* Narrative Body */
+        .mission-panel__narrative {
+            max-width: var(--content-width);
+            margin: 0 auto var(--space-4xl);
+        }
+
+        .mission-panel__section {
+            margin-bottom: var(--space-3xl);
+        }
+
+        .mission-panel__section-title {
+            font-family: var(--font-display);
+            font-size: var(--text-2xl);
+            font-weight: 400;
+            line-height: 1.3;
+            color: var(--color-primary);
+            margin-bottom: var(--space-lg);
+        }
+
+        .mission-panel__text {
+            font-size: var(--text-lg);
+            line-height: 1.75;
+            color: var(--color-text-primary);
+            margin-bottom: var(--space-lg);
+        }
+
+        .mission-panel__text:last-child {
+            margin-bottom: 0;
+        }
+
+        /* Values Grid */
+        .mission-panel__values {
+            margin-bottom: var(--space-4xl);
+        }
+
+        .mission-panel__values-title {
+            font-family: var(--font-display);
+            font-size: var(--text-3xl);
+            font-weight: 400;
+            line-height: 1.3;
+            color: var(--color-primary);
+            text-align: center;
+            margin-bottom: var(--space-2xl);
+        }
+
+        .mission-panel__values-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: var(--space-xl);
+            max-width: var(--max-width);
+            margin: 0 auto;
+        }
+
+        .value-card {
+            background-color: var(--color-surface);
+            border: 1px solid var(--color-border);
+            border-radius: var(--border-radius);
+            padding: var(--space-xl);
+            transition: transform var(--transition-base), box-shadow var(--transition-base);
+        }
+
+        @media (prefers-reduced-motion: no-preference) {
+            .value-card:hover {
+                transform: translateY(-4px);
+                box-shadow: 0 8px 24px rgba(44, 95, 79, 0.1);
+            }
+        }
+
+        .value-card__icon {
+            width: 48px;
+            height: 48px;
+            margin-bottom: var(--space-md);
+            color: var(--color-accent);
+        }
+
+        .value-card__icon svg {
+            width: 100%;
+            height: 100%;
+            stroke-width: 1.5;
+        }
+
+        .value-card__title {
+            font-family: var(--font-display);
+            font-size: var(--text-xl);
+            font-weight: 600;
+            line-height: 1.3;
+            color: var(--color-primary);
+            margin-bottom: var(--space-sm);
+        }
+
+        .value-card__description {
+            font-size: var(--text-base);
+            line-height: 1.6;
+            color: var(--color-text-secondary);
+        }
+
+        /* Team/Founder Section (Optional) */
+        .mission-panel__team {
+            max-width: var(--max-width);
+            margin: 0 auto var(--space-4xl);
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: var(--space-3xl);
+            align-items: center;
+        }
+
+        .mission-panel__team-image {
+            width: 100%;
+            border-radius: var(--border-radius);
+            overflow: hidden;
+        }
+
+        .mission-panel__team-image img {
+            width: 100%;
+            height: auto;
+            display: block;
+            object-fit: cover;
+        }
+
+        .mission-panel__team-content h3 {
+            font-family: var(--font-display);
+            font-size: var(--text-2xl);
+            font-weight: 400;
+            line-height: 1.3;
+            color: var(--color-primary);
+            margin-bottom: var(--space-lg);
+        }
+
+        .mission-panel__team-content p {
+            font-size: var(--text-lg);
+            line-height: 1.75;
+            color: var(--color-text-primary);
+            margin-bottom: var(--space-lg);
+        }
+
+        /* Call to Action */
+        .mission-panel__cta {
+            max-width: var(--content-width);
+            margin: 0 auto;
+            text-align: center;
+            padding: var(--space-3xl) var(--space-xl);
+            background-color: var(--color-surface);
+            border-radius: var(--border-radius);
+        }
+
+        .mission-panel__cta-title {
+            font-family: var(--font-display);
+            font-size: var(--text-2xl);
+            font-weight: 400;
+            line-height: 1.3;
+            color: var(--color-primary);
+            margin-bottom: var(--space-md);
+        }
+
+        .mission-panel__cta-text {
+            font-size: var(--text-lg);
+            line-height: 1.6;
+            color: var(--color-text-secondary);
+            margin-bottom: var(--space-xl);
+        }
+
+        .mission-panel__cta-button {
+            display: inline-block;
+            font-family: var(--font-ui);
+            font-size: var(--text-base);
+            font-weight: 600;
+            text-decoration: none;
+            color: var(--color-background);
+            background-color: var(--color-primary);
+            padding: var(--space-md) var(--space-2xl);
+            border-radius: var(--border-radius);
+            transition: background-color var(--transition-base), transform var(--transition-fast);
+        }
+
+        .mission-panel__cta-button:hover {
+            background-color: var(--color-primary-light);
+        }
+
+        .mission-panel__cta-button:focus {
+            outline: 3px solid var(--color-accent);
+            outline-offset: 2px;
+        }
+
+        @media (prefers-reduced-motion: no-preference) {
+            .mission-panel__cta-button:hover {
+                transform: translateY(-2px);
+            }
+        }
+
+        .mission-panel__cta-button:active {
+            transform: translateY(0);
+        }
+
+        /* ========================================
+           RESPONSIVE DESIGN
+           ======================================== */
+        @media (max-width: 768px) {
+            .mission-panel {
+                padding: var(--space-3xl) var(--space-lg);
+            }
+
+            .mission-panel__title {
+                font-size: var(--text-3xl);
+            }
+
+            .mission-panel__subtitle {
+                font-size: var(--text-lg);
+            }
+
+            .mission-panel__section-title,
+            .mission-panel__values-title {
+                font-size: var(--text-xl);
+            }
+
+            .mission-panel__text {
+                font-size: var(--text-base);
+            }
+
+            .mission-panel__values-grid {
+                grid-template-columns: 1fr;
+                gap: var(--space-lg);
+            }
+
+            .mission-panel__team {
+                grid-template-columns: 1fr;
+                gap: var(--space-xl);
+            }
+
+            .mission-panel__cta {
+                padding: var(--space-xl) var(--space-lg);
+            }
+        }
+
+        @media (max-width: 480px) {
+            .mission-panel {
+                padding: var(--space-2xl) var(--space-md);
+            }
+
+            .mission-panel__title {
+                font-size: var(--text-2xl);
+            }
+
+            .value-card {
+                padding: var(--space-lg);
+            }
+        }
+
+        /* ========================================
+           ACCESSIBILITY ENHANCEMENTS
+           ======================================== */
+
+        /* Skip link for keyboard navigation */
+        .skip-link {
+            position: absolute;
+            top: -40px;
+            left: 0;
+            background: var(--color-primary);
+            color: var(--color-background);
+            padding: var(--space-sm) var(--space-md);
+            text-decoration: none;
+            font-family: var(--font-ui);
+            font-weight: 600;
+            z-index: 1000;
+        }
+
+        .skip-link:focus {
+            top: 0;
+        }
+
+        /* Focus visible for keyboard navigation */
+        *:focus-visible {
+            outline: 3px solid var(--color-accent);
+            outline-offset: 2px;
+        }
+
+        /* Reduced motion preferences */
+        @media (prefers-reduced-motion: reduce) {
+            *,
+            *::before,
+            *::after {
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0.01ms !important;
+                scroll-behavior: auto !important;
+            }
+        }
+
+        /* High contrast mode support */
+        @media (prefers-contrast: high) {
+            .value-card {
+                border-width: 2px;
+            }
+
+            .mission-panel__cta-button {
+                border: 2px solid var(--color-background);
+            }
+        }
+
+        /* Print styles */
+        @media print {
+            .mission-panel {
+                padding: 0;
+            }
+
+            .mission-panel__cta-button {
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Skip link for accessibility -->
+    <a href="#main-content" class="skip-link">Skip to main content</a>
+
+    <main id="main-content">
+        <article class="mission-panel" aria-labelledby="mission-title">
+            <div class="mission-panel__container">
+
+                <!-- Mission Statement -->
+                <header class="mission-panel__statement">
+                    <p class="mission-panel__eyebrow">Our Mission</p>
+                    <h1 id="mission-title" class="mission-panel__title">
+                        Creating safe, accessible pathways to healing and understanding
+                    </h1>
+                    <p class="mission-panel__subtitle">
+                        We believe everyone deserves support that feels human, not clinical.
+                    </p>
+                </header>
+
+                <!-- Narrative Body -->
+                <section class="mission-panel__narrative">
+                    <div class="mission-panel__section">
+                        <h2 class="mission-panel__section-title">Why We Exist</h2>
+                        <p class="mission-panel__text">
+                            Mental health care shouldn't feel like navigating a maze. For too long,
+                            people seeking support have encountered barriers—confusing systems,
+                            impersonal interactions, and spaces that feel more institutional than inviting.
+                        </p>
+                        <p class="mission-panel__text">
+                            We founded BKID to change that. Our approach centers on creating
+                            environments where people feel genuinely welcomed, understood, and
+                            empowered to take the next step in their journey.
+                        </p>
+                    </div>
+
+                    <div class="mission-panel__section">
+                        <h2 class="mission-panel__section-title">How We Work</h2>
+                        <p class="mission-panel__text">
+                            Every interaction is designed with care. We use warm, conversational
+                            language. We provide clear information without overwhelming. We create
+                            digital spaces that feel calm and trustworthy.
+                        </p>
+                        <p class="mission-panel__text">
+                            Our team brings together expertise in mental health, design, and
+                            technology—all united by a commitment to making support more accessible
+                            and more human.
+                        </p>
+                    </div>
+                </section>
+
+                <!-- Values Grid -->
+                <section class="mission-panel__values" aria-labelledby="values-title">
+                    <h2 id="values-title" class="mission-panel__values-title">Our Core Values</h2>
+                    <div class="mission-panel__values-grid">
+
+                        <article class="value-card">
+                            <div class="value-card__icon" aria-hidden="true">
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/>
+                                </svg>
+                            </div>
+                            <h3 class="value-card__title">Compassion First</h3>
+                            <p class="value-card__description">
+                                Every decision we make considers the emotional state of the people
+                                we serve. We design with empathy, not just efficiency.
+                            </p>
+                        </article>
+
+                        <article class="value-card">
+                            <div class="value-card__icon" aria-hidden="true">
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/>
+                                </svg>
+                            </div>
+                            <h3 class="value-card__title">Trust & Safety</h3>
+                            <p class="value-card__description">
+                                We protect privacy, maintain transparency, and create environments
+                                where vulnerability feels safe.
+                            </p>
+                        </article>
+
+                        <article class="value-card">
+                            <div class="value-card__icon" aria-hidden="true">
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"/>
+                                </svg>
+                            </div>
+                            <h3 class="value-card__title">Clarity</h3>
+                            <p class="value-card__description">
+                                Complex systems made simple. We communicate clearly, avoid jargon,
+                                and guide without overwhelming.
+                            </p>
+                        </article>
+
+                        <article class="value-card">
+                            <div class="value-card__icon" aria-hidden="true">
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"/>
+                                </svg>
+                            </div>
+                            <h3 class="value-card__title">Accessibility</h3>
+                            <p class="value-card__description">
+                                Mental health support should be available to everyone, regardless
+                                of ability, background, or circumstance.
+                            </p>
+                        </article>
+
+                        <article class="value-card">
+                            <div class="value-card__icon" aria-hidden="true">
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"/>
+                                </svg>
+                            </div>
+                            <h3 class="value-card__title">Innovation</h3>
+                            <p class="value-card__description">
+                                We continuously explore new ways to improve the support experience,
+                                always with human needs at the center.
+                            </p>
+                        </article>
+
+                        <article class="value-card">
+                            <div class="value-card__icon" aria-hidden="true">
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M11.049 2.927c.3-.921 1.603-.921 1.902 0l1.519 4.674a1 1 0 00.95.69h4.915c.969 0 1.371 1.24.588 1.81l-3.976 2.888a1 1 0 00-.363 1.118l1.518 4.674c.3.922-.755 1.688-1.538 1.118l-3.976-2.888a1 1 0 00-1.176 0l-3.976 2.888c-.783.57-1.838-.197-1.538-1.118l1.518-4.674a1 1 0 00-.363-1.118l-3.976-2.888c-.784-.57-.38-1.81.588-1.81h4.914a1 1 0 00.951-.69l1.519-4.674z"/>
+                                </svg>
+                            </div>
+                            <h3 class="value-card__title">Excellence</h3>
+                            <p class="value-card__description">
+                                We hold ourselves to the highest standards in design, development,
+                                and care—because the work matters.
+                            </p>
+                        </article>
+
+                    </div>
+                </section>
+
+                <!-- Team Section (Optional) -->
+                <section class="mission-panel__team">
+                    <div class="mission-panel__team-image">
+                        <img
+                            src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 800 600'%3E%3Crect fill='%23E5E1DC' width='800' height='600'/%3E%3Ctext x='50%25' y='50%25' dominant-baseline='middle' text-anchor='middle' font-family='sans-serif' font-size='24' fill='%235A5A5A'%3ETeam Photo Placeholder%3C/text%3E%3C/svg%3E"
+                            alt="BKID team members collaborating in a warm, welcoming office environment"
+                            loading="lazy"
+                        />
+                    </div>
+                    <div class="mission-panel__team-content">
+                        <h3>Meet Our Team</h3>
+                        <p>
+                            We're therapists, designers, developers, and advocates who've experienced
+                            firsthand how challenging it can be to find the right support. That lived
+                            experience guides everything we build.
+                        </p>
+                        <p>
+                            Our diverse backgrounds ensure we consider multiple perspectives—and our
+                            shared values keep us focused on what matters most: making mental health
+                            care more human.
+                        </p>
+                    </div>
+                </section>
+
+                <!-- Call to Action -->
+                <section class="mission-panel__cta">
+                    <h2 class="mission-panel__cta-title">Ready to take the next step?</h2>
+                    <p class="mission-panel__cta-text">
+                        We're here to support you on your journey.
+                    </p>
+                    <a href="#contact" class="mission-panel__cta-button">
+                        Get Started
+                    </a>
+                </section>
+
+            </div>
+        </article>
+    </main>
+
+</body>
+</html>

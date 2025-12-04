@@ -1,0 +1,1191 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Transparent Step-List Onboarding - BKID Design System</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            /* Calm, trust-building color palette */
+            --color-primary: #5B8A9D;
+            --color-primary-light: #7BA8BA;
+            --color-primary-lighter: #E8F1F5;
+            --color-success: #6B9E78;
+            --color-text-primary: #2C3E50;
+            --color-text-secondary: #607D8B;
+            --color-text-muted: #90A4AE;
+            --color-border: #CFD8DC;
+            --color-background: #FAFBFC;
+            --color-white: #FFFFFF;
+            --color-focus: #4A90E2;
+
+            /* Spacing */
+            --spacing-xs: 0.5rem;
+            --spacing-sm: 0.75rem;
+            --spacing-md: 1rem;
+            --spacing-lg: 1.5rem;
+            --spacing-xl: 2rem;
+            --spacing-2xl: 3rem;
+
+            /* Typography */
+            --font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            --font-size-sm: 0.875rem;
+            --font-size-base: 1rem;
+            --font-size-lg: 1.125rem;
+            --font-size-xl: 1.5rem;
+
+            /* Transitions */
+            --transition-fast: 150ms ease-in-out;
+            --transition-base: 250ms ease-in-out;
+            --transition-slow: 400ms ease-in-out;
+
+            /* Border radius */
+            --radius-sm: 4px;
+            --radius-md: 8px;
+            --radius-lg: 12px;
+            --radius-full: 9999px;
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            :root {
+                --transition-fast: 0ms;
+                --transition-base: 0ms;
+                --transition-slow: 0ms;
+            }
+
+            *, *::before, *::after {
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0.01ms !important;
+            }
+        }
+
+        body {
+            font-family: var(--font-family);
+            background: linear-gradient(135deg, #E8F1F5 0%, #F5F9FA 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: var(--spacing-lg);
+            color: var(--color-text-primary);
+            line-height: 1.6;
+        }
+
+        /* Main Container */
+        .onboarding-container {
+            max-width: 1200px;
+            width: 100%;
+            background: var(--color-white);
+            border-radius: var(--radius-lg);
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05), 0 10px 25px rgba(0, 0, 0, 0.08);
+            overflow: hidden;
+        }
+
+        /* Header */
+        .onboarding-header {
+            padding: var(--spacing-xl);
+            background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-primary-light) 100%);
+            color: var(--color-white);
+        }
+
+        .onboarding-title {
+            font-size: var(--font-size-xl);
+            font-weight: 600;
+            margin-bottom: var(--spacing-sm);
+        }
+
+        .onboarding-subtitle {
+            font-size: var(--font-size-base);
+            opacity: 0.95;
+            font-weight: 400;
+        }
+
+        /* Progress Bar */
+        .progress-container {
+            padding: var(--spacing-lg) var(--spacing-xl);
+            background: var(--color-background);
+            border-bottom: 1px solid var(--color-border);
+        }
+
+        .progress-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: var(--spacing-md);
+        }
+
+        .progress-label {
+            font-size: var(--font-size-sm);
+            color: var(--color-text-secondary);
+            font-weight: 500;
+        }
+
+        .progress-percentage {
+            font-size: var(--font-size-lg);
+            font-weight: 600;
+            color: var(--color-primary);
+        }
+
+        .progress-bar-track {
+            width: 100%;
+            height: 8px;
+            background: var(--color-border);
+            border-radius: var(--radius-full);
+            overflow: hidden;
+            position: relative;
+        }
+
+        .progress-bar-fill {
+            height: 100%;
+            background: linear-gradient(90deg, var(--color-primary) 0%, var(--color-primary-light) 100%);
+            border-radius: var(--radius-full);
+            transition: width var(--transition-slow);
+            position: relative;
+        }
+
+        @media (prefers-reduced-motion: no-preference) {
+            .progress-bar-fill::after {
+                content: '';
+                position: absolute;
+                top: 0;
+                left: 0;
+                right: 0;
+                bottom: 0;
+                background: linear-gradient(
+                    90deg,
+                    transparent,
+                    rgba(255, 255, 255, 0.3),
+                    transparent
+                );
+                animation: shimmer 2s infinite;
+            }
+        }
+
+        @keyframes shimmer {
+            0% { transform: translateX(-100%); }
+            100% { transform: translateX(100%); }
+        }
+
+        /* Main Content Area */
+        .onboarding-main {
+            display: grid;
+            grid-template-columns: 350px 1fr;
+            min-height: 500px;
+        }
+
+        /* Step List Sidebar */
+        .step-list-container {
+            background: var(--color-background);
+            border-right: 1px solid var(--color-border);
+            padding: var(--spacing-xl) var(--spacing-lg);
+        }
+
+        .step-list-title {
+            font-size: var(--font-size-base);
+            font-weight: 600;
+            color: var(--color-text-secondary);
+            margin-bottom: var(--spacing-lg);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            font-size: var(--font-size-sm);
+        }
+
+        .step-list {
+            list-style: none;
+        }
+
+        .step-item {
+            position: relative;
+            margin-bottom: var(--spacing-lg);
+        }
+
+        .step-item:not(:last-child)::before {
+            content: '';
+            position: absolute;
+            left: 19px;
+            top: 40px;
+            width: 2px;
+            height: calc(100% + var(--spacing-lg) - 40px);
+            background: var(--color-border);
+            transition: background var(--transition-base);
+        }
+
+        .step-item.completed:not(:last-child)::before {
+            background: var(--color-success);
+        }
+
+        .step-button {
+            display: flex;
+            align-items: flex-start;
+            gap: var(--spacing-md);
+            width: 100%;
+            background: transparent;
+            border: none;
+            padding: var(--spacing-sm);
+            border-radius: var(--radius-md);
+            cursor: pointer;
+            text-align: left;
+            transition: background var(--transition-fast);
+            position: relative;
+        }
+
+        .step-button:hover {
+            background: rgba(91, 138, 157, 0.08);
+        }
+
+        .step-button:focus {
+            outline: 2px solid var(--color-focus);
+            outline-offset: 2px;
+        }
+
+        .step-button[aria-disabled="true"] {
+            cursor: not-allowed;
+            opacity: 0.5;
+        }
+
+        .step-button[aria-disabled="true"]:hover {
+            background: transparent;
+        }
+
+        .step-indicator {
+            flex-shrink: 0;
+            width: 40px;
+            height: 40px;
+            border-radius: var(--radius-full);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 600;
+            font-size: var(--font-size-base);
+            background: var(--color-white);
+            border: 2px solid var(--color-border);
+            color: var(--color-text-muted);
+            transition: all var(--transition-base);
+            position: relative;
+            z-index: 1;
+        }
+
+        .step-item.current .step-indicator {
+            border-color: var(--color-primary);
+            background: var(--color-primary);
+            color: var(--color-white);
+            box-shadow: 0 0 0 4px var(--color-primary-lighter);
+        }
+
+        .step-item.completed .step-indicator {
+            border-color: var(--color-success);
+            background: var(--color-success);
+            color: var(--color-white);
+        }
+
+        .step-indicator svg {
+            width: 20px;
+            height: 20px;
+        }
+
+        .step-content {
+            flex: 1;
+            min-width: 0;
+        }
+
+        .step-name {
+            font-size: var(--font-size-base);
+            font-weight: 500;
+            color: var(--color-text-primary);
+            margin-bottom: var(--spacing-xs);
+        }
+
+        .step-item.current .step-name {
+            color: var(--color-primary);
+            font-weight: 600;
+        }
+
+        .step-meta {
+            font-size: var(--font-size-sm);
+            color: var(--color-text-muted);
+            display: flex;
+            align-items: center;
+            gap: var(--spacing-xs);
+        }
+
+        .step-time {
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+
+        .step-time svg {
+            width: 14px;
+            height: 14px;
+        }
+
+        .step-status {
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            padding: 2px 8px;
+            border-radius: var(--radius-sm);
+            font-size: 0.75rem;
+            font-weight: 500;
+        }
+
+        .step-status.completed {
+            background: rgba(107, 158, 120, 0.1);
+            color: var(--color-success);
+        }
+
+        /* Content Area */
+        .content-area {
+            padding: var(--spacing-xl);
+            overflow-y: auto;
+        }
+
+        .step-content-wrapper {
+            display: none;
+            animation: fadeIn var(--transition-base);
+        }
+
+        .step-content-wrapper.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .content-header {
+            margin-bottom: var(--spacing-xl);
+        }
+
+        .content-title {
+            font-size: var(--font-size-xl);
+            font-weight: 600;
+            color: var(--color-text-primary);
+            margin-bottom: var(--spacing-sm);
+        }
+
+        .content-description {
+            font-size: var(--font-size-base);
+            color: var(--color-text-secondary);
+            line-height: 1.7;
+        }
+
+        .content-body {
+            margin-bottom: var(--spacing-2xl);
+        }
+
+        /* Form Elements */
+        .form-group {
+            margin-bottom: var(--spacing-lg);
+        }
+
+        .form-label {
+            display: block;
+            font-size: var(--font-size-base);
+            font-weight: 500;
+            color: var(--color-text-primary);
+            margin-bottom: var(--spacing-sm);
+        }
+
+        .form-input,
+        .form-select,
+        .form-textarea {
+            width: 100%;
+            padding: var(--spacing-sm) var(--spacing-md);
+            border: 2px solid var(--color-border);
+            border-radius: var(--radius-md);
+            font-size: var(--font-size-base);
+            font-family: var(--font-family);
+            color: var(--color-text-primary);
+            background: var(--color-white);
+            transition: border-color var(--transition-fast), box-shadow var(--transition-fast);
+        }
+
+        .form-input:focus,
+        .form-select:focus,
+        .form-textarea:focus {
+            outline: none;
+            border-color: var(--color-primary);
+            box-shadow: 0 0 0 3px var(--color-primary-lighter);
+        }
+
+        .form-textarea {
+            min-height: 120px;
+            resize: vertical;
+        }
+
+        .form-hint {
+            font-size: var(--font-size-sm);
+            color: var(--color-text-muted);
+            margin-top: var(--spacing-xs);
+        }
+
+        /* Buttons */
+        .content-actions {
+            display: flex;
+            gap: var(--spacing-md);
+            padding-top: var(--spacing-xl);
+            border-top: 1px solid var(--color-border);
+        }
+
+        .btn {
+            padding: var(--spacing-sm) var(--spacing-xl);
+            border-radius: var(--radius-md);
+            font-size: var(--font-size-base);
+            font-weight: 500;
+            cursor: pointer;
+            transition: all var(--transition-fast);
+            border: 2px solid transparent;
+            display: inline-flex;
+            align-items: center;
+            gap: var(--spacing-sm);
+        }
+
+        .btn:focus {
+            outline: 2px solid var(--color-focus);
+            outline-offset: 2px;
+        }
+
+        .btn-primary {
+            background: var(--color-primary);
+            color: var(--color-white);
+        }
+
+        .btn-primary:hover:not(:disabled) {
+            background: var(--color-primary-light);
+            transform: translateY(-1px);
+            box-shadow: 0 4px 12px rgba(91, 138, 157, 0.3);
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: var(--color-text-secondary);
+            border-color: var(--color-border);
+        }
+
+        .btn-secondary:hover:not(:disabled) {
+            background: var(--color-background);
+            border-color: var(--color-primary);
+            color: var(--color-primary);
+        }
+
+        .btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        .btn svg {
+            width: 18px;
+            height: 18px;
+        }
+
+        /* Completion Message */
+        .completion-message {
+            text-align: center;
+            padding: var(--spacing-2xl);
+        }
+
+        .completion-icon {
+            width: 80px;
+            height: 80px;
+            margin: 0 auto var(--spacing-xl);
+            background: linear-gradient(135deg, var(--color-success) 0%, #8BC799 100%);
+            border-radius: var(--radius-full);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--color-white);
+        }
+
+        .completion-icon svg {
+            width: 48px;
+            height: 48px;
+        }
+
+        .completion-title {
+            font-size: var(--font-size-xl);
+            font-weight: 600;
+            color: var(--color-text-primary);
+            margin-bottom: var(--spacing-md);
+        }
+
+        .completion-description {
+            font-size: var(--font-size-base);
+            color: var(--color-text-secondary);
+            margin-bottom: var(--spacing-xl);
+        }
+
+        /* Responsive Design */
+        @media (max-width: 968px) {
+            .onboarding-main {
+                grid-template-columns: 1fr;
+            }
+
+            .step-list-container {
+                border-right: none;
+                border-bottom: 1px solid var(--color-border);
+                max-height: 400px;
+                overflow-y: auto;
+            }
+        }
+
+        @media (max-width: 640px) {
+            body {
+                padding: 0;
+            }
+
+            .onboarding-container {
+                border-radius: 0;
+                min-height: 100vh;
+            }
+
+            .onboarding-header,
+            .progress-container,
+            .step-list-container,
+            .content-area {
+                padding: var(--spacing-lg);
+            }
+
+            .content-actions {
+                flex-direction: column-reverse;
+            }
+
+            .btn {
+                width: 100%;
+                justify-content: center;
+            }
+        }
+
+        /* High Contrast Mode Support */
+        @media (prefers-contrast: high) {
+            .step-indicator,
+            .btn {
+                border-width: 3px;
+            }
+        }
+
+        /* Screen Reader Only */
+        .sr-only {
+            position: absolute;
+            width: 1px;
+            height: 1px;
+            padding: 0;
+            margin: -1px;
+            overflow: hidden;
+            clip: rect(0, 0, 0, 0);
+            white-space: nowrap;
+            border-width: 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="onboarding-container" role="main">
+        <!-- Header -->
+        <header class="onboarding-header">
+            <h1 class="onboarding-title">Welcome to Your Journey</h1>
+            <p class="onboarding-subtitle">We'll guide you through each step at your own pace. You can always come back to any step.</p>
+        </header>
+
+        <!-- Progress Bar -->
+        <div class="progress-container" role="region" aria-label="Overall progress">
+            <div class="progress-header">
+                <span class="progress-label">Overall Progress</span>
+                <span class="progress-percentage" aria-live="polite">
+                    <span id="progressText">0%</span>
+                </span>
+            </div>
+            <div class="progress-bar-track">
+                <div class="progress-bar-fill"
+                     id="progressBar"
+                     role="progressbar"
+                     aria-valuenow="0"
+                     aria-valuemin="0"
+                     aria-valuemax="100"
+                     style="width: 0%">
+                </div>
+            </div>
+        </div>
+
+        <!-- Main Content Grid -->
+        <div class="onboarding-main">
+            <!-- Step List Sidebar -->
+            <aside class="step-list-container" role="complementary" aria-label="Steps navigation">
+                <h2 class="step-list-title">Your Steps</h2>
+                <ol class="step-list" id="stepList" role="list">
+                    <!-- Steps will be generated by JavaScript -->
+                </ol>
+            </aside>
+
+            <!-- Content Area -->
+            <div class="content-area" id="contentArea">
+                <!-- Step 1 Content -->
+                <div class="step-content-wrapper active" id="content-1" role="region" aria-labelledby="step-title-1">
+                    <div class="content-header">
+                        <h2 class="content-title" id="step-title-1">Getting Started</h2>
+                        <p class="content-description">Let's begin with some basic information to personalize your experience.</p>
+                    </div>
+                    <div class="content-body">
+                        <div class="form-group">
+                            <label class="form-label" for="fullName">Full Name</label>
+                            <input type="text"
+                                   id="fullName"
+                                   class="form-input"
+                                   placeholder="Enter your full name"
+                                   aria-describedby="nameHint">
+                            <p class="form-hint" id="nameHint">This helps us personalize your experience</p>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label" for="email">Email Address</label>
+                            <input type="email"
+                                   id="email"
+                                   class="form-input"
+                                   placeholder="your.email@example.com"
+                                   aria-describedby="emailHint">
+                            <p class="form-hint" id="emailHint">We'll use this to send you important updates</p>
+                        </div>
+                    </div>
+                    <div class="content-actions">
+                        <button class="btn btn-secondary" id="prevBtn" disabled>
+                            <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/>
+                            </svg>
+                            Previous
+                        </button>
+                        <button class="btn btn-primary" id="nextBtn">
+                            Next Step
+                            <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
+                            </svg>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Step 2 Content -->
+                <div class="step-content-wrapper" id="content-2" role="region" aria-labelledby="step-title-2">
+                    <div class="content-header">
+                        <h2 class="content-title" id="step-title-2">Your Preferences</h2>
+                        <p class="content-description">Help us understand what matters most to you.</p>
+                    </div>
+                    <div class="content-body">
+                        <div class="form-group">
+                            <label class="form-label" for="interest">Primary Interest</label>
+                            <select id="interest" class="form-select" aria-describedby="interestHint">
+                                <option value="">Select your primary interest</option>
+                                <option value="support">Finding Support</option>
+                                <option value="resources">Accessing Resources</option>
+                                <option value="community">Connecting with Community</option>
+                                <option value="information">Learning More</option>
+                            </select>
+                            <p class="form-hint" id="interestHint">This helps us show you relevant content</p>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label" for="communication">Communication Preference</label>
+                            <select id="communication" class="form-select">
+                                <option value="email">Email</option>
+                                <option value="sms">Text Message</option>
+                                <option value="both">Both</option>
+                                <option value="none">No communication</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="content-actions">
+                        <button class="btn btn-secondary" onclick="navigateStep(-1)">
+                            <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/>
+                            </svg>
+                            Previous
+                        </button>
+                        <button class="btn btn-primary" onclick="navigateStep(1)">
+                            Next Step
+                            <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
+                            </svg>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Step 3 Content -->
+                <div class="step-content-wrapper" id="content-3" role="region" aria-labelledby="step-title-3">
+                    <div class="content-header">
+                        <h2 class="content-title" id="step-title-3">Your Goals</h2>
+                        <p class="content-description">Tell us what you hope to achieve. This is completely optional and confidential.</p>
+                    </div>
+                    <div class="content-body">
+                        <div class="form-group">
+                            <label class="form-label" for="goals">What brings you here today?</label>
+                            <textarea id="goals"
+                                      class="form-textarea"
+                                      placeholder="Share as much or as little as you're comfortable with..."
+                                      aria-describedby="goalsHint"></textarea>
+                            <p class="form-hint" id="goalsHint">This information is private and helps us support you better</p>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label" for="timeline">Preferred Timeline</label>
+                            <select id="timeline" class="form-select">
+                                <option value="immediate">Right away</option>
+                                <option value="week">Within a week</option>
+                                <option value="month">Within a month</option>
+                                <option value="flexible">I'm flexible</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="content-actions">
+                        <button class="btn btn-secondary" onclick="navigateStep(-1)">
+                            <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/>
+                            </svg>
+                            Previous
+                        </button>
+                        <button class="btn btn-primary" onclick="navigateStep(1)">
+                            Next Step
+                            <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
+                            </svg>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Step 4 Content -->
+                <div class="step-content-wrapper" id="content-4" role="region" aria-labelledby="step-title-4">
+                    <div class="content-header">
+                        <h2 class="content-title" id="step-title-4">Privacy & Comfort</h2>
+                        <p class="content-description">Your safety and comfort are our top priorities. Customize your experience.</p>
+                    </div>
+                    <div class="content-body">
+                        <div class="form-group">
+                            <label class="form-label" for="privacy">Privacy Level</label>
+                            <select id="privacy" class="form-select" aria-describedby="privacyHint">
+                                <option value="anonymous">Anonymous (no personal info shared)</option>
+                                <option value="private">Private (info shared only with counselors)</option>
+                                <option value="community">Community (comfortable with group settings)</option>
+                            </select>
+                            <p class="form-hint" id="privacyHint">You can change this anytime in settings</p>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label" for="notifications">Notification Preferences</label>
+                            <select id="notifications" class="form-select">
+                                <option value="all">All notifications</option>
+                                <option value="important">Important only</option>
+                                <option value="minimal">Minimal</option>
+                                <option value="none">None</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="content-actions">
+                        <button class="btn btn-secondary" onclick="navigateStep(-1)">
+                            <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/>
+                            </svg>
+                            Previous
+                        </button>
+                        <button class="btn btn-primary" onclick="navigateStep(1)">
+                            Next Step
+                            <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
+                            </svg>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Step 5 Content -->
+                <div class="step-content-wrapper" id="content-5" role="region" aria-labelledby="step-title-5">
+                    <div class="content-header">
+                        <h2 class="content-title" id="step-title-5">Review & Complete</h2>
+                        <p class="content-description">Almost there! Review your information and complete your setup.</p>
+                    </div>
+                    <div class="content-body">
+                        <div class="form-group">
+                            <label class="form-label">Summary</label>
+                            <div style="background: var(--color-background); padding: var(--spacing-lg); border-radius: var(--radius-md); border: 1px solid var(--color-border);">
+                                <p style="margin-bottom: var(--spacing-sm); color: var(--color-text-secondary);">
+                                    <strong style="color: var(--color-text-primary);">Name:</strong> <span id="reviewName">Not provided</span>
+                                </p>
+                                <p style="margin-bottom: var(--spacing-sm); color: var(--color-text-secondary);">
+                                    <strong style="color: var(--color-text-primary);">Email:</strong> <span id="reviewEmail">Not provided</span>
+                                </p>
+                                <p style="margin-bottom: var(--spacing-sm); color: var(--color-text-secondary);">
+                                    <strong style="color: var(--color-text-primary);">Interest:</strong> <span id="reviewInterest">Not selected</span>
+                                </p>
+                                <p style="color: var(--color-text-secondary);">
+                                    <strong style="color: var(--color-text-primary);">Privacy:</strong> <span id="reviewPrivacy">Not selected</span>
+                                </p>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label style="display: flex; align-items: center; gap: var(--spacing-sm); cursor: pointer;">
+                                <input type="checkbox" id="termsAgreed" style="width: 20px; height: 20px; cursor: pointer;">
+                                <span class="form-label" style="margin: 0; font-weight: 400;">
+                                    I agree to the terms of service and privacy policy
+                                </span>
+                            </label>
+                        </div>
+                    </div>
+                    <div class="content-actions">
+                        <button class="btn btn-secondary" onclick="navigateStep(-1)">
+                            <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/>
+                            </svg>
+                            Previous
+                        </button>
+                        <button class="btn btn-primary" onclick="completeOnboarding()" id="completeBtn">
+                            Complete Setup
+                            <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
+                            </svg>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Completion Screen -->
+                <div class="step-content-wrapper" id="content-complete" role="region" aria-labelledby="completion-title">
+                    <div class="completion-message">
+                        <div class="completion-icon" role="img" aria-label="Success">
+                            <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
+                            </svg>
+                        </div>
+                        <h2 class="completion-title" id="completion-title">You're All Set!</h2>
+                        <p class="completion-description">
+                            Thank you for taking the time to complete your profile. We're here to support you every step of the way.
+                        </p>
+                        <button class="btn btn-primary" onclick="window.location.reload()">
+                            Start Exploring
+                            <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/>
+                            </svg>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Step Configuration
+        const steps = [
+            {
+                id: 1,
+                name: 'Getting Started',
+                time: '2 min',
+                description: 'Basic information'
+            },
+            {
+                id: 2,
+                name: 'Your Preferences',
+                time: '2 min',
+                description: 'Personalize experience'
+            },
+            {
+                id: 3,
+                name: 'Your Goals',
+                time: '3 min',
+                description: 'Share your intentions'
+            },
+            {
+                id: 4,
+                name: 'Privacy & Comfort',
+                time: '2 min',
+                description: 'Set your boundaries'
+            },
+            {
+                id: 5,
+                name: 'Review & Complete',
+                time: '1 min',
+                description: 'Finalize setup'
+            }
+        ];
+
+        // State Management
+        let currentStep = 1;
+        let completedSteps = new Set();
+        let visitedSteps = new Set([1]);
+
+        // Initialize the stepper
+        function initializeStepper() {
+            renderStepList();
+            updateProgress();
+            updateNavigationButtons();
+            setupKeyboardNavigation();
+            updateReviewSection();
+
+            // Add input listeners for real-time review updates
+            document.getElementById('fullName')?.addEventListener('input', updateReviewSection);
+            document.getElementById('email')?.addEventListener('input', updateReviewSection);
+            document.getElementById('interest')?.addEventListener('change', updateReviewSection);
+            document.getElementById('privacy')?.addEventListener('change', updateReviewSection);
+        }
+
+        // Render step list in sidebar
+        function renderStepList() {
+            const stepList = document.getElementById('stepList');
+            stepList.innerHTML = '';
+
+            steps.forEach((step, index) => {
+                const isCompleted = completedSteps.has(step.id);
+                const isCurrent = currentStep === step.id;
+                const isAccessible = visitedSteps.has(step.id) || isCompleted;
+
+                const listItem = document.createElement('li');
+                listItem.className = 'step-item';
+                if (isCompleted) listItem.classList.add('completed');
+                if (isCurrent) listItem.classList.add('current');
+
+                const button = document.createElement('button');
+                button.className = 'step-button';
+                button.setAttribute('aria-current', isCurrent ? 'step' : 'false');
+                button.setAttribute('aria-disabled', !isAccessible);
+                button.onclick = () => isAccessible && goToStep(step.id);
+
+                // Step indicator
+                const indicator = document.createElement('div');
+                indicator.className = 'step-indicator';
+                indicator.setAttribute('aria-hidden', 'true');
+
+                if (isCompleted) {
+                    indicator.innerHTML = `
+                        <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"/>
+                        </svg>
+                    `;
+                } else {
+                    indicator.textContent = step.id;
+                }
+
+                // Step content
+                const content = document.createElement('div');
+                content.className = 'step-content';
+
+                const name = document.createElement('div');
+                name.className = 'step-name';
+                name.textContent = step.name;
+
+                const meta = document.createElement('div');
+                meta.className = 'step-meta';
+
+                const time = document.createElement('span');
+                time.className = 'step-time';
+                time.innerHTML = `
+                    <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                    </svg>
+                    ${step.time}
+                `;
+
+                meta.appendChild(time);
+
+                if (isCompleted) {
+                    const status = document.createElement('span');
+                    status.className = 'step-status completed';
+                    status.innerHTML = '✓ Completed';
+                    meta.appendChild(document.createTextNode(' • '));
+                    meta.appendChild(status);
+                }
+
+                content.appendChild(name);
+                content.appendChild(meta);
+
+                button.appendChild(indicator);
+                button.appendChild(content);
+                listItem.appendChild(button);
+                stepList.appendChild(listItem);
+            });
+        }
+
+        // Navigate to specific step
+        function goToStep(stepId) {
+            if (stepId < 1 || stepId > steps.length) return;
+            if (!visitedSteps.has(stepId) && !completedSteps.has(stepId)) return;
+
+            // Mark current step as visited
+            visitedSteps.add(currentStep);
+
+            // Hide current content
+            document.getElementById(`content-${currentStep}`)?.classList.remove('active');
+
+            // Update current step
+            currentStep = stepId;
+            visitedSteps.add(currentStep);
+
+            // Show new content
+            document.getElementById(`content-${currentStep}`)?.classList.add('active');
+
+            // Update UI
+            renderStepList();
+            updateProgress();
+            updateNavigationButtons();
+
+            // Announce to screen readers
+            announceStepChange();
+
+            // Scroll to top of content area
+            document.querySelector('.content-area').scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        // Navigate forward or backward
+        function navigateStep(direction) {
+            if (direction > 0) {
+                // Moving forward - mark current step as completed
+                completedSteps.add(currentStep);
+                visitedSteps.add(currentStep + 1);
+            }
+
+            const newStep = currentStep + direction;
+            goToStep(newStep);
+        }
+
+        // Update progress bar
+        function updateProgress() {
+            const totalSteps = steps.length;
+            const completedCount = completedSteps.size;
+            const percentage = Math.round((completedCount / totalSteps) * 100);
+
+            const progressBar = document.getElementById('progressBar');
+            const progressText = document.getElementById('progressText');
+
+            progressBar.style.width = `${percentage}%`;
+            progressBar.setAttribute('aria-valuenow', percentage);
+            progressText.textContent = `${percentage}%`;
+        }
+
+        // Update navigation buttons
+        function updateNavigationButtons() {
+            const prevBtn = document.getElementById('prevBtn');
+            const nextBtn = document.getElementById('nextBtn');
+
+            if (prevBtn) {
+                prevBtn.disabled = currentStep === 1;
+            }
+
+            if (nextBtn) {
+                if (currentStep === steps.length) {
+                    nextBtn.style.display = 'none';
+                } else {
+                    nextBtn.style.display = 'inline-flex';
+                }
+            }
+        }
+
+        // Setup keyboard navigation
+        function setupKeyboardNavigation() {
+            document.addEventListener('keydown', (e) => {
+                // Don't interfere with form inputs
+                if (e.target.matches('input, select, textarea')) return;
+
+                switch(e.key) {
+                    case 'ArrowLeft':
+                        e.preventDefault();
+                        if (currentStep > 1) navigateStep(-1);
+                        break;
+                    case 'ArrowRight':
+                        e.preventDefault();
+                        if (currentStep < steps.length) navigateStep(1);
+                        break;
+                    case 'Home':
+                        e.preventDefault();
+                        goToStep(1);
+                        break;
+                    case 'End':
+                        e.preventDefault();
+                        const lastAccessibleStep = Math.max(...visitedSteps, ...completedSteps);
+                        goToStep(lastAccessibleStep);
+                        break;
+                }
+            });
+        }
+
+        // Announce step change to screen readers
+        function announceStepChange() {
+            const step = steps.find(s => s.id === currentStep);
+            if (!step) return;
+
+            const announcement = document.createElement('div');
+            announcement.setAttribute('role', 'status');
+            announcement.setAttribute('aria-live', 'polite');
+            announcement.className = 'sr-only';
+            announcement.textContent = `Now on step ${currentStep} of ${steps.length}: ${step.name}`;
+
+            document.body.appendChild(announcement);
+            setTimeout(() => announcement.remove(), 1000);
+        }
+
+        // Update review section
+        function updateReviewSection() {
+            const nameValue = document.getElementById('fullName')?.value || 'Not provided';
+            const emailValue = document.getElementById('email')?.value || 'Not provided';
+            const interestSelect = document.getElementById('interest');
+            const interestValue = interestSelect?.options[interestSelect.selectedIndex]?.text || 'Not selected';
+            const privacySelect = document.getElementById('privacy');
+            const privacyValue = privacySelect?.options[privacySelect.selectedIndex]?.text || 'Not selected';
+
+            document.getElementById('reviewName').textContent = nameValue;
+            document.getElementById('reviewEmail').textContent = emailValue;
+            document.getElementById('reviewInterest').textContent = interestValue;
+            document.getElementById('reviewPrivacy').textContent = privacyValue;
+
+            // Enable/disable complete button based on terms agreement
+            const termsAgreed = document.getElementById('termsAgreed')?.checked;
+            const completeBtn = document.getElementById('completeBtn');
+            if (completeBtn) {
+                completeBtn.disabled = !termsAgreed;
+            }
+        }
+
+        // Complete onboarding
+        function completeOnboarding() {
+            const termsAgreed = document.getElementById('termsAgreed')?.checked;
+
+            if (!termsAgreed) {
+                alert('Please agree to the terms of service to continue.');
+                return;
+            }
+
+            // Mark final step as completed
+            completedSteps.add(currentStep);
+            updateProgress();
+
+            // Hide current step
+            document.getElementById(`content-${currentStep}`)?.classList.remove('active');
+
+            // Show completion screen
+            document.getElementById('content-complete')?.classList.add('active');
+
+            // Announce completion
+            const announcement = document.createElement('div');
+            announcement.setAttribute('role', 'status');
+            announcement.setAttribute('aria-live', 'polite');
+            announcement.className = 'sr-only';
+            announcement.textContent = 'Onboarding completed successfully!';
+            document.body.appendChild(announcement);
+            setTimeout(() => announcement.remove(), 1000);
+
+            // Scroll to top
+            document.querySelector('.content-area').scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        // Add event listener for terms checkbox
+        document.addEventListener('DOMContentLoaded', () => {
+            const termsCheckbox = document.getElementById('termsAgreed');
+            if (termsCheckbox) {
+                termsCheckbox.addEventListener('change', updateReviewSection);
+            }
+        });
+
+        // Initialize on page load
+        window.addEventListener('DOMContentLoaded', initializeStepper);
+    </script>
+</body>
+</html>

@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ultra-Clear Value Hero - BKID</title>
+    <style>
+        :root {
+            --color-primary: #4A7C9D;
+            --color-primary-hover: #3A6B8A;
+            --color-primary-light: #E8F1F5;
+            --color-text-primary: #2C3E50;
+            --color-text-secondary: #546E7A;
+            --color-text-muted: #78909C;
+            --color-emphasis: #5D8AA8;
+            --color-background: #FFFFFF;
+            --color-trust: #607D8B;
+            --font-family-base: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            --spacing-xs: 0.5rem;
+            --spacing-sm: 1rem;
+            --spacing-md: 1.5rem;
+            --spacing-lg: 2rem;
+            --spacing-xl: 3rem;
+            --spacing-2xl: 4rem;
+            --radius-md: 8px;
+            --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.06);
+            --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.08);
+            --shadow-focus: 0 0 0 3px rgba(74, 124, 157, 0.2);
+            --animation-duration: 0.6s;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: var(--font-family-base);
+            line-height: 1.6;
+            color: var(--color-text-primary);
+            background-color: var(--color-background);
+            -webkit-font-smoothing: antialiased;
+        }
+
+        .hero {
+            position: relative;
+            width: 100%;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: var(--spacing-xl) var(--spacing-md);
+            background: linear-gradient(to bottom, var(--color-background) 0%, var(--color-primary-light) 100%);
+            animation: heroFadeIn var(--animation-duration) ease-out;
+        }
+
+        @keyframes heroFadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            .hero { animation: none; }
+            * { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; }
+        }
+
+        .hero__container {
+            max-width: 1200px;
+            width: 100%;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: var(--spacing-lg);
+        }
+
+        .hero__headline {
+            font-size: 2rem;
+            font-weight: 700;
+            line-height: 1.2;
+            letter-spacing: -0.02em;
+            color: var(--color-text-primary);
+            max-width: 720px;
+            animation: headlineFadeIn var(--animation-duration) ease-out 0.1s backwards;
+        }
+
+        @keyframes headlineFadeIn {
+            from { opacity: 0; transform: translateY(15px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .hero__headline-emphasis {
+            color: var(--color-emphasis);
+            display: inline-block;
+            position: relative;
+        }
+
+        .hero__headline-emphasis::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            background: linear-gradient(to right, var(--color-primary), transparent);
+            opacity: 0.3;
+            border-radius: 2px;
+        }
+
+        .hero__subheadline {
+            font-size: 1.125rem;
+            line-height: 1.7;
+            color: var(--color-text-secondary);
+            max-width: 640px;
+            font-weight: 400;
+            animation: subheadlineFadeIn var(--animation-duration) ease-out 0.2s backwards;
+        }
+
+        @keyframes subheadlineFadeIn {
+            from { opacity: 0; transform: translateY(15px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .hero__cta-group {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: var(--spacing-md);
+            margin-top: var(--spacing-sm);
+            animation: ctaFadeIn var(--animation-duration) ease-out 0.3s backwards;
+        }
+
+        @keyframes ctaFadeIn {
+            from { opacity: 0; transform: translateY(15px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .hero__cta {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: var(--spacing-xs);
+            font-family: var(--font-family-base);
+            font-size: 1rem;
+            font-weight: 600;
+            text-decoration: none;
+            border-radius: var(--radius-md);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            cursor: pointer;
+        }
+
+        .hero__cta--primary {
+            padding: 1rem 2.5rem;
+            background-color: var(--color-primary);
+            color: #FFFFFF;
+            border: 2px solid var(--color-primary);
+            box-shadow: var(--shadow-sm);
+            min-width: 240px;
+        }
+
+        .hero__cta--primary:hover {
+            background-color: var(--color-primary-hover);
+            border-color: var(--color-primary-hover);
+            box-shadow: var(--shadow-md);
+            transform: translateY(-2px);
+        }
+
+        .hero__cta--primary:focus-visible {
+            outline: 2px solid var(--color-primary);
+            outline-offset: 4px;
+        }
+
+        .hero__cta--secondary {
+            padding: 0.75rem 1.5rem;
+            background-color: transparent;
+            color: var(--color-primary);
+            border: none;
+            font-weight: 500;
+            position: relative;
+        }
+
+        .hero__cta--secondary::after {
+            content: '';
+            position: absolute;
+            bottom: 0.5rem;
+            left: 1.5rem;
+            right: 1.5rem;
+            height: 1px;
+            background-color: var(--color-primary);
+            transform: scaleX(0);
+            transform-origin: right;
+            transition: transform 0.3s ease;
+        }
+
+        .hero__cta--secondary:hover::after {
+            transform: scaleX(1);
+            transform-origin: left;
+        }
+
+        .hero__cta-icon {
+            display: inline-block;
+            transition: transform 0.2s ease;
+            font-size: 1.2em;
+        }
+
+        .hero__cta--primary:hover .hero__cta-icon {
+            transform: translateX(4px);
+        }
+
+        .hero__trust-signal {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: var(--spacing-xs);
+            font-size: 0.875rem;
+            color: var(--color-trust);
+            margin-top: var(--spacing-sm);
+            animation: trustFadeIn var(--animation-duration) ease-out 0.4s backwards;
+        }
+
+        @keyframes trustFadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        .hero__trust-icon {
+            width: 16px;
+            height: 16px;
+            color: var(--color-primary);
+            opacity: 0.7;
+        }
+
+        @media (min-width: 640px) {
+            .hero { padding: var(--spacing-2xl) var(--spacing-lg); }
+            .hero__container { gap: var(--spacing-xl); }
+            .hero__headline { font-size: 2.75rem; }
+            .hero__subheadline { font-size: 1.25rem; }
+            .hero__cta-group { flex-direction: row; gap: var(--spacing-lg); }
+        }
+
+        @media (min-width: 1024px) {
+            .hero { padding: 6rem var(--spacing-xl); }
+            .hero__headline { font-size: 3.5rem; }
+            .hero__subheadline { font-size: 1.375rem; }
+            .hero__cta--primary { padding: 1.25rem 3rem; font-size: 1.125rem; }
+        }
+    </style>
+</head>
+<body>
+    <section class="hero" role="banner" aria-labelledby="hero-headline">
+        <div class="hero__container">
+            <h1 id="hero-headline" class="hero__headline">
+                Your journey to
+                <span class="hero__headline-emphasis">clarity and calm</span>
+                starts here
+            </h1>
+
+            <p class="hero__subheadline">
+                Evidence-based support designed to help you understand yourself better,
+                build healthy coping strategies, and move forward with confidence.
+            </p>
+
+            <div class="hero__cta-group">
+                <a href="/get-started" class="hero__cta hero__cta--primary">
+                    Get Started Today
+                    <span class="hero__cta-icon" aria-hidden="true">→</span>
+                </a>
+
+                <a href="/learn-more" class="hero__cta hero__cta--secondary">
+                    Learn how it works
+                </a>
+            </div>
+
+            <p class="hero__trust-signal">
+                <svg class="hero__trust-icon" width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+                    <path d="M8 0L10.472 5.528L16 8L10.472 10.472L8 16L5.528 10.472L0 8L5.528 5.528L8 0Z" fill="currentColor"/>
+                </svg>
+                Trusted by thousands of individuals on their healing journey
+            </p>
+        </div>
+    </section>
+</body>
+</html>

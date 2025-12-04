@@ -1,0 +1,417 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Still-Life Confidence Hero - BKID Component</title>
+    <style>
+        /* ============================================
+           STILL-LIFE CONFIDENCE HERO COMPONENT
+           BKID Website Redesign
+           ============================================ */
+
+        /* CSS Custom Properties for Theming */
+        :root {
+            /* Color Palette - Calm & Trust-Building */
+            --color-primary: #5B7C6D;        /* Sage green - calm, natural */
+            --color-primary-dark: #4A6358;   /* Darker sage for hover */
+            --color-secondary: #E8D5C4;      /* Warm beige */
+            --color-text-dark: #2C2C2C;      /* Soft black */
+            --color-text-light: #FFFFFF;     /* Pure white */
+            --color-overlay-start: rgba(44, 44, 44, 0.65);  /* Dark overlay */
+            --color-overlay-end: rgba(44, 44, 44, 0.25);    /* Light overlay */
+
+            /* Typography */
+            --font-family-heading: 'Georgia', 'Times New Roman', serif;
+            --font-family-body: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', sans-serif;
+            --font-size-headline: clamp(2rem, 5vw, 3.5rem);
+            --font-size-subheadline: clamp(1.125rem, 2.5vw, 1.5rem);
+            --font-size-microcopy: clamp(0.875rem, 1.5vw, 1rem);
+            --font-size-cta: 1.125rem;
+
+            /* Spacing */
+            --spacing-xs: 0.5rem;
+            --spacing-sm: 1rem;
+            --spacing-md: 1.5rem;
+            --spacing-lg: 2rem;
+            --spacing-xl: 3rem;
+            --spacing-2xl: 4rem;
+
+            /* Layout */
+            --hero-min-height: 500px;
+            --hero-max-height: 700px;
+            --content-max-width: 800px;
+
+            /* Animation */
+            --animation-duration: 1.2s;
+            --animation-easing: cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        }
+
+        /* Reset & Base Styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: var(--font-family-body);
+            line-height: 1.6;
+            color: var(--color-text-dark);
+        }
+
+        /* ============================================
+           HERO COMPONENT
+           ============================================ */
+
+        .hero {
+            position: relative;
+            min-height: var(--hero-min-height);
+            max-height: var(--hero-max-height);
+            height: 85vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            isolation: isolate;
+        }
+
+        /* Background Image */
+        .hero__image {
+            position: absolute;
+            inset: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            object-position: center;
+            z-index: -2;
+        }
+
+        /* Gradient Overlay for Text Readability */
+        .hero__overlay {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(
+                135deg,
+                var(--color-overlay-start) 0%,
+                var(--color-overlay-end) 100%
+            );
+            z-index: -1;
+        }
+
+        /* Content Container */
+        .hero__content {
+            max-width: var(--content-max-width);
+            width: 90%;
+            padding: var(--spacing-lg);
+            text-align: center;
+            color: var(--color-text-light);
+            opacity: 0;
+            transform: translateY(20px);
+            animation: fadeInUp var(--animation-duration) var(--animation-easing) forwards;
+            animation-delay: 0.2s;
+        }
+
+        /* Fade-in Animation */
+        @keyframes fadeInUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Microcopy - Confidence Building */
+        .hero__microcopy {
+            font-size: var(--font-size-microcopy);
+            font-weight: 500;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            color: var(--color-secondary);
+            margin-bottom: var(--spacing-sm);
+            opacity: 0;
+            animation: fadeInUp var(--animation-duration) var(--animation-easing) forwards;
+            animation-delay: 0.4s;
+        }
+
+        /* Headline */
+        .hero__headline {
+            font-family: var(--font-family-heading);
+            font-size: var(--font-size-headline);
+            font-weight: 400;
+            line-height: 1.2;
+            margin-bottom: var(--spacing-md);
+            color: var(--color-text-light);
+            opacity: 0;
+            animation: fadeInUp var(--animation-duration) var(--animation-easing) forwards;
+            animation-delay: 0.6s;
+        }
+
+        /* Subheadline */
+        .hero__subheadline {
+            font-size: var(--font-size-subheadline);
+            font-weight: 300;
+            line-height: 1.5;
+            margin-bottom: var(--spacing-xl);
+            color: var(--color-text-light);
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+            opacity: 0;
+            animation: fadeInUp var(--animation-duration) var(--animation-easing) forwards;
+            animation-delay: 0.8s;
+        }
+
+        /* CTA Button */
+        .hero__cta {
+            display: inline-flex;
+            align-items: center;
+            gap: var(--spacing-xs);
+            padding: var(--spacing-md) var(--spacing-xl);
+            font-size: var(--font-size-cta);
+            font-weight: 500;
+            color: var(--color-text-light);
+            background-color: var(--color-primary);
+            border: 2px solid var(--color-primary);
+            border-radius: 4px;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            opacity: 0;
+            animation: fadeInUp var(--animation-duration) var(--animation-easing) forwards;
+            animation-delay: 1s;
+        }
+
+        .hero__cta:hover,
+        .hero__cta:focus {
+            background-color: var(--color-primary-dark);
+            border-color: var(--color-primary-dark);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+        }
+
+        .hero__cta:focus {
+            outline: 3px solid var(--color-secondary);
+            outline-offset: 3px;
+        }
+
+        .hero__cta:active {
+            transform: translateY(0);
+        }
+
+        /* ============================================
+           RESPONSIVE DESIGN
+           ============================================ */
+
+        @media (max-width: 768px) {
+            .hero {
+                min-height: 400px;
+                height: 70vh;
+            }
+
+            .hero__content {
+                width: 95%;
+                padding: var(--spacing-md);
+            }
+
+            .hero__microcopy {
+                font-size: 0.75rem;
+            }
+
+            .hero__cta {
+                padding: var(--spacing-sm) var(--spacing-lg);
+                font-size: 1rem;
+                width: 100%;
+                max-width: 320px;
+                justify-content: center;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .hero {
+                min-height: 350px;
+                height: 60vh;
+            }
+
+            .hero__subheadline {
+                margin-bottom: var(--spacing-lg);
+            }
+        }
+
+        /* ============================================
+           ACCESSIBILITY - REDUCED MOTION
+           ============================================ */
+
+        @media (prefers-reduced-motion: reduce) {
+            .hero__content,
+            .hero__microcopy,
+            .hero__headline,
+            .hero__subheadline,
+            .hero__cta {
+                animation: none;
+                opacity: 1;
+                transform: none;
+            }
+
+            .hero__cta:hover,
+            .hero__cta:focus {
+                transform: none;
+            }
+
+            .hero__cta:active {
+                transform: none;
+            }
+        }
+
+        /* ============================================
+           HIGH CONTRAST MODE SUPPORT
+           ============================================ */
+
+        @media (prefers-contrast: high) {
+            .hero__overlay {
+                background: linear-gradient(
+                    135deg,
+                    rgba(0, 0, 0, 0.8) 0%,
+                    rgba(0, 0, 0, 0.6) 100%
+                );
+            }
+
+            .hero__cta {
+                border-width: 3px;
+            }
+        }
+
+        /* ============================================
+           PRINT STYLES
+           ============================================ */
+
+        @media print {
+            .hero {
+                height: auto;
+                min-height: 0;
+                page-break-inside: avoid;
+            }
+
+            .hero__image {
+                position: relative;
+                height: 300px;
+            }
+
+            .hero__overlay {
+                background: rgba(0, 0, 0, 0.3);
+            }
+
+            .hero__cta {
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- ============================================
+         STILL-LIFE CONFIDENCE HERO COMPONENT
+         ============================================ -->
+
+    <section class="hero" role="banner" aria-labelledby="hero-headline">
+
+        <!-- Responsive Background Image -->
+        <img
+            src="https://images.unsplash.com/photo-1490818387583-1baba5e638af?w=1920&q=80"
+            srcset="
+                https://images.unsplash.com/photo-1490818387583-1baba5e638af?w=640&q=80 640w,
+                https://images.unsplash.com/photo-1490818387583-1baba5e638af?w=1024&q=80 1024w,
+                https://images.unsplash.com/photo-1490818387583-1baba5e638af?w=1920&q=80 1920w,
+                https://images.unsplash.com/photo-1490818387583-1baba5e638af?w=2560&q=80 2560w
+            "
+            sizes="100vw"
+            alt="Peaceful still-life composition with natural elements on a calm surface"
+            class="hero__image"
+            loading="eager"
+            fetchpriority="high"
+        >
+
+        <!-- Gradient Overlay for Text Contrast -->
+        <div class="hero__overlay" aria-hidden="true"></div>
+
+        <!-- Hero Content -->
+        <div class="hero__content">
+
+            <!-- Microcopy - Confidence Building -->
+            <p class="hero__microcopy" aria-label="Supporting message">
+                You're in the right place
+            </p>
+
+            <!-- Main Headline -->
+            <h1 class="hero__headline" id="hero-headline">
+                Taking the First Step Starts Here
+            </h1>
+
+            <!-- Subheadline -->
+            <p class="hero__subheadline">
+                Evidence-based behavioral health care designed with your comfort and confidence in mind.
+            </p>
+
+            <!-- Call to Action -->
+            <a
+                href="#contact"
+                class="hero__cta"
+                aria-label="Get started with our services"
+            >
+                Get Started
+                <span aria-hidden="true">→</span>
+            </a>
+
+        </div>
+
+    </section>
+
+    <!-- ============================================
+         USAGE NOTES
+         ============================================
+
+         CUSTOMIZATION:
+         1. Replace image src/srcset URLs with your still-life imagery
+         2. Update text content (microcopy, headline, subheadline)
+         3. Modify CSS custom properties in :root for brand colors
+         4. Adjust CTA href to target destination
+
+         STILL-LIFE IMAGE GUIDELINES:
+         - Use calming, non-triggering objects (plants, books, tea, natural materials)
+         - Avoid clinical or medical imagery
+         - Ensure warm, inviting lighting
+         - Provide sufficient contrast areas for text overlay
+         - Recommended dimensions: 1920x1080 minimum
+
+         ACCESSIBILITY FEATURES:
+         ✓ Semantic HTML5 elements
+         ✓ ARIA labels and roles
+         ✓ Keyboard navigation support
+         ✓ Focus indicators
+         ✓ Reduced motion support
+         ✓ High contrast mode support
+         ✓ WCAG AA color contrast (4.5:1 minimum)
+         ✓ Responsive text sizing
+         ✓ Screen reader friendly
+
+         RESPONSIVE BREAKPOINTS:
+         - Desktop: 1024px+
+         - Tablet: 768px-1023px
+         - Mobile: 480px-767px
+         - Small Mobile: <480px
+
+         BROWSER SUPPORT:
+         - Chrome/Edge: 90+
+         - Firefox: 88+
+         - Safari: 14+
+         - Mobile browsers: iOS 14+, Android 8+
+
+         PERFORMANCE:
+         - Optimized images with srcset
+         - CSS-only animations
+         - No JavaScript dependencies
+         - Lazy loading ready (change loading attribute)
+
+         ============================================ -->
+
+</body>
+</html>

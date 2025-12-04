@@ -1,0 +1,448 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Self-Serve Solution Hub - BKID</title>
+    <link rel="stylesheet" href="solution-hub.css">
+</head>
+<body>
+    <!-- Skip to main content link for keyboard users -->
+    <a href="#main-content" class="skip-link">Skip to main content</a>
+
+    <main id="main-content" class="solution-hub">
+        <!-- Header Section -->
+        <header class="hub-header">
+            <h1 class="hub-title">Find Your Solution</h1>
+            <p class="hub-subtitle">Explore resources designed to support your journey at your own pace</p>
+        </header>
+
+        <!-- Search Section -->
+        <section class="search-section" role="search" aria-label="Solution search">
+            <div class="search-container">
+                <label for="solution-search" class="visually-hidden">Search for solutions</label>
+                <div class="search-input-wrapper">
+                    <svg class="search-icon" width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                        <path d="M9 17A8 8 0 1 0 9 1a8 8 0 0 0 0 16zM18 18l-4.35-4.35" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                    <input
+                        type="search"
+                        id="solution-search"
+                        class="search-input"
+                        placeholder="What would you like help with today?"
+                        aria-describedby="search-instructions"
+                        autocomplete="off"
+                    >
+                    <button
+                        type="button"
+                        class="search-clear"
+                        aria-label="Clear search"
+                        hidden
+                    >
+                        <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M12 4L4 12M4 4l8 8" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                        </svg>
+                    </button>
+                </div>
+                <p id="search-instructions" class="visually-hidden">
+                    Type to search solutions. Results update automatically as you type.
+                </p>
+            </div>
+        </section>
+
+        <!-- Quick Access Shortcuts -->
+        <section class="quick-access" aria-labelledby="quick-access-title">
+            <h2 id="quick-access-title" class="quick-access-title">Quick Access</h2>
+            <div class="shortcuts-grid">
+                <a href="#crisis-support" class="shortcut-card shortcut-priority">
+                    <svg class="shortcut-icon" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                        <path d="M12 2L2 7l10 5 10-5-10-5z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        <path d="M2 17l10 5 10-5M2 12l10 5 10-5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                    <span class="shortcut-label">Crisis Support</span>
+                    <span class="shortcut-badge">24/7</span>
+                </a>
+                <a href="#connect-therapist" class="shortcut-card">
+                    <svg class="shortcut-icon" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                        <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2M9 11a4 4 0 1 0 0-8 4 4 0 0 0 0 8zM23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                    <span class="shortcut-label">Connect with a Therapist</span>
+                </a>
+                <a href="#guided-exercises" class="shortcut-card">
+                    <svg class="shortcut-icon" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                        <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        <path d="M22 4L12 14.01l-3-3" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                    <span class="shortcut-label">Guided Exercises</span>
+                </a>
+                <a href="#community" class="shortcut-card">
+                    <svg class="shortcut-icon" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                        <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                    <span class="shortcut-label">Community Support</span>
+                </a>
+            </div>
+        </section>
+
+        <!-- Category Filters -->
+        <section class="filter-section" aria-labelledby="filter-title">
+            <h2 id="filter-title" class="visually-hidden">Filter by category</h2>
+            <div class="filter-controls" role="group" aria-label="Solution categories">
+                <button class="filter-pill active" data-category="all" aria-pressed="true">
+                    All Solutions
+                </button>
+                <button class="filter-pill" data-category="stress-anxiety" aria-pressed="false">
+                    Stress & Anxiety
+                </button>
+                <button class="filter-pill" data-category="sleep" aria-pressed="false">
+                    Sleep
+                </button>
+                <button class="filter-pill" data-category="relationships" aria-pressed="false">
+                    Relationships
+                </button>
+                <button class="filter-pill" data-category="mindfulness" aria-pressed="false">
+                    Mindfulness
+                </button>
+                <button class="filter-pill" data-category="self-care" aria-pressed="false">
+                    Self-Care
+                </button>
+                <button class="filter-pill" data-category="resources" aria-pressed="false">
+                    Educational Resources
+                </button>
+            </div>
+        </section>
+
+        <!-- Results Count and Status -->
+        <div class="results-status" role="status" aria-live="polite" aria-atomic="true">
+            <p id="results-count" class="results-count">
+                Showing <span class="count-number">12</span> solutions
+            </p>
+        </div>
+
+        <!-- Solution Cards Grid -->
+        <section class="solutions-grid" aria-labelledby="solutions-title">
+            <h2 id="solutions-title" class="visually-hidden">Available solutions</h2>
+
+            <!-- Solution Card 1 -->
+            <article class="solution-card" data-category="stress-anxiety">
+                <div class="card-header">
+                    <span class="card-category">Stress & Anxiety</span>
+                    <span class="card-duration">5 min</span>
+                </div>
+                <h3 class="card-title">
+                    <a href="#breathing-exercises" class="card-link">
+                        Breathing Exercises for Calm
+                        <span class="visually-hidden">(5 minute exercise)</span>
+                    </a>
+                </h3>
+                <p class="card-description">
+                    Simple breathing techniques to help reduce stress and bring calm to your day
+                </p>
+                <div class="card-footer">
+                    <span class="card-type">
+                        <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                            <path d="M8 14A6 6 0 1 0 8 2a6 6 0 0 0 0 12z" stroke="currentColor" stroke-width="1.5"/>
+                            <path d="M8 4v4l2 2" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+                        </svg>
+                        Interactive Exercise
+                    </span>
+                </div>
+            </article>
+
+            <!-- Solution Card 2 -->
+            <article class="solution-card" data-category="sleep">
+                <div class="card-header">
+                    <span class="card-category">Sleep</span>
+                    <span class="card-duration">10 min</span>
+                </div>
+                <h3 class="card-title">
+                    <a href="#sleep-routine" class="card-link">
+                        Building a Better Sleep Routine
+                        <span class="visually-hidden">(10 minute guide)</span>
+                    </a>
+                </h3>
+                <p class="card-description">
+                    Evidence-based strategies to improve your sleep quality and establish healthy patterns
+                </p>
+                <div class="card-footer">
+                    <span class="card-type">
+                        <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                            <path d="M2 4h12M2 8h12M2 12h12" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+                        </svg>
+                        Guide
+                    </span>
+                </div>
+            </article>
+
+            <!-- Solution Card 3 -->
+            <article class="solution-card" data-category="mindfulness">
+                <div class="card-header">
+                    <span class="card-category">Mindfulness</span>
+                    <span class="card-duration">3 min</span>
+                </div>
+                <h3 class="card-title">
+                    <a href="#grounding-technique" class="card-link">
+                        5-4-3-2-1 Grounding Technique
+                        <span class="visually-hidden">(3 minute exercise)</span>
+                    </a>
+                </h3>
+                <p class="card-description">
+                    A quick sensory exercise to help you feel present and centered in moments of overwhelm
+                </p>
+                <div class="card-footer">
+                    <span class="card-type">
+                        <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                            <path d="M8 14A6 6 0 1 0 8 2a6 6 0 0 0 0 12z" stroke="currentColor" stroke-width="1.5"/>
+                            <path d="M8 4v4l2 2" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+                        </svg>
+                        Interactive Exercise
+                    </span>
+                </div>
+            </article>
+
+            <!-- Solution Card 4 -->
+            <article class="solution-card" data-category="relationships">
+                <div class="card-header">
+                    <span class="card-category">Relationships</span>
+                    <span class="card-duration">8 min</span>
+                </div>
+                <h3 class="card-title">
+                    <a href="#communication-skills" class="card-link">
+                        Effective Communication Skills
+                        <span class="visually-hidden">(8 minute article)</span>
+                    </a>
+                </h3>
+                <p class="card-description">
+                    Learn practical ways to express yourself clearly and listen actively in your relationships
+                </p>
+                <div class="card-footer">
+                    <span class="card-type">
+                        <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                            <path d="M2 4h12M2 8h12M2 12h12" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+                        </svg>
+                        Article
+                    </span>
+                </div>
+            </article>
+
+            <!-- Solution Card 5 -->
+            <article class="solution-card" data-category="self-care">
+                <div class="card-header">
+                    <span class="card-category">Self-Care</span>
+                    <span class="card-duration">15 min</span>
+                </div>
+                <h3 class="card-title">
+                    <a href="#self-care-plan" class="card-link">
+                        Creating Your Self-Care Plan
+                        <span class="visually-hidden">(15 minute workshop)</span>
+                    </a>
+                </h3>
+                <p class="card-description">
+                    Design a personalized self-care routine that fits your lifestyle and supports your wellbeing
+                </p>
+                <div class="card-footer">
+                    <span class="card-type">
+                        <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                            <path d="M12 2L4 14M4 2l8 12" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+                        </svg>
+                        Workshop
+                    </span>
+                </div>
+            </article>
+
+            <!-- Solution Card 6 -->
+            <article class="solution-card" data-category="stress-anxiety">
+                <div class="card-header">
+                    <span class="card-category">Stress & Anxiety</span>
+                    <span class="card-duration">7 min</span>
+                </div>
+                <h3 class="card-title">
+                    <a href="#worry-journal" class="card-link">
+                        Worry Journal Practice
+                        <span class="visually-hidden">(7 minute activity)</span>
+                    </a>
+                </h3>
+                <p class="card-description">
+                    Use structured journaling to process anxious thoughts and gain perspective
+                </p>
+                <div class="card-footer">
+                    <span class="card-type">
+                        <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                            <path d="M8 14A6 6 0 1 0 8 2a6 6 0 0 0 0 12z" stroke="currentColor" stroke-width="1.5"/>
+                            <path d="M8 4v4l2 2" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+                        </svg>
+                        Activity
+                    </span>
+                </div>
+            </article>
+
+            <!-- Solution Card 7 -->
+            <article class="solution-card" data-category="resources">
+                <div class="card-header">
+                    <span class="card-category">Educational Resources</span>
+                    <span class="card-duration">12 min</span>
+                </div>
+                <h3 class="card-title">
+                    <a href="#understanding-anxiety" class="card-link">
+                        Understanding Anxiety
+                        <span class="visually-hidden">(12 minute article)</span>
+                    </a>
+                </h3>
+                <p class="card-description">
+                    Learn about how anxiety works, common triggers, and why it's a normal human experience
+                </p>
+                <div class="card-footer">
+                    <span class="card-type">
+                        <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                            <path d="M2 4h12M2 8h12M2 12h12" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+                        </svg>
+                        Article
+                    </span>
+                </div>
+            </article>
+
+            <!-- Solution Card 8 -->
+            <article class="solution-card" data-category="mindfulness">
+                <div class="card-header">
+                    <span class="card-category">Mindfulness</span>
+                    <span class="card-duration">10 min</span>
+                </div>
+                <h3 class="card-title">
+                    <a href="#body-scan" class="card-link">
+                        Guided Body Scan Meditation
+                        <span class="visually-hidden">(10 minute meditation)</span>
+                    </a>
+                </h3>
+                <p class="card-description">
+                    A gentle meditation to help you connect with your body and release tension
+                </p>
+                <div class="card-footer">
+                    <span class="card-type">
+                        <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                            <path d="M3 8l3 3 7-7" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+                        </svg>
+                        Audio
+                    </span>
+                </div>
+            </article>
+
+            <!-- Solution Card 9 -->
+            <article class="solution-card" data-category="sleep">
+                <div class="card-header">
+                    <span class="card-category">Sleep</span>
+                    <span class="card-duration">6 min</span>
+                </div>
+                <h3 class="card-title">
+                    <a href="#sleep-hygiene" class="card-link">
+                        Sleep Hygiene Essentials
+                        <span class="visually-hidden">(6 minute checklist)</span>
+                    </a>
+                </h3>
+                <p class="card-description">
+                    A practical checklist to optimize your environment and habits for better sleep
+                </p>
+                <div class="card-footer">
+                    <span class="card-type">
+                        <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                            <path d="M3 8l3 3 7-7" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+                        </svg>
+                        Checklist
+                    </span>
+                </div>
+            </article>
+
+            <!-- Solution Card 10 -->
+            <article class="solution-card" data-category="relationships">
+                <div class="card-header">
+                    <span class="card-category">Relationships</span>
+                    <span class="card-duration">5 min</span>
+                </div>
+                <h3 class="card-title">
+                    <a href="#setting-boundaries" class="card-link">
+                        Setting Healthy Boundaries
+                        <span class="visually-hidden">(5 minute guide)</span>
+                    </a>
+                </h3>
+                <p class="card-description">
+                    Learn how to communicate your needs and protect your wellbeing in relationships
+                </p>
+                <div class="card-footer">
+                    <span class="card-type">
+                        <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                            <path d="M2 4h12M2 8h12M2 12h12" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+                        </svg>
+                        Guide
+                    </span>
+                </div>
+            </article>
+
+            <!-- Solution Card 11 -->
+            <article class="solution-card" data-category="self-care">
+                <div class="card-header">
+                    <span class="card-category">Self-Care</span>
+                    <span class="card-duration">4 min</span>
+                </div>
+                <h3 class="card-title">
+                    <a href="#micro-breaks" class="card-link">
+                        5-Minute Micro-Breaks
+                        <span class="visually-hidden">(4 minute guide)</span>
+                    </a>
+                </h3>
+                <p class="card-description">
+                    Quick, effective ways to reset and recharge during a busy day
+                </p>
+                <div class="card-footer">
+                    <span class="card-type">
+                        <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                            <path d="M2 4h12M2 8h12M2 12h12" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+                        </svg>
+                        Guide
+                    </span>
+                </div>
+            </article>
+
+            <!-- Solution Card 12 -->
+            <article class="solution-card" data-category="resources">
+                <div class="card-header">
+                    <span class="card-category">Educational Resources</span>
+                    <span class="card-duration">15 min</span>
+                </div>
+                <h3 class="card-title">
+                    <a href="#therapy-intro" class="card-link">
+                        What to Expect from Therapy
+                        <span class="visually-hidden">(15 minute article)</span>
+                    </a>
+                </h3>
+                <p class="card-description">
+                    Demystify the therapy process and learn how to get the most from your sessions
+                </p>
+                <div class="card-footer">
+                    <span class="card-type">
+                        <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                            <path d="M2 4h12M2 8h12M2 12h12" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+                        </svg>
+                        Article
+                    </span>
+                </div>
+            </article>
+        </section>
+
+        <!-- Empty State (hidden by default) -->
+        <div class="empty-state" hidden>
+            <svg class="empty-state-icon" width="64" height="64" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                <circle cx="32" cy="32" r="30" stroke="currentColor" stroke-width="2" stroke-dasharray="4 4"/>
+                <path d="M32 20v24M20 32h24" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+            </svg>
+            <h2 class="empty-state-title">No solutions found</h2>
+            <p class="empty-state-text">
+                Try adjusting your search or browse all categories to discover resources that might help
+            </p>
+            <button type="button" class="empty-state-button" id="reset-filters">
+                View All Solutions
+            </button>
+        </div>
+    </main>
+
+    <script src="solution-hub.js"></script>
+</body>
+</html>
