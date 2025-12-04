@@ -1,6 +1,6 @@
 # Inline Contextual Help Component
 
-A complete, production-ready contextual help system designed for the BKID website redesign. Provides calm, trust-building, non-intrusive help experiences with full accessibility support.
+A complete, production-ready contextual help system. Provides calm, trust-building, non-intrusive help experiences with full accessibility support.
 
 ## Features
 
@@ -357,9 +357,9 @@ helpSystem.config.hideDelay = 200; // Increase hide delay
 - **Be helpful** - Answer the question they're actually asking
 - **Respect privacy** - Explain why you need information
 
-## Integration with BKID Design System
+## Integration with Design System
 
-This component follows BKID design principles:
+This component follows these design principles:
 
 - **Calm visual design** - Soft colors, gentle animations
 - **Trust-building** - Clear explanations, transparency
@@ -397,11 +397,11 @@ Colors chosen for:
 
 ## License
 
-This component is part of the BKID Design System. Refer to project license for usage terms.
+This component is part of the Web Design Pattern Catalog. Refer to project license for usage terms.
 
 ## Support
 
-For questions or issues with this component, refer to the BKID Design System documentation or contact the development team.
+For questions or issues with this component, refer to the design system documentation or contact the development team.
 
 ---
 

@@ -1,6 +1,6 @@
 /**
  * Inline Contextual Help Component
- * BKID Design System
+ * Design Pattern
  *
  * Features:
  * - Multiple trigger types (tooltip, popover, expandable)

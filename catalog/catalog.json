@@ -1,14 +1,14 @@
 {
-  "catalog_name": "BKID Web Design Catalog",
+  "catalog_name": "Web Design Pattern Catalog",
   "version": "1.0.0",
   "design_system": {
-    "philosophy": "Calm, trust-building, non-clinical, non-triggering design",
+    "philosophy": "Calm, trust-building, warm, accessible design",
     "accessibility": "WCAG AA compliant",
     "principles": [
       "Build trust through transparency",
       "Reduce anxiety with clear communication",
       "Respect user autonomy and pace",
-      "Use warm, non-clinical language",
+      "Use warm, empowering language",
       "Provide accessible experiences for all"
     ]
   },

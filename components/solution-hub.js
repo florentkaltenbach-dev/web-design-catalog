@@ -1,5 +1,5 @@
 /**
- * BKID Self-Serve Solution Hub
+ * Self-Serve Solution Hub
  * Interactive filtering and search functionality
  * Accessibility-first, keyboard navigable
  */
