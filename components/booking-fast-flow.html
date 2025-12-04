@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lightning Booking - Fast Flow Pattern</title>
+    <link rel="stylesheet" href="booking-fast-flow.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Pattern Documentation Header -->
+    <header class="pattern-header">
+        <div class="pattern-header__container">
+            <div class="pattern-header__badge">Design Pattern</div>
+            <h1 class="pattern-header__title">Lightning Booking</h1>
+            <p class="pattern-header__subtitle">15-second path for busy professionals</p>
+            <div class="pattern-header__meta">
+                <span class="meta-tag">Clarity: 95</span>
+                <span class="meta-tag">Friction: 5</span>
+                <span class="meta-tag">Efficiency: 95</span>
+            </div>
+        </div>
+    </header>
+
+    <!-- Demo Section -->
+    <main class="demo-container">
+        <section class="booking-section" aria-labelledby="booking-title">
+            <div class="booking__header">
+                <h2 id="booking-title" class="booking__title">Available Courses</h2>
+                <p class="booking__description">Select a course to book instantly</p>
+            </div>
+
+            <!-- Course Cards -->
+            <div class="courses-grid" role="list">
+                <article class="course-card" role="listitem" data-course-id="1" tabindex="0" aria-label="Python Fundamentals course">
+                    <div class="course-card__content">
+                        <h3 class="course-card__title">Python Fundamentals</h3>
+                        <div class="course-card__meta">
+                            <span class="course-card__date">Dec 15, 2025</span>
+                            <span class="course-card__duration">4 weeks</span>
+                        </div>
+                        <div class="course-card__footer">
+                            <span class="course-card__price">$299</span>
+                            <span class="course-card__spots course-card__spots--low" aria-label="3 spots remaining">
+                                3 spots left
+                            </span>
+                        </div>
+                    </div>
+                </article>
+
+                <article class="course-card" role="listitem" data-course-id="2" tabindex="0" aria-label="React Masterclass course">
+                    <div class="course-card__content">
+                        <h3 class="course-card__title">React Masterclass</h3>
+                        <div class="course-card__meta">
+                            <span class="course-card__date">Jan 8, 2026</span>
+                            <span class="course-card__duration">6 weeks</span>
+                        </div>
+                        <div class="course-card__footer">
+                            <span class="course-card__price">$449</span>
+                            <span class="course-card__spots course-card__spots--available" aria-label="12 spots remaining">
+                                12 spots left
+                            </span>
+                        </div>
+                    </div>
+                </article>
+
+                <article class="course-card" role="listitem" data-course-id="3" tabindex="0" aria-label="Data Science Bootcamp course">
+                    <div class="course-card__content">
+                        <h3 class="course-card__title">Data Science Bootcamp</h3>
+                        <div class="course-card__meta">
+                            <span class="course-card__date">Jan 22, 2026</span>
+                            <span class="course-card__duration">8 weeks</span>
+                        </div>
+                        <div class="course-card__footer">
+                            <span class="course-card__price">$599</span>
+                            <span class="course-card__spots course-card__spots--available" aria-label="8 spots remaining">
+                                8 spots left
+                            </span>
+                        </div>
+                    </div>
+                </article>
+
+                <article class="course-card" role="listitem" data-course-id="4" tabindex="0" aria-label="Advanced JavaScript course">
+                    <div class="course-card__content">
+                        <h3 class="course-card__title">Advanced JavaScript</h3>
+                        <div class="course-card__meta">
+                            <span class="course-card__date">Feb 5, 2026</span>
+                            <span class="course-card__duration">5 weeks</span>
+                        </div>
+                        <div class="course-card__footer">
+                            <span class="course-card__price">$379</span>
+                            <span class="course-card__spots course-card__spots--low" aria-label="2 spots remaining">
+                                2 spots left
+                            </span>
+                        </div>
+                    </div>
+                </article>
+            </div>
+
+            <!-- Booking Form (Initially Hidden) -->
+            <div class="booking-form-container" id="booking-form-container" hidden>
+                <div class="booking-form">
+                    <div class="booking-form__header">
+                        <h3 class="booking-form__title">Complete Your Booking</h3>
+                        <button type="button" class="booking-form__close" id="cancel-booking" aria-label="Cancel booking">
+                            <svg width="20" height="20" viewBox="0 0 20 20" fill="none" aria-hidden="true">
+                                <path d="M15 5L5 15M5 5L15 15" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                            </svg>
+                        </button>
+                    </div>
+
+                    <div class="booking-summary" id="booking-summary">
+                        <div class="booking-summary__item">
+                            <span class="booking-summary__label">Course:</span>
+                            <span class="booking-summary__value" id="summary-course"></span>
+                        </div>
+                        <div class="booking-summary__item">
+                            <span class="booking-summary__label">Date:</span>
+                            <span class="booking-summary__value" id="summary-date"></span>
+                        </div>
+                        <div class="booking-summary__item">
+                            <span class="booking-summary__label">Duration:</span>
+                            <span class="booking-summary__value" id="summary-duration"></span>
+                        </div>
+                        <div class="booking-summary__item booking-summary__item--total">
+                            <span class="booking-summary__label">Total:</span>
+                            <span class="booking-summary__value" id="summary-price"></span>
+                        </div>
+                    </div>
+
+                    <form id="booking-form" novalidate>
+                        <div class="form-field">
+                            <label for="name" class="form-label">Full Name</label>
+                            <input
+                                type="text"
+                                id="name"
+                                name="name"
+                                class="form-input"
+                                placeholder="John Doe"
+                                required
+                                autocomplete="name"
+                                aria-required="true"
+                            >
+                            <span class="form-error" id="name-error" role="alert"></span>
+                        </div>
+
+                        <div class="form-field">
+                            <label for="email" class="form-label">Email</label>
+                            <input
+                                type="email"
+                                id="email"
+                                name="email"
+                                class="form-input"
+                                placeholder="john@example.com"
+                                required
+                                autocomplete="email"
+                                aria-required="true"
+                            >
+                            <span class="form-error" id="email-error" role="alert"></span>
+                        </div>
+
+                        <div class="form-field">
+                            <label for="phone" class="form-label">Phone <span class="form-optional">(optional)</span></label>
+                            <input
+                                type="tel"
+                                id="phone"
+                                name="phone"
+                                class="form-input"
+                                placeholder="+1 (555) 123-4567"
+                                autocomplete="tel"
+                            >
+                        </div>
+
+                        <button type="submit" class="btn-primary" id="submit-booking">
+                            <span class="btn-text">Book Now</span>
+                            <span class="btn-icon" aria-hidden="true">→</span>
+                        </button>
+                    </form>
+                </div>
+            </div>
+
+            <!-- Success State (Initially Hidden) -->
+            <div class="booking-success" id="booking-success" hidden>
+                <div class="booking-success__icon" aria-hidden="true">
+                    <svg width="48" height="48" viewBox="0 0 48 48" fill="none">
+                        <circle cx="24" cy="24" r="22" fill="#10B981" opacity="0.1"/>
+                        <circle cx="24" cy="24" r="18" fill="#10B981"/>
+                        <path d="M16 24L21 29L32 18" stroke="white" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                </div>
+                <h3 class="booking-success__title">You're booked!</h3>
+                <p class="booking-success__message">Check your email for confirmation.</p>
+                <div class="booking-success__details" id="success-details"></div>
+                <div class="booking-success__actions">
+                    <button type="button" class="btn-primary" id="add-to-calendar">
+                        <span class="btn-text">Add to Calendar</span>
+                        <span class="btn-icon" aria-hidden="true">📅</span>
+                    </button>
+                    <button type="button" class="btn-secondary" id="book-another">
+                        Book Another Course
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Accessibility Notes -->
+        <aside class="accessibility-notes">
+            <h3 class="accessibility-notes__title">Accessibility Features</h3>
+            <ul class="accessibility-notes__list">
+                <li>Keyboard navigation: Use Tab to navigate, Enter/Space to select</li>
+                <li>Screen reader support: Course cards and form fields are properly labeled</li>
+                <li>Focus indicators: Clear visual focus states on all interactive elements</li>
+                <li>Color contrast: Meets WCAG AA standards (4.5:1 for text)</li>
+                <li>Reduced motion: Respects prefers-reduced-motion preference</li>
+                <li>Error handling: Real-time validation with clear error messages</li>
+            </ul>
+        </aside>
+
+        <!-- Pattern Description -->
+        <section class="pattern-description">
+            <h3 class="pattern-description__title">About This Pattern</h3>
+            <div class="pattern-description__content">
+                <p>
+                    The <strong>Lightning Booking</strong> pattern is optimized for busy professionals who know
+                    exactly what they want. Every interaction is designed to minimize friction and maximize speed.
+                </p>
+                <h4>Key Design Decisions:</h4>
+                <ul>
+                    <li><strong>Single-page flow:</strong> No modals or multi-step wizards. Everything happens inline.</li>
+                    <li><strong>Instant feedback:</strong> Course selection shows immediate visual response.</li>
+                    <li><strong>Minimal form fields:</strong> Only name, email, and optional phone. No unnecessary data collection.</li>
+                    <li><strong>Smart defaults:</strong> Form auto-focuses to speed up data entry.</li>
+                    <li><strong>Immediate confirmation:</strong> Success state appears instantly with actionable next steps.</li>
+                </ul>
+                <h4>Target Completion Time:</h4>
+                <p class="pattern-description__highlight">15 seconds from selection to confirmation</p>
+            </div>
+        </section>
+    </main>
+
+    <script src="booking-fast-flow.js"></script>
+</body>
+</html>

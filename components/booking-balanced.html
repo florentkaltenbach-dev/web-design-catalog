@@ -1,0 +1,354 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Smart Booking - Design Pattern</title>
+    <link rel="stylesheet" href="booking-balanced.css">
+</head>
+<body>
+    <div class="booking-container">
+        <!-- Main Course List -->
+        <main class="course-list" role="main" aria-label="Available courses">
+            <div class="course-list__header">
+                <h1 class="course-list__title">Professional Development Courses</h1>
+                <p class="course-list__subtitle">Select a course to view details and reserve your spot</p>
+            </div>
+
+            <div class="course-grid" id="courseGrid">
+                <!-- Course Card 1 -->
+                <article class="course-card" data-course-id="design-systems" tabindex="0" role="button" aria-label="View details for Design Systems Fundamentals">
+                    <div class="course-card__image">
+                        <img src="data:image/svg+xml,%3Csvg width='280' height='160' xmlns='http://www.w3.org/2000/svg'%3E%3Crect width='280' height='160' fill='%230D9488'/%3E%3Ctext x='50%25' y='50%25' dominant-baseline='middle' text-anchor='middle' font-family='system-ui' font-size='18' fill='white'%3EDesign Systems%3C/text%3E%3C/svg%3E" alt="">
+                    </div>
+                    <div class="course-card__content">
+                        <h2 class="course-card__title">Design Systems Fundamentals</h2>
+                        <p class="course-card__instructor">
+                            <svg class="icon" width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+                                <path d="M8 8a3 3 0 100-6 3 3 0 000 6zM8 10c-3.33 0-6 1.67-6 3.75v1.25h12v-1.25c0-2.08-2.67-3.75-6-3.75z" fill="currentColor"/>
+                            </svg>
+                            Sarah Chen
+                        </p>
+                        <div class="course-card__meta">
+                            <span class="course-card__date">
+                                <svg class="icon" width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+                                    <rect x="2" y="3" width="12" height="11" rx="2" stroke="currentColor" stroke-width="1.5" fill="none"/>
+                                    <line x1="2" y1="6" x2="14" y2="6" stroke="currentColor" stroke-width="1.5"/>
+                                    <line x1="5" y1="1" x2="5" y2="4" stroke="currentColor" stroke-width="1.5"/>
+                                    <line x1="11" y1="1" x2="11" y2="4" stroke="currentColor" stroke-width="1.5"/>
+                                </svg>
+                                Dec 15-16, 2025
+                            </span>
+                            <span class="course-card__duration">
+                                <svg class="icon" width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+                                    <circle cx="8" cy="8" r="6" stroke="currentColor" stroke-width="1.5" fill="none"/>
+                                    <path d="M8 4v4l3 2" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+                                </svg>
+                                2 days
+                            </span>
+                            <span class="course-card__price">$899</span>
+                        </div>
+                        <div class="course-card__availability">
+                            <div class="availability-bar">
+                                <div class="availability-bar__fill" style="width: 60%"></div>
+                            </div>
+                            <span class="availability-text">12 spots available</span>
+                        </div>
+                    </div>
+                </article>
+
+                <!-- Course Card 2 -->
+                <article class="course-card" data-course-id="advanced-react" tabindex="0" role="button" aria-label="View details for Advanced React Patterns">
+                    <div class="course-card__image">
+                        <img src="data:image/svg+xml,%3Csvg width='280' height='160' xmlns='http://www.w3.org/2000/svg'%3E%3Crect width='280' height='160' fill='%230F766E'/%3E%3Ctext x='50%25' y='50%25' dominant-baseline='middle' text-anchor='middle' font-family='system-ui' font-size='18' fill='white'%3EAdvanced React%3C/text%3E%3C/svg%3E" alt="">
+                    </div>
+                    <div class="course-card__content">
+                        <h2 class="course-card__title">Advanced React Patterns</h2>
+                        <p class="course-card__instructor">
+                            <svg class="icon" width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+                                <path d="M8 8a3 3 0 100-6 3 3 0 000 6zM8 10c-3.33 0-6 1.67-6 3.75v1.25h12v-1.25c0-2.08-2.67-3.75-6-3.75z" fill="currentColor"/>
+                            </svg>
+                            Marcus Rodriguez
+                        </p>
+                        <div class="course-card__meta">
+                            <span class="course-card__date">
+                                <svg class="icon" width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+                                    <rect x="2" y="3" width="12" height="11" rx="2" stroke="currentColor" stroke-width="1.5" fill="none"/>
+                                    <line x1="2" y1="6" x2="14" y2="6" stroke="currentColor" stroke-width="1.5"/>
+                                    <line x1="5" y1="1" x2="5" y2="4" stroke="currentColor" stroke-width="1.5"/>
+                                    <line x1="11" y1="1" x2="11" y2="4" stroke="currentColor" stroke-width="1.5"/>
+                                </svg>
+                                Dec 20-21, 2025
+                            </span>
+                            <span class="course-card__duration">
+                                <svg class="icon" width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+                                    <circle cx="8" cy="8" r="6" stroke="currentColor" stroke-width="1.5" fill="none"/>
+                                    <path d="M8 4v4l3 2" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+                                </svg>
+                                2 days
+                            </span>
+                            <span class="course-card__price">$1,099</span>
+                        </div>
+                        <div class="course-card__availability">
+                            <div class="availability-bar availability-bar--low">
+                                <div class="availability-bar__fill" style="width: 20%"></div>
+                            </div>
+                            <span class="availability-text availability-text--urgent">Only 4 spots remaining</span>
+                        </div>
+                    </div>
+                </article>
+
+                <!-- Course Card 3 -->
+                <article class="course-card" data-course-id="api-design" tabindex="0" role="button" aria-label="View details for RESTful API Design">
+                    <div class="course-card__image">
+                        <img src="data:image/svg+xml,%3Csvg width='280' height='160' xmlns='http://www.w3.org/2000/svg'%3E%3Crect width='280' height='160' fill='%230D9488'/%3E%3Ctext x='50%25' y='50%25' dominant-baseline='middle' text-anchor='middle' font-family='system-ui' font-size='18' fill='white'%3EAPI Design%3C/text%3E%3C/svg%3E" alt="">
+                    </div>
+                    <div class="course-card__content">
+                        <h2 class="course-card__title">RESTful API Design</h2>
+                        <p class="course-card__instructor">
+                            <svg class="icon" width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+                                <path d="M8 8a3 3 0 100-6 3 3 0 000 6zM8 10c-3.33 0-6 1.67-6 3.75v1.25h12v-1.25c0-2.08-2.67-3.75-6-3.75z" fill="currentColor"/>
+                            </svg>
+                            Aisha Patel
+                        </p>
+                        <div class="course-card__meta">
+                            <span class="course-card__date">
+                                <svg class="icon" width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+                                    <rect x="2" y="3" width="12" height="11" rx="2" stroke="currentColor" stroke-width="1.5" fill="none"/>
+                                    <line x1="2" y1="6" x2="14" y2="6" stroke="currentColor" stroke-width="1.5"/>
+                                    <line x1="5" y1="1" x2="5" y2="4" stroke="currentColor" stroke-width="1.5"/>
+                                    <line x1="11" y1="1" x2="11" y2="4" stroke="currentColor" stroke-width="1.5"/>
+                                </svg>
+                                Jan 8-9, 2026
+                            </span>
+                            <span class="course-card__duration">
+                                <svg class="icon" width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+                                    <circle cx="8" cy="8" r="6" stroke="currentColor" stroke-width="1.5" fill="none"/>
+                                    <path d="M8 4v4l3 2" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+                                </svg>
+                                2 days
+                            </span>
+                            <span class="course-card__price">$799</span>
+                        </div>
+                        <div class="course-card__availability">
+                            <div class="availability-bar">
+                                <div class="availability-bar__fill" style="width: 85%"></div>
+                            </div>
+                            <span class="availability-text">18 spots available</span>
+                        </div>
+                    </div>
+                </article>
+
+                <!-- Course Card 4 -->
+                <article class="course-card" data-course-id="ux-research" tabindex="0" role="button" aria-label="View details for UX Research Methods">
+                    <div class="course-card__image">
+                        <img src="data:image/svg+xml,%3Csvg width='280' height='160' xmlns='http://www.w3.org/2000/svg'%3E%3Crect width='280' height='160' fill='%230F766E'/%3E%3Ctext x='50%25' y='50%25' dominant-baseline='middle' text-anchor='middle' font-family='system-ui' font-size='18' fill='white'%3EUX Research%3C/text%3E%3C/svg%3E" alt="">
+                    </div>
+                    <div class="course-card__content">
+                        <h2 class="course-card__title">UX Research Methods</h2>
+                        <p class="course-card__instructor">
+                            <svg class="icon" width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+                                <path d="M8 8a3 3 0 100-6 3 3 0 000 6zM8 10c-3.33 0-6 1.67-6 3.75v1.25h12v-1.25c0-2.08-2.67-3.75-6-3.75z" fill="currentColor"/>
+                            </svg>
+                            James Kim
+                        </p>
+                        <div class="course-card__meta">
+                            <span class="course-card__date">
+                                <svg class="icon" width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+                                    <rect x="2" y="3" width="12" height="11" rx="2" stroke="currentColor" stroke-width="1.5" fill="none"/>
+                                    <line x1="2" y1="6" x2="14" y2="6" stroke="currentColor" stroke-width="1.5"/>
+                                    <line x1="5" y1="1" x2="5" y2="4" stroke="currentColor" stroke-width="1.5"/>
+                                    <line x1="11" y1="1" x2="11" y2="4" stroke="currentColor" stroke-width="1.5"/>
+                                </svg>
+                                Jan 15-17, 2026
+                            </span>
+                            <span class="course-card__duration">
+                                <svg class="icon" width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+                                    <circle cx="8" cy="8" r="6" stroke="currentColor" stroke-width="1.5" fill="none"/>
+                                    <path d="M8 4v4l3 2" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+                                </svg>
+                                3 days
+                            </span>
+                            <span class="course-card__price">$1,299</span>
+                        </div>
+                        <div class="course-card__availability">
+                            <div class="availability-bar availability-bar--low">
+                                <div class="availability-bar__fill" style="width: 15%"></div>
+                            </div>
+                            <span class="availability-text availability-text--urgent">Only 3 spots remaining</span>
+                        </div>
+                    </div>
+                </article>
+            </div>
+        </main>
+
+        <!-- Sliding Sidebar -->
+        <aside class="sidebar" id="sidebar" aria-label="Course details and booking form" aria-hidden="true">
+            <div class="sidebar__content">
+                <button class="sidebar__close" id="sidebarClose" aria-label="Close sidebar">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+                        <line x1="18" y1="6" x2="6" y2="18"></line>
+                        <line x1="6" y1="6" x2="18" y2="18"></line>
+                    </svg>
+                </button>
+
+                <div class="sidebar__header">
+                    <h2 class="sidebar__title" id="sidebarTitle">Course Title</h2>
+                    <p class="sidebar__instructor" id="sidebarInstructor"></p>
+                </div>
+
+                <div class="sidebar__details">
+                    <div class="detail-item">
+                        <span class="detail-item__label">Date</span>
+                        <span class="detail-item__value" id="sidebarDate"></span>
+                    </div>
+                    <div class="detail-item">
+                        <span class="detail-item__label">Duration</span>
+                        <span class="detail-item__value" id="sidebarDuration"></span>
+                    </div>
+                    <div class="detail-item">
+                        <span class="detail-item__label">Price</span>
+                        <span class="detail-item__value" id="sidebarPrice"></span>
+                    </div>
+                    <div class="detail-item">
+                        <span class="detail-item__label">Availability</span>
+                        <span class="detail-item__value" id="sidebarAvailability"></span>
+                    </div>
+                </div>
+
+                <!-- Accordion for additional details -->
+                <div class="accordion">
+                    <button class="accordion__trigger" id="accordionTrigger" aria-expanded="false" aria-controls="accordionContent">
+                        <span>See Details</span>
+                        <svg class="accordion__icon" width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true">
+                            <polyline points="6 8 10 12 14 8"></polyline>
+                        </svg>
+                    </button>
+                    <div class="accordion__content" id="accordionContent" aria-hidden="true">
+                        <div class="accordion__body">
+                            <h3 class="accordion__heading">What You'll Learn</h3>
+                            <ul class="accordion__list" id="accordionLearning"></ul>
+
+                            <h3 class="accordion__heading">Prerequisites</h3>
+                            <p class="accordion__text" id="accordionPrerequisites"></p>
+
+                            <h3 class="accordion__heading">Includes</h3>
+                            <ul class="accordion__list" id="accordionIncludes"></ul>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Booking Form -->
+                <form class="booking-form" id="bookingForm" novalidate>
+                    <h3 class="booking-form__title">Reserve Your Spot</h3>
+
+                    <div class="form-group">
+                        <label for="name" class="form-label">Full name <span class="required">*</span></label>
+                        <input
+                            type="text"
+                            id="name"
+                            name="name"
+                            class="form-input"
+                            placeholder="Full name"
+                            required
+                            aria-required="true"
+                            aria-describedby="nameError"
+                        >
+                        <span class="form-error" id="nameError" role="alert"></span>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="email" class="form-label">Email address <span class="required">*</span></label>
+                        <input
+                            type="email"
+                            id="email"
+                            name="email"
+                            class="form-input"
+                            placeholder="Email address"
+                            required
+                            aria-required="true"
+                            aria-describedby="emailError"
+                        >
+                        <span class="form-error" id="emailError" role="alert"></span>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="company" class="form-label">Company <span class="optional">(optional)</span></label>
+                        <input
+                            type="text"
+                            id="company"
+                            name="company"
+                            class="form-input"
+                            placeholder="Company"
+                        >
+                    </div>
+
+                    <div class="form-group">
+                        <label for="dietary" class="form-label">Dietary requirements <span class="optional">(optional)</span></label>
+                        <input
+                            type="text"
+                            id="dietary"
+                            name="dietary"
+                            class="form-input"
+                            placeholder="Dietary requirements"
+                        >
+                    </div>
+
+                    <button type="submit" class="form-submit">
+                        Reserve Your Spot
+                        <svg class="form-submit__icon" width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true">
+                            <path d="M5 10h10M10 5l5 5-5 5"/>
+                        </svg>
+                    </button>
+                </form>
+            </div>
+        </aside>
+
+        <!-- Success Modal -->
+        <div class="modal" id="successModal" role="dialog" aria-modal="true" aria-labelledby="modalTitle" aria-hidden="true">
+            <div class="modal__overlay" id="modalOverlay"></div>
+            <div class="modal__content">
+                <button class="modal__close" id="modalClose" aria-label="Close modal">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+                        <line x1="18" y1="6" x2="6" y2="18"></line>
+                        <line x1="6" y1="6" x2="18" y2="18"></line>
+                    </svg>
+                </button>
+
+                <div class="modal__icon">
+                    <svg width="64" height="64" viewBox="0 0 64 64" fill="none">
+                        <circle cx="32" cy="32" r="32" fill="#D1FAE5"/>
+                        <path d="M20 32l8 8 16-16" stroke="#10B981" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                </div>
+
+                <h2 class="modal__title" id="modalTitle">Booking Confirmed!</h2>
+                <p class="modal__message">We've sent the details to your email.</p>
+
+                <div class="modal__actions">
+                    <button class="modal__action modal__action--primary" id="modalAddCalendar">
+                        <svg class="modal__action-icon" width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                            <rect x="3" y="4" width="14" height="14" rx="2" stroke-linecap="round"/>
+                            <line x1="3" y1="9" x2="17" y2="9"/>
+                            <line x1="7" y1="2" x2="7" y2="6"/>
+                            <line x1="13" y1="2" x2="13" y2="6"/>
+                        </svg>
+                        Add to Calendar
+                    </button>
+                    <button class="modal__action modal__action--secondary" id="modalShare">
+                        <svg class="modal__action-icon" width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                            <path d="M14 7l2-2m0 0l2 2m-2-2v6M4 13v2a2 2 0 002 2h8a2 2 0 002-2v-2"/>
+                        </svg>
+                        Share with Colleague
+                    </button>
+                    <button class="modal__action modal__action--secondary" id="modalViewAll">
+                        View All Bookings
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="booking-balanced.js"></script>
+</body>
+</html>

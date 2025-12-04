@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Expert Advisor Booking - Professional Training Platform</title>
+    <link rel="stylesheet" href="booking-advisor.css">
+</head>
+<body>
+    <!-- Main Container -->
+    <div class="advisor-container">
+
+        <!-- Header -->
+        <header class="advisor-header">
+            <div class="advisor-header__content">
+                <h1 class="advisor-header__title">Professional Development Catalog</h1>
+                <p class="advisor-header__subtitle">Enterprise training solutions with comprehensive tracking</p>
+            </div>
+        </header>
+
+        <!-- Filter Bar -->
+        <section class="filter-bar" role="search" aria-label="Course filters">
+            <div class="filter-bar__container">
+                <div class="filter-bar__group">
+                    <label for="filter-category" class="filter-bar__label">Category</label>
+                    <select id="filter-category" class="filter-bar__select">
+                        <option value="">All Categories</option>
+                        <option value="leadership">Leadership & Management</option>
+                        <option value="technical">Technical Skills</option>
+                        <option value="compliance">Compliance & Safety</option>
+                        <option value="communication">Communication</option>
+                        <option value="data">Data & Analytics</option>
+                    </select>
+                </div>
+
+                <div class="filter-bar__group">
+                    <label for="filter-date" class="filter-bar__label">Date Range</label>
+                    <select id="filter-date" class="filter-bar__select">
+                        <option value="">Any Date</option>
+                        <option value="this-month">This Month</option>
+                        <option value="next-month">Next Month</option>
+                        <option value="this-quarter">This Quarter</option>
+                        <option value="next-quarter">Next Quarter</option>
+                    </select>
+                </div>
+
+                <div class="filter-bar__group">
+                    <label for="filter-level" class="filter-bar__label">Level</label>
+                    <select id="filter-level" class="filter-bar__select">
+                        <option value="">All Levels</option>
+                        <option value="beginner">Beginner</option>
+                        <option value="intermediate">Intermediate</option>
+                        <option value="advanced">Advanced</option>
+                        <option value="expert">Expert</option>
+                    </select>
+                </div>
+
+                <button type="button" id="btn-compare" class="filter-bar__compare-btn" disabled aria-label="Compare selected courses">
+                    <span class="compare-btn__icon" aria-hidden="true">⊕</span>
+                    Compare (<span id="compare-count">0</span>)
+                </button>
+
+                <button type="button" id="btn-clear" class="filter-bar__clear-btn">
+                    Clear Filters
+                </button>
+            </div>
+        </section>
+
+        <!-- Course List -->
+        <main class="course-list" role="main">
+            <div class="course-list__header">
+                <h2 class="course-list__title">Available Courses</h2>
+                <span class="course-list__count" id="course-count">12 courses found</span>
+            </div>
+
+            <div class="course-list__container" id="course-container">
+                <!-- Courses will be rendered here by JavaScript -->
+            </div>
+
+            <div class="course-list__empty" id="empty-state" style="display: none;">
+                <p class="empty-state__text">No courses found matching your criteria. Adjust filters or contact us for custom training.</p>
+                <button type="button" class="empty-state__btn" id="btn-contact">Request Custom Training</button>
+            </div>
+        </main>
+
+        <!-- Comparison Panel (Hidden by default) -->
+        <aside class="comparison-panel" id="comparison-panel" style="display: none;" role="complementary" aria-label="Course comparison">
+            <div class="comparison-panel__header">
+                <h2 class="comparison-panel__title">Course Comparison</h2>
+                <button type="button" class="comparison-panel__close" id="btn-close-compare" aria-label="Close comparison panel">×</button>
+            </div>
+            <div class="comparison-panel__content" id="comparison-content">
+                <!-- Comparison table will be rendered here -->
+            </div>
+        </aside>
+
+        <!-- Course Detail Modal -->
+        <div class="modal" id="course-detail-modal" role="dialog" aria-modal="true" aria-labelledby="course-detail-title" style="display: none;">
+            <div class="modal__overlay" id="detail-overlay"></div>
+            <div class="modal__content modal__content--large">
+                <button type="button" class="modal__close" id="btn-close-detail" aria-label="Close course details">×</button>
+                <div id="course-detail-content">
+                    <!-- Course detail content rendered here -->
+                </div>
+            </div>
+        </div>
+
+        <!-- Booking Form Modal -->
+        <div class="modal" id="booking-modal" role="dialog" aria-modal="true" aria-labelledby="booking-title" style="display: none;">
+            <div class="modal__overlay" id="booking-overlay"></div>
+            <div class="modal__content modal__content--medium">
+                <button type="button" class="modal__close" id="btn-close-booking" aria-label="Close booking form">×</button>
+
+                <!-- Progress Stepper -->
+                <div class="progress-stepper" id="progress-stepper">
+                    <div class="progress-stepper__step progress-stepper__step--active" data-step="1">
+                        <div class="progress-stepper__number">1</div>
+                        <div class="progress-stepper__label">Participant</div>
+                    </div>
+                    <div class="progress-stepper__line"></div>
+                    <div class="progress-stepper__step" data-step="2">
+                        <div class="progress-stepper__number">2</div>
+                        <div class="progress-stepper__label">Billing</div>
+                    </div>
+                    <div class="progress-stepper__line"></div>
+                    <div class="progress-stepper__step" data-step="3">
+                        <div class="progress-stepper__number">3</div>
+                        <div class="progress-stepper__label">Review</div>
+                    </div>
+                </div>
+
+                <form id="booking-form" class="booking-form">
+                    <h2 id="booking-title" class="booking-form__title">Register Participant</h2>
+                    <p class="booking-form__course-name" id="booking-course-name"></p>
+
+                    <!-- Step 1: Participant Details -->
+                    <div class="booking-form__step" id="step-1" data-step="1">
+                        <div class="form-group">
+                            <label for="participant-name" class="form-label">Participant Full Name <span class="form-required">*</span></label>
+                            <input type="text" id="participant-name" name="name" class="form-input" required placeholder="John Smith" autocomplete="name">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="participant-email" class="form-label">Work Email <span class="form-required">*</span></label>
+                            <input type="email" id="participant-email" name="email" class="form-input" required placeholder="john.smith@company.com" autocomplete="email">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="participant-company" class="form-label">Organization <span class="form-required">*</span></label>
+                            <input type="text" id="participant-company" name="company" class="form-input" required placeholder="Acme Corporation" autocomplete="organization">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="participant-role" class="form-label">Job Title</label>
+                            <input type="text" id="participant-role" name="role" class="form-input" placeholder="Senior Manager" autocomplete="organization-title">
+                        </div>
+                    </div>
+
+                    <!-- Step 2: Billing Information -->
+                    <div class="booking-form__step" id="step-2" data-step="2" style="display: none;">
+                        <div class="form-group">
+                            <label for="billing-email" class="form-label">Invoice Email</label>
+                            <input type="email" id="billing-email" name="billing_email" class="form-input" placeholder="billing@company.com (if different from participant)" autocomplete="email">
+                            <p class="form-help">Leave blank to use participant's email</p>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="po-number" class="form-label">Purchase Order Number</label>
+                            <input type="text" id="po-number" name="po_number" class="form-input" placeholder="PO-2024-12345">
+                            <p class="form-help">Optional - for your internal tracking</p>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="billing-notes" class="form-label">Special Requirements or Notes</label>
+                            <textarea id="billing-notes" name="notes" class="form-textarea" rows="3" placeholder="Dietary restrictions, accessibility needs, billing instructions..."></textarea>
+                        </div>
+
+                        <div class="form-group form-group--invoice-preview">
+                            <div class="invoice-preview">
+                                <h3 class="invoice-preview__title">Invoice Preview</h3>
+                                <div class="invoice-preview__row">
+                                    <span class="invoice-preview__label">Course:</span>
+                                    <span class="invoice-preview__value" id="invoice-course"></span>
+                                </div>
+                                <div class="invoice-preview__row">
+                                    <span class="invoice-preview__label">Duration:</span>
+                                    <span class="invoice-preview__value" id="invoice-duration"></span>
+                                </div>
+                                <div class="invoice-preview__row">
+                                    <span class="invoice-preview__label">Date:</span>
+                                    <span class="invoice-preview__value" id="invoice-date"></span>
+                                </div>
+                                <div class="invoice-preview__row invoice-preview__row--total">
+                                    <span class="invoice-preview__label">Total:</span>
+                                    <span class="invoice-preview__value" id="invoice-total"></span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Step 3: Review and Confirm -->
+                    <div class="booking-form__step" id="step-3" data-step="3" style="display: none;">
+                        <div class="review-summary">
+                            <h3 class="review-summary__title">Registration Summary</h3>
+
+                            <div class="review-section">
+                                <h4 class="review-section__title">Course Details</h4>
+                                <div class="review-row">
+                                    <span class="review-row__label">Course:</span>
+                                    <span class="review-row__value" id="review-course"></span>
+                                </div>
+                                <div class="review-row">
+                                    <span class="review-row__label">Instructor:</span>
+                                    <span class="review-row__value" id="review-instructor"></span>
+                                </div>
+                                <div class="review-row">
+                                    <span class="review-row__label">Date:</span>
+                                    <span class="review-row__value" id="review-date"></span>
+                                </div>
+                                <div class="review-row">
+                                    <span class="review-row__label">Duration:</span>
+                                    <span class="review-row__value" id="review-duration"></span>
+                                </div>
+                                <div class="review-row">
+                                    <span class="review-row__label">Price:</span>
+                                    <span class="review-row__value" id="review-price"></span>
+                                </div>
+                            </div>
+
+                            <div class="review-section">
+                                <h4 class="review-section__title">Participant Information</h4>
+                                <div class="review-row">
+                                    <span class="review-row__label">Name:</span>
+                                    <span class="review-row__value" id="review-name"></span>
+                                </div>
+                                <div class="review-row">
+                                    <span class="review-row__label">Email:</span>
+                                    <span class="review-row__value" id="review-email"></span>
+                                </div>
+                                <div class="review-row">
+                                    <span class="review-row__label">Organization:</span>
+                                    <span class="review-row__value" id="review-company"></span>
+                                </div>
+                                <div class="review-row" id="review-role-row">
+                                    <span class="review-row__label">Job Title:</span>
+                                    <span class="review-row__value" id="review-role"></span>
+                                </div>
+                            </div>
+
+                            <div class="review-section">
+                                <h4 class="review-section__title">Billing Information</h4>
+                                <div class="review-row" id="review-billing-email-row">
+                                    <span class="review-row__label">Invoice Email:</span>
+                                    <span class="review-row__value" id="review-billing-email"></span>
+                                </div>
+                                <div class="review-row" id="review-po-row">
+                                    <span class="review-row__label">PO Number:</span>
+                                    <span class="review-row__value" id="review-po"></span>
+                                </div>
+                                <div class="review-row" id="review-notes-row">
+                                    <span class="review-row__label">Notes:</span>
+                                    <span class="review-row__value" id="review-notes"></span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Form Navigation -->
+                    <div class="booking-form__actions">
+                        <button type="button" id="btn-prev" class="btn btn--secondary" style="display: none;">
+                            ← Previous
+                        </button>
+                        <button type="button" id="btn-next" class="btn btn--primary">
+                            Next →
+                        </button>
+                        <button type="submit" id="btn-submit" class="btn btn--primary" style="display: none;">
+                            Complete Registration
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <!-- Confirmation Modal -->
+        <div class="modal" id="confirmation-modal" role="dialog" aria-modal="true" aria-labelledby="confirmation-title" style="display: none;">
+            <div class="modal__overlay"></div>
+            <div class="modal__content modal__content--medium">
+                <div class="confirmation">
+                    <div class="confirmation__icon" aria-hidden="true">✓</div>
+                    <h2 id="confirmation-title" class="confirmation__title">Registration Complete</h2>
+                    <p class="confirmation__message">Confirmation and invoice sent to specified email addresses.</p>
+
+                    <div class="confirmation__details" id="confirmation-details">
+                        <!-- Details populated by JavaScript -->
+                    </div>
+
+                    <div class="confirmation__actions">
+                        <button type="button" class="btn btn--primary" id="btn-download-invoice">
+                            <span aria-hidden="true">📄</span> Download Invoice
+                        </button>
+                        <button type="button" class="btn btn--secondary" id="btn-download-calendar">
+                            <span aria-hidden="true">📅</span> Add to Calendar
+                        </button>
+                        <button type="button" class="btn btn--secondary" id="btn-download-syllabus">
+                            <span aria-hidden="true">📋</span> Download Syllabus
+                        </button>
+                    </div>
+
+                    <div class="confirmation__next-actions">
+                        <h3 class="confirmation__subtitle">What's Next?</h3>
+                        <ul class="confirmation__list">
+                            <li>You'll receive a confirmation email within 5 minutes</li>
+                            <li>Course materials will be sent 48 hours before start date</li>
+                            <li>Contact us if you need to make changes</li>
+                        </ul>
+                    </div>
+
+                    <button type="button" class="btn btn--text" id="btn-close-confirmation">
+                        Close and Book Another
+                    </button>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <script src="booking-advisor.js"></script>
+</body>
+</html>

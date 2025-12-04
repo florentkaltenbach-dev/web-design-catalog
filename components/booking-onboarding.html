@@ -1,0 +1,471 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Guided First Booking - Design Pattern</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="booking-onboarding.css">
+</head>
+<body>
+    <!-- Welcome Section -->
+    <section class="welcome" id="welcome-section" role="banner">
+        <div class="welcome__container">
+            <div class="welcome__badge">
+                <svg class="welcome__badge-icon" width="20" height="20" viewBox="0 0 20 20" fill="none" aria-hidden="true">
+                    <path d="M10 0L12.5 7.5L20 10L12.5 12.5L10 20L7.5 12.5L0 10L7.5 7.5L10 0Z" fill="currentColor"/>
+                </svg>
+                <span>Your first booking journey</span>
+            </div>
+
+            <h1 class="welcome__title">
+                Welcome! Let's find the <span class="welcome__title-emphasis">perfect course</span> for you
+            </h1>
+
+            <p class="welcome__subtitle">
+                We know starting something new can feel overwhelming. Don't worry—we'll guide you through every step.
+            </p>
+
+            <!-- How It Works Guide -->
+            <div class="how-it-works" role="region" aria-label="How booking works">
+                <h2 class="how-it-works__title">How it works</h2>
+                <div class="how-it-works__steps">
+                    <div class="how-it-works__step">
+                        <div class="how-it-works__step-icon" aria-hidden="true">
+                            <svg width="32" height="32" viewBox="0 0 32 32" fill="none">
+                                <circle cx="16" cy="16" r="14" stroke="currentColor" stroke-width="2"/>
+                                <path d="M12 16L15 19L20 13" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            </svg>
+                        </div>
+                        <h3 class="how-it-works__step-title">1. Browse & Explore</h3>
+                        <p class="how-it-works__step-text">Check out our curated courses and see what interests you</p>
+                    </div>
+
+                    <div class="how-it-works__step">
+                        <div class="how-it-works__step-icon" aria-hidden="true">
+                            <svg width="32" height="32" viewBox="0 0 32 32" fill="none">
+                                <rect x="6" y="8" width="20" height="18" rx="2" stroke="currentColor" stroke-width="2"/>
+                                <path d="M10 14H22M10 18H18" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                            </svg>
+                        </div>
+                        <h3 class="how-it-works__step-title">2. Learn More</h3>
+                        <p class="how-it-works__step-text">Read what you'll learn and what to expect from the class</p>
+                    </div>
+
+                    <div class="how-it-works__step">
+                        <div class="how-it-works__step-icon" aria-hidden="true">
+                            <svg width="32" height="32" viewBox="0 0 32 32" fill="none">
+                                <path d="M16 28C22.6274 28 28 22.6274 28 16C28 9.37258 22.6274 4 16 4C9.37258 4 4 9.37258 4 16C4 22.6274 9.37258 28 16 28Z" stroke="currentColor" stroke-width="2"/>
+                                <path d="M16 10V16L20 18" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                            </svg>
+                        </div>
+                        <h3 class="how-it-works__step-title">3. Sign Up</h3>
+                        <p class="how-it-works__step-text">Quick registration with helpful hints along the way</p>
+                    </div>
+                </div>
+            </div>
+
+            <button class="welcome__cta" onclick="scrollToCourses()">
+                Let's Get Started
+                <span class="welcome__cta-icon" aria-hidden="true">→</span>
+            </button>
+        </div>
+    </section>
+
+    <!-- Courses Section -->
+    <section class="courses" id="courses-section" role="region" aria-label="Available courses">
+        <div class="courses__container">
+            <div class="courses__header">
+                <h2 class="courses__title">We've picked these courses just for you</h2>
+                <p class="courses__subtitle">Based on what first-time learners enjoy most</p>
+            </div>
+
+            <div class="courses__grid">
+                <!-- Course Card 1 -->
+                <article class="course-card" data-course-id="1">
+                    <div class="course-card__image">
+                        <img src="data:image/svg+xml,%3Csvg width='400' height='240' xmlns='http://www.w3.org/2000/svg'%3E%3Crect width='400' height='240' fill='%23059669'/%3E%3Ctext x='50%25' y='50%25' text-anchor='middle' dy='.3em' fill='white' font-family='system-ui' font-size='24' font-weight='600'%3EIntro to Web Design%3C/text%3E%3C/svg%3E" alt="Introduction to Web Design course">
+                        <div class="course-card__badge">Most Popular</div>
+                    </div>
+                    <div class="course-card__content">
+                        <h3 class="course-card__title">Introduction to Web Design</h3>
+                        <p class="course-card__instructor">
+                            <svg class="course-card__icon" width="16" height="16" viewBox="0 0 16 16" fill="none">
+                                <circle cx="8" cy="5" r="3" stroke="currentColor" stroke-width="1.5"/>
+                                <path d="M2 14C2 11.2386 4.68629 9 8 9C11.3137 9 14 11.2386 14 14" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+                            </svg>
+                            with Sarah Chen
+                        </p>
+                        <p class="course-card__description">
+                            Perfect for complete beginners! Learn the basics of creating beautiful websites with no prior experience needed.
+                        </p>
+                        <div class="course-card__meta">
+                            <span class="course-card__duration">
+                                <svg class="course-card__icon" width="16" height="16" viewBox="0 0 16 16" fill="none">
+                                    <circle cx="8" cy="8" r="6" stroke="currentColor" stroke-width="1.5"/>
+                                    <path d="M8 5V8L10 9" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+                                </svg>
+                                4 weeks
+                            </span>
+                            <span class="course-card__price">$299</span>
+                        </div>
+                        <div class="course-card__availability">
+                            <span class="course-card__availability-dot"></span>
+                            Plenty of room
+                        </div>
+                        <button class="course-card__cta" onclick="showCourseDetails(1)">
+                            Tell Me More
+                        </button>
+                    </div>
+                </article>
+
+                <!-- Course Card 2 -->
+                <article class="course-card" data-course-id="2">
+                    <div class="course-card__image">
+                        <img src="data:image/svg+xml,%3Csvg width='400' height='240' xmlns='http://www.w3.org/2000/svg'%3E%3Crect width='400' height='240' fill='%23047857'/%3E%3Ctext x='50%25' y='50%25' text-anchor='middle' dy='.3em' fill='white' font-family='system-ui' font-size='24' font-weight='600'%3EDigital Photography%3C/text%3E%3C/svg%3E" alt="Digital Photography Basics course">
+                        <div class="course-card__badge course-card__badge--accent">Beginner Friendly</div>
+                    </div>
+                    <div class="course-card__content">
+                        <h3 class="course-card__title">Digital Photography Basics</h3>
+                        <p class="course-card__instructor">
+                            <svg class="course-card__icon" width="16" height="16" viewBox="0 0 16 16" fill="none">
+                                <circle cx="8" cy="5" r="3" stroke="currentColor" stroke-width="1.5"/>
+                                <path d="M2 14C2 11.2386 4.68629 9 8 9C11.3137 9 14 11.2386 14 14" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+                            </svg>
+                            with Marcus Lee
+                        </p>
+                        <p class="course-card__description">
+                            Unlock your creative eye! Learn to take stunning photos with any camera, from smartphone to DSLR.
+                        </p>
+                        <div class="course-card__meta">
+                            <span class="course-card__duration">
+                                <svg class="course-card__icon" width="16" height="16" viewBox="0 0 16 16" fill="none">
+                                    <circle cx="8" cy="8" r="6" stroke="currentColor" stroke-width="1.5"/>
+                                    <path d="M8 5V8L10 9" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+                                </svg>
+                                3 weeks
+                            </span>
+                            <span class="course-card__price">$249</span>
+                        </div>
+                        <div class="course-card__availability">
+                            <span class="course-card__availability-dot"></span>
+                            Plenty of room
+                        </div>
+                        <button class="course-card__cta" onclick="showCourseDetails(2)">
+                            Tell Me More
+                        </button>
+                    </div>
+                </article>
+
+                <!-- Course Card 3 -->
+                <article class="course-card" data-course-id="3">
+                    <div class="course-card__image">
+                        <img src="data:image/svg+xml,%3Csvg width='400' height='240' xmlns='http://www.w3.org/2000/svg'%3E%3Crect width='400' height='240' fill='%23059669'/%3E%3Ctext x='50%25' y='50%25' text-anchor='middle' dy='.3em' fill='white' font-family='system-ui' font-size='20' font-weight='600'%3ECreative Writing Workshop%3C/text%3E%3C/svg%3E" alt="Creative Writing Workshop course">
+                    </div>
+                    <div class="course-card__content">
+                        <h3 class="course-card__title">Creative Writing Workshop</h3>
+                        <p class="course-card__instructor">
+                            <svg class="course-card__icon" width="16" height="16" viewBox="0 0 16 16" fill="none">
+                                <circle cx="8" cy="5" r="3" stroke="currentColor" stroke-width="1.5"/>
+                                <path d="M2 14C2 11.2386 4.68629 9 8 9C11.3137 9 14 11.2386 14 14" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+                            </svg>
+                            with Emma Rodriguez
+                        </p>
+                        <p class="course-card__description">
+                            Discover your storytelling voice in a supportive environment. No experience required—just bring your imagination!
+                        </p>
+                        <div class="course-card__meta">
+                            <span class="course-card__duration">
+                                <svg class="course-card__icon" width="16" height="16" viewBox="0 0 16 16" fill="none">
+                                    <circle cx="8" cy="8" r="6" stroke="currentColor" stroke-width="1.5"/>
+                                    <path d="M8 5V8L10 9" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+                                </svg>
+                                6 weeks
+                            </span>
+                            <span class="course-card__price">$349</span>
+                        </div>
+                        <div class="course-card__availability">
+                            <span class="course-card__availability-dot"></span>
+                            Plenty of room
+                        </div>
+                        <button class="course-card__cta" onclick="showCourseDetails(3)">
+                            Tell Me More
+                        </button>
+                    </div>
+                </article>
+            </div>
+
+            <div class="courses__help">
+                <p>Not sure which course is right for you?</p>
+                <button class="courses__help-link" onclick="showQuizPrompt()">
+                    Take our quick quiz
+                    <span aria-hidden="true">✨</span>
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Course Details Modal -->
+    <div class="modal" id="course-details-modal" role="dialog" aria-modal="true" aria-labelledby="course-details-title">
+        <div class="modal__overlay" onclick="closeModal()"></div>
+        <div class="modal__content">
+            <button class="modal__close" onclick="closeModal()" aria-label="Close dialog">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+                    <path d="M18 6L6 18M6 6L18 18" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                </svg>
+            </button>
+
+            <div id="course-details-content">
+                <!-- Dynamically populated -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Booking Form Modal -->
+    <div class="modal" id="booking-form-modal" role="dialog" aria-modal="true" aria-labelledby="booking-form-title">
+        <div class="modal__overlay" onclick="closeBookingForm()"></div>
+        <div class="modal__content modal__content--wide">
+            <button class="modal__close" onclick="closeBookingForm()" aria-label="Close dialog">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+                    <path d="M18 6L6 18M6 6L18 18" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                </svg>
+            </button>
+
+            <div class="booking-form">
+                <h2 id="booking-form-title" class="booking-form__title">Let's get you signed up!</h2>
+                <p class="booking-form__subtitle">Just a few quick details and you're all set</p>
+
+                <!-- Progress Bar -->
+                <div class="progress-bar" role="progressbar" aria-valuenow="33" aria-valuemin="0" aria-valuemax="100">
+                    <div class="progress-bar__track">
+                        <div class="progress-bar__fill" id="progress-fill"></div>
+                    </div>
+                    <div class="progress-bar__steps">
+                        <div class="progress-bar__step progress-bar__step--active" data-step="1">
+                            <span class="progress-bar__step-number">1</span>
+                            <span class="progress-bar__step-label">Your Info</span>
+                        </div>
+                        <div class="progress-bar__step" data-step="2">
+                            <span class="progress-bar__step-number">2</span>
+                            <span class="progress-bar__step-label">Contact</span>
+                        </div>
+                        <div class="progress-bar__step" data-step="3">
+                            <span class="progress-bar__step-number">3</span>
+                            <span class="progress-bar__step-label">Confirm</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Form Steps -->
+                <form id="booking-form" novalidate>
+                    <!-- Step 1: Name -->
+                    <div class="form-step form-step--active" data-step="1">
+                        <div class="form-group">
+                            <label for="name" class="form-label">What should we call you?</label>
+                            <input
+                                type="text"
+                                id="name"
+                                name="name"
+                                class="form-input"
+                                placeholder="Your name"
+                                required
+                                aria-describedby="name-hint"
+                            >
+                            <div class="form-hint" id="name-hint">
+                                <svg class="form-hint__icon" width="16" height="16" viewBox="0 0 16 16" fill="none">
+                                    <circle cx="8" cy="8" r="7" stroke="currentColor" stroke-width="1.5"/>
+                                    <path d="M8 11V8M8 5H8.01" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+                                </svg>
+                                Just your first name is fine! We want to make sure we address you correctly.
+                            </div>
+                            <div class="form-error" id="name-error"></div>
+                        </div>
+                        <div class="form-actions">
+                            <button type="button" class="btn btn--primary" onclick="nextStep()">
+                                Continue
+                                <span aria-hidden="true">→</span>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Step 2: Email & Phone -->
+                    <div class="form-step" data-step="2">
+                        <div class="form-group">
+                            <label for="email" class="form-label">Your email address</label>
+                            <input
+                                type="email"
+                                id="email"
+                                name="email"
+                                class="form-input"
+                                placeholder="email@example.com"
+                                required
+                                aria-describedby="email-hint"
+                            >
+                            <div class="form-hint" id="email-hint">
+                                <svg class="form-hint__icon" width="16" height="16" viewBox="0 0 16 16" fill="none">
+                                    <circle cx="8" cy="8" r="7" stroke="currentColor" stroke-width="1.5"/>
+                                    <path d="M8 11V8M8 5H8.01" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+                                </svg>
+                                We'll send your confirmation and course details here. Check your spam folder if you don't see it!
+                            </div>
+                            <div class="form-error" id="email-error"></div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="phone" class="form-label">
+                                Phone number
+                                <span class="form-label__optional">(optional)</span>
+                            </label>
+                            <input
+                                type="tel"
+                                id="phone"
+                                name="phone"
+                                class="form-input"
+                                placeholder="(555) 123-4567"
+                                aria-describedby="phone-hint"
+                            >
+                            <div class="form-hint" id="phone-hint">
+                                <svg class="form-hint__icon" width="16" height="16" viewBox="0 0 16 16" fill="none">
+                                    <circle cx="8" cy="8" r="7" stroke="currentColor" stroke-width="1.5"/>
+                                    <path d="M8 11V8M8 5H8.01" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+                                </svg>
+                                We can send you a friendly reminder the day before class. Totally optional!
+                            </div>
+                        </div>
+
+                        <div class="form-actions">
+                            <button type="button" class="btn btn--secondary" onclick="previousStep()">
+                                <span aria-hidden="true">←</span>
+                                Back
+                            </button>
+                            <button type="button" class="btn btn--primary" onclick="nextStep()">
+                                Continue
+                                <span aria-hidden="true">→</span>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Step 3: Additional Info & Confirmation -->
+                    <div class="form-step" data-step="3">
+                        <div class="form-group">
+                            <label for="hear-about" class="form-label">
+                                How did you hear about us?
+                                <span class="form-label__optional">(optional)</span>
+                            </label>
+                            <select
+                                id="hear-about"
+                                name="hear_about"
+                                class="form-input"
+                                aria-describedby="hear-about-hint"
+                            >
+                                <option value="">Choose an option...</option>
+                                <option value="search">Google or other search</option>
+                                <option value="social">Social media</option>
+                                <option value="friend">Friend or colleague</option>
+                                <option value="ad">Advertisement</option>
+                                <option value="other">Other</option>
+                            </select>
+                            <div class="form-hint" id="hear-about-hint">
+                                <svg class="form-hint__icon" width="16" height="16" viewBox="0 0 16 16" fill="none">
+                                    <circle cx="8" cy="8" r="7" stroke="currentColor" stroke-width="1.5"/>
+                                    <path d="M8 11V8M8 5H8.01" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+                                </svg>
+                                This helps us improve. No pressure if you'd rather skip it!
+                            </div>
+                        </div>
+
+                        <!-- Booking Summary -->
+                        <div class="booking-summary">
+                            <h3 class="booking-summary__title">Your booking details</h3>
+                            <div class="booking-summary__content" id="booking-summary-content">
+                                <!-- Dynamically populated -->
+                            </div>
+                        </div>
+
+                        <div class="form-actions">
+                            <button type="button" class="btn btn--secondary" onclick="previousStep()">
+                                <span aria-hidden="true">←</span>
+                                Back
+                            </button>
+                            <button type="submit" class="btn btn--primary btn--large">
+                                Sign Me Up!
+                                <span aria-hidden="true">✓</span>
+                            </button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Confirmation Modal -->
+    <div class="modal" id="confirmation-modal" role="dialog" aria-modal="true" aria-labelledby="confirmation-title">
+        <div class="modal__overlay"></div>
+        <div class="modal__content">
+            <div class="confirmation">
+                <div class="confetti-container" id="confetti-container" aria-hidden="true"></div>
+
+                <div class="confirmation__icon">
+                    <svg width="64" height="64" viewBox="0 0 64 64" fill="none">
+                        <circle cx="32" cy="32" r="30" fill="#ECFDF5" stroke="#059669" stroke-width="2"/>
+                        <path d="M20 32L28 40L44 24" stroke="#059669" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                </div>
+
+                <h2 id="confirmation-title" class="confirmation__title">You did it! Welcome aboard! 🎉</h2>
+                <p class="confirmation__message">
+                    We're excited to have you. Check your inbox for a welcome email with everything you need.
+                </p>
+
+                <div class="confirmation__details" id="confirmation-details">
+                    <!-- Dynamically populated -->
+                </div>
+
+                <div class="next-steps">
+                    <h3 class="next-steps__title">What happens next?</h3>
+                    <ul class="next-steps__list">
+                        <li class="next-steps__item">
+                            <svg class="next-steps__icon" width="24" height="24" viewBox="0 0 24 24" fill="none">
+                                <rect x="4" y="4" width="16" height="16" rx="2" stroke="currentColor" stroke-width="2"/>
+                                <path d="M8 2V6M16 2V6M4 10H20" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                            </svg>
+                            <div>
+                                <strong>Add to your calendar</strong>
+                                <p>We've sent you a calendar invite so you don't forget</p>
+                            </div>
+                        </li>
+                        <li class="next-steps__item">
+                            <svg class="next-steps__icon" width="24" height="24" viewBox="0 0 24 24" fill="none">
+                                <path d="M21 11.5C21 16.7467 16.7467 21 11.5 21C6.25329 21 2 16.7467 2 11.5C2 6.25329 6.25329 2 11.5 2" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                                <path d="M22 4L12 14L9 11" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            </svg>
+                            <div>
+                                <strong>Review the prep checklist</strong>
+                                <p>See what to bring and how to prepare (spoiler: it's easy!)</p>
+                            </div>
+                        </li>
+                        <li class="next-steps__item">
+                            <svg class="next-steps__icon" width="24" height="24" viewBox="0 0 24 24" fill="none">
+                                <path d="M12 21C16.9706 21 21 16.9706 21 12C21 7.02944 16.9706 3 12 3C7.02944 3 3 7.02944 3 12C3 16.9706 7.02944 21 12 21Z" stroke="currentColor" stroke-width="2"/>
+                                <path d="M9 9C9 7.34315 10.3431 6 12 6C13.6569 6 15 7.34315 15 9C15 10.6569 13.6569 12 12 12M12 16H12.01" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                            </svg>
+                            <div>
+                                <strong>Questions? We're here!</strong>
+                                <p>Email us anytime at hello@example.com or call (555) 123-4567</p>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+
+                <button class="btn btn--primary btn--large" onclick="closeConfirmation()">
+                    Got it, thanks!
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script src="booking-onboarding.js"></script>
+</body>
+</html>

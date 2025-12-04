@@ -162,6 +162,91 @@
       "dual_inclusion": null,
       "content_notes": "Use drop caps, pull quotes, sidebars, and inline images. Serif typography for warmth. Include byline with author info and reading time.",
       "placement_recommendation": "Blog posts, resources, guides, educational content"
+    },
+    {
+      "id": 11,
+      "name": "Lightning Booking (Fast Flow)",
+      "emotional_axis": "Clarity + Efficiency + Confidence",
+      "emotional_position": { "curiosity_clarity": 95, "spark_friction": 95, "exploration_efficiency": 95 },
+      "audience": ["Busy professionals", "Returning customers", "Decisive users"],
+      "component_file": "components/booking-fast-flow.html",
+      "dual_inclusion": {
+        "capturing_ratio": 20,
+        "pushing_ratio": 80,
+        "capturing_elements": ["Trust badges", "Clear pricing", "Instant feedback"],
+        "pushing_elements": ["Prominent Book Now CTA", "Minimal form fields", "Urgency indicators (spots left)"],
+        "blend_strategy": "Efficiency-first: every element serves the 15-second booking goal"
+      },
+      "content_notes": "Minimal course cards with essential info only. Single-page inline form. Calendar export on confirmation. Target: 15-second completion.",
+      "placement_recommendation": "Quick booking pages, returning user flows, mobile-first experiences"
+    },
+    {
+      "id": 12,
+      "name": "Course Discovery (Exploration)",
+      "emotional_axis": "Curiosity + Inspiration + Connection",
+      "emotional_position": { "curiosity_clarity": 15, "spark_friction": 10, "exploration_efficiency": 10 },
+      "audience": ["Newcomers", "Career explorers", "First-time learners"],
+      "component_file": "components/booking-discovery.html",
+      "dual_inclusion": {
+        "capturing_ratio": 85,
+        "pushing_ratio": 15,
+        "capturing_elements": ["Hero images", "Instructor stories", "Rich course descriptions", "Related content"],
+        "pushing_elements": ["Start Your Journey CTA", "Save for later option"],
+        "blend_strategy": "Journey-first: the exploration IS the value, booking is natural conclusion"
+      },
+      "content_notes": "Visual cards with instructor avatars. Multi-step form with goals field. Celebration confirmation. Related courses carousel.",
+      "placement_recommendation": "Marketing landing pages, content discovery, first-time visitor paths"
+    },
+    {
+      "id": 13,
+      "name": "Smart Booking (Balanced)",
+      "emotional_axis": "Flexibility + Clarity + Trust",
+      "emotional_position": { "curiosity_clarity": 50, "spark_friction": 50, "exploration_efficiency": 50 },
+      "audience": ["Mixed audiences", "Both explorers and deciders", "Returning and new users"],
+      "component_file": "components/booking-balanced.html",
+      "dual_inclusion": {
+        "capturing_ratio": 50,
+        "pushing_ratio": 50,
+        "capturing_elements": ["Detailed course cards", "Expandable details accordion", "Progressive disclosure"],
+        "pushing_elements": ["Sidebar booking form", "Availability bar", "Reserve Your Spot CTA"],
+        "blend_strategy": "Progressive disclosure lets users self-select their depth"
+      },
+      "content_notes": "Two-panel layout with sliding sidebar. Accordion for details. Modal confirmation. Serves both quick bookers and explorers.",
+      "placement_recommendation": "Main course catalog, general booking flows, default booking experience"
+    },
+    {
+      "id": 14,
+      "name": "Expert Advisor Booking",
+      "emotional_axis": "Trust + Transparency + Professionalism",
+      "emotional_position": { "curiosity_clarity": 85, "spark_friction": 70, "exploration_efficiency": 60 },
+      "audience": ["HR professionals", "Team leads", "Corporate buyers", "Advanced learners"],
+      "component_file": "components/booking-advisor.html",
+      "dual_inclusion": {
+        "capturing_ratio": 40,
+        "pushing_ratio": 60,
+        "capturing_elements": ["Comprehensive course data", "Instructor credentials", "Reviews and ratings", "Comparison tools"],
+        "pushing_elements": ["Filter-driven search", "Multi-participant registration", "Invoice/billing options"],
+        "blend_strategy": "Data transparency enables confident decisions; tools support bulk booking"
+      },
+      "content_notes": "Filter bar with dropdowns. List-view layout. Comparison mode. Multi-step form with billing. Invoice generation. WCAG AAA.",
+      "placement_recommendation": "Corporate booking portal, HR training catalog, enterprise solutions"
+    },
+    {
+      "id": 15,
+      "name": "Guided First Booking (Onboarding)",
+      "emotional_axis": "Safety + Encouragement + Clarity",
+      "emotional_position": { "curiosity_clarity": 40, "spark_friction": 30, "exploration_efficiency": 25 },
+      "audience": ["First-time visitors", "Hesitant users", "Those new to professional training"],
+      "component_file": "components/booking-onboarding.html",
+      "dual_inclusion": {
+        "capturing_ratio": 75,
+        "pushing_ratio": 25,
+        "capturing_elements": ["How it works guide", "What to expect sections", "Friendly hints", "Reassuring microcopy"],
+        "pushing_elements": ["Sign Me Up CTA", "Progress celebration", "Next steps checklist"],
+        "blend_strategy": "Anxiety reduction through guidance; celebration rewards commitment"
+      },
+      "content_notes": "Welcome section with 3-step guide. Visual cards with badges. Multi-step form with hints. Confetti celebration. Clear next steps.",
+      "placement_recommendation": "First-time user flows, onboarding sequences, anxiety-sensitive contexts"
     }
   ]
 }

@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Course Discovery - Explore Your Learning Journey</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Merriweather:wght@300;400;700&family=Source+Sans+Pro:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="booking-discovery.css">
+</head>
+<body>
+    <!-- Hero Section -->
+    <section class="hero" role="banner" aria-labelledby="hero-headline">
+        <div class="hero__container">
+            <h1 id="hero-headline" class="hero__headline">
+                Discover Your
+                <span class="hero__headline-emphasis">Perfect Learning Path</span>
+            </h1>
+
+            <p class="hero__subheadline">
+                Explore our curated collection of courses designed to inspire growth,
+                spark creativity, and transform your career. Your learning adventure begins here.
+            </p>
+        </div>
+    </section>
+
+    <!-- Course Grid Section -->
+    <section class="courses" id="courses-section" aria-labelledby="courses-heading">
+        <div class="courses__container">
+            <h2 id="courses-heading" class="courses__heading">Popular Courses</h2>
+
+            <div class="courses__grid" id="courses-grid">
+                <!-- Course cards will be dynamically inserted here -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Course Detail Modal -->
+    <div class="modal" id="course-detail-modal" role="dialog" aria-labelledby="modal-title" aria-modal="true" hidden>
+        <div class="modal__overlay" aria-hidden="true"></div>
+        <div class="modal__content">
+            <button class="modal__close" aria-label="Close course details">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                    <path d="M18 6L6 18M6 6l12 12"/>
+                </svg>
+            </button>
+
+            <div class="course-detail" id="course-detail-content">
+                <!-- Content will be dynamically inserted -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Booking Form Modal -->
+    <div class="modal" id="booking-modal" role="dialog" aria-labelledby="booking-title" aria-modal="true" hidden>
+        <div class="modal__overlay" aria-hidden="true"></div>
+        <div class="modal__content modal__content--form">
+            <button class="modal__close" aria-label="Close booking form">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                    <path d="M18 6L6 18M6 6l12 12"/>
+                </svg>
+            </button>
+
+            <div class="booking-form">
+                <!-- Progress Indicator -->
+                <div class="progress" role="progressbar" aria-valuenow="1" aria-valuemin="1" aria-valuemax="3">
+                    <div class="progress__steps">
+                        <div class="progress__step progress__step--active" data-step="1">
+                            <div class="progress__step-number">1</div>
+                            <div class="progress__step-label">About You</div>
+                        </div>
+                        <div class="progress__step" data-step="2">
+                            <div class="progress__step-number">2</div>
+                            <div class="progress__step-label">Your Goals</div>
+                        </div>
+                        <div class="progress__step" data-step="3">
+                            <div class="progress__step-number">3</div>
+                            <div class="progress__step-label">Confirm</div>
+                        </div>
+                    </div>
+                    <div class="progress__bar">
+                        <div class="progress__bar-fill" style="width: 33.33%"></div>
+                    </div>
+                </div>
+
+                <form id="booking-form" novalidate>
+                    <!-- Step 1: Personal Info -->
+                    <div class="form-step" data-step="1">
+                        <h2 id="booking-title" class="form-step__title">Tell us about yourself</h2>
+                        <p class="form-step__description">We'd love to know who you are and how to reach you.</p>
+
+                        <div class="form-group">
+                            <label for="name" class="form-label">What should we call you?</label>
+                            <input
+                                type="text"
+                                id="name"
+                                name="name"
+                                class="form-input"
+                                placeholder="Your name"
+                                required
+                                aria-required="true"
+                            >
+                            <span class="form-error" role="alert"></span>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="email" class="form-label">Your email address</label>
+                            <input
+                                type="email"
+                                id="email"
+                                name="email"
+                                class="form-input"
+                                placeholder="you@example.com"
+                                required
+                                aria-required="true"
+                            >
+                            <span class="form-error" role="alert"></span>
+                        </div>
+
+                        <div class="form-actions">
+                            <button type="button" class="btn btn--primary" data-action="next">
+                                Continue
+                                <span class="btn__icon" aria-hidden="true">→</span>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Step 2: Goals & Experience -->
+                    <div class="form-step" data-step="2" hidden>
+                        <h2 class="form-step__title">What brings you here?</h2>
+                        <p class="form-step__description">Share your goals and experience level so we can personalize your learning journey.</p>
+
+                        <div class="form-group">
+                            <label for="goals" class="form-label">What do you hope to learn?</label>
+                            <textarea
+                                id="goals"
+                                name="goals"
+                                class="form-input form-input--textarea"
+                                placeholder="Tell us about your learning goals and what you'd like to achieve..."
+                                rows="4"
+                            ></textarea>
+                            <span class="form-help">Optional, but helps us support you better</span>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="experience" class="form-label">Your experience level</label>
+                            <select id="experience" name="experience" class="form-input">
+                                <option value="">Select your level</option>
+                                <option value="beginner">Beginner - Just starting out</option>
+                                <option value="intermediate">Intermediate - Some experience</option>
+                                <option value="advanced">Advanced - Looking to deepen expertise</option>
+                            </select>
+                        </div>
+
+                        <div class="form-actions">
+                            <button type="button" class="btn btn--secondary" data-action="prev">
+                                <span class="btn__icon" aria-hidden="true">←</span>
+                                Back
+                            </button>
+                            <button type="button" class="btn btn--primary" data-action="next">
+                                Review Booking
+                                <span class="btn__icon" aria-hidden="true">→</span>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Step 3: Confirmation -->
+                    <div class="form-step" data-step="3" hidden>
+                        <h2 class="form-step__title">Review your booking</h2>
+                        <p class="form-step__description">Everything looks good? Let's confirm your spot.</p>
+
+                        <div class="booking-summary" id="booking-summary">
+                            <!-- Summary will be populated dynamically -->
+                        </div>
+
+                        <div class="form-actions">
+                            <button type="button" class="btn btn--secondary" data-action="prev">
+                                <span class="btn__icon" aria-hidden="true">←</span>
+                                Back
+                            </button>
+                            <button type="submit" class="btn btn--primary">
+                                Confirm Booking
+                                <span class="btn__icon" aria-hidden="true">✓</span>
+                            </button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Confirmation Page -->
+    <div class="confirmation" id="confirmation-page" hidden>
+        <div class="confirmation__container">
+            <div class="confirmation__celebration">
+                <div class="celebration__icon" aria-hidden="true">
+                    <svg width="80" height="80" viewBox="0 0 80 80" fill="none">
+                        <circle cx="40" cy="40" r="38" stroke="#10B981" stroke-width="4"/>
+                        <path d="M25 40L35 50L55 30" stroke="#10B981" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                </div>
+
+                <h1 class="confirmation__title">Welcome aboard!</h1>
+                <p class="confirmation__message">Your learning adventure begins now.</p>
+            </div>
+
+            <div class="confirmation__details" id="confirmation-details">
+                <!-- Will be populated dynamically -->
+            </div>
+
+            <div class="confirmation__actions">
+                <button class="btn btn--primary" id="add-to-calendar">
+                    <span class="btn__icon" aria-hidden="true">📅</span>
+                    Add to Calendar
+                </button>
+                <button class="btn btn--secondary" id="share-booking">
+                    <span class="btn__icon" aria-hidden="true">↗</span>
+                    Share
+                </button>
+            </div>
+
+            <div class="next-steps">
+                <h2 class="next-steps__title">What's next?</h2>
+                <div class="next-steps__grid">
+                    <a href="#" class="next-step-card">
+                        <div class="next-step-card__icon" aria-hidden="true">📚</div>
+                        <h3 class="next-step-card__title">Explore related courses</h3>
+                        <p class="next-step-card__description">Continue your learning journey</p>
+                    </a>
+                    <a href="#" class="next-step-card">
+                        <div class="next-step-card__icon" aria-hidden="true">👋</div>
+                        <h3 class="next-step-card__title">Meet your instructor</h3>
+                        <p class="next-step-card__description">Learn about your guide</p>
+                    </a>
+                    <a href="#" class="next-step-card">
+                        <div class="next-step-card__icon" aria-hidden="true">💬</div>
+                        <h3 class="next-step-card__title">Join the community</h3>
+                        <p class="next-step-card__description">Connect with fellow learners</p>
+                    </a>
+                    <a href="#" class="next-step-card">
+                        <div class="next-step-card__icon" aria-hidden="true">📥</div>
+                        <h3 class="next-step-card__title">Download preparation guide</h3>
+                        <p class="next-step-card__description">Get ready for your first class</p>
+                    </a>
+                </div>
+            </div>
+
+            <div class="related-courses">
+                <h2 class="related-courses__title">You might also like</h2>
+                <div class="related-courses__carousel" id="related-courses-carousel">
+                    <!-- Will be populated dynamically -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Toast Notification -->
+    <div class="toast" id="toast" role="status" aria-live="polite" hidden>
+        <div class="toast__content">
+            <span class="toast__icon" aria-hidden="true">✓</span>
+            <span class="toast__message"></span>
+        </div>
+    </div>
+
+    <script src="booking-discovery.js"></script>
+</body>
+</html>
