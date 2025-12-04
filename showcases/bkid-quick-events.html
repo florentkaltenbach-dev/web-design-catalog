@@ -1,0 +1,1368 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BKiD Veranstaltungen - Schnelle Anmeldung</title>
+    <style>
+        /* ============================================
+           BKiD Quick Events - Combined Pattern Showcase
+
+           Patterns Used:
+           1. Still-Life Confidence Hero - Professional branding
+           2. Lightning Booking - Fast event registration
+           3. Magazine-Editorial Layout - Event descriptions & news
+           ============================================ */
+
+        /* ============================================
+           CSS Custom Properties
+           ============================================ */
+        :root {
+            /* BKiD Brand Colors */
+            --color-primary: #2E5C7F;        /* Professional blue */
+            --color-primary-dark: #1F3F56;   /* Darker blue */
+            --color-primary-light: #4A7C9F;  /* Lighter blue */
+            --color-secondary: #D4A574;      /* Warm gold accent */
+            --color-accent: #7FA89B;         /* Calm sage green */
+
+            /* Neutral Colors */
+            --color-text-dark: #2C2C2C;
+            --color-text-secondary: #666666;
+            --color-text-light: #888888;
+            --color-bg-page: #FAFAFA;
+            --color-bg-white: #FFFFFF;
+            --color-bg-light: #F5F5F5;
+            --color-bg-highlight: #F0F4F7;
+            --color-border: #E0E0E0;
+            --color-border-light: #EEEEEE;
+
+            /* Success/Error */
+            --color-success: #10B981;
+            --color-success-light: #D1FAE5;
+            --color-error: #EF4444;
+            --color-error-light: #FEE2E2;
+
+            /* Typography */
+            --font-serif: 'Georgia', 'Cambria', 'Times New Roman', serif;
+            --font-sans: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Helvetica Neue', Arial, sans-serif;
+
+            /* Spacing */
+            --space-xs: 0.5rem;
+            --space-sm: 1rem;
+            --space-md: 1.5rem;
+            --space-lg: 2rem;
+            --space-xl: 3rem;
+            --space-2xl: 4rem;
+
+            /* Layout */
+            --hero-min-height: 400px;
+            --hero-max-height: 600px;
+            --content-max-width: 1400px;
+
+            /* Effects */
+            --radius-sm: 4px;
+            --radius-md: 8px;
+            --radius-lg: 12px;
+            --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.06);
+            --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.08);
+            --shadow-lg: 0 8px 24px rgba(0, 0, 0, 0.10);
+            --shadow-focus: 0 0 0 3px rgba(46, 92, 127, 0.1);
+            --transition-base: 0.2s ease;
+        }
+
+        /* ============================================
+           Base Styles
+           ============================================ */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: var(--font-sans);
+            line-height: 1.6;
+            color: var(--color-text-dark);
+            background-color: var(--color-bg-page);
+            -webkit-font-smoothing: antialiased;
+        }
+
+        /* ============================================
+           Skip Link (Accessibility)
+           ============================================ */
+        .skip-link {
+            position: absolute;
+            top: -40px;
+            left: 0;
+            background: var(--color-primary);
+            color: #fff;
+            padding: 8px 16px;
+            text-decoration: none;
+            z-index: 1000;
+            border-radius: 0 0 4px 0;
+        }
+
+        .skip-link:focus {
+            top: 0;
+        }
+
+        /* ============================================
+           Back Button
+           ============================================ */
+        .back-to-catalog {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: var(--space-sm) var(--space-md);
+            margin: var(--space-md);
+            color: var(--color-primary);
+            text-decoration: none;
+            font-weight: 500;
+            transition: color var(--transition-base);
+        }
+
+        .back-to-catalog:hover,
+        .back-to-catalog:focus {
+            color: var(--color-primary-dark);
+            text-decoration: underline;
+        }
+
+        /* ============================================
+           HERO COMPONENT (Still-Life Confidence)
+           ============================================ */
+        .hero {
+            position: relative;
+            min-height: var(--hero-min-height);
+            max-height: var(--hero-max-height);
+            height: 60vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            isolation: isolate;
+        }
+
+        .hero__image {
+            position: absolute;
+            inset: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            object-position: center;
+            z-index: -2;
+        }
+
+        .hero__overlay {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(
+                135deg,
+                rgba(44, 44, 44, 0.7) 0%,
+                rgba(44, 44, 44, 0.3) 100%
+            );
+            z-index: -1;
+        }
+
+        .hero__content {
+            max-width: 800px;
+            width: 90%;
+            padding: var(--space-lg);
+            text-align: center;
+            color: white;
+            opacity: 0;
+            transform: translateY(20px);
+            animation: fadeInUp 1s ease forwards;
+            animation-delay: 0.2s;
+        }
+
+        @keyframes fadeInUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .hero__microcopy {
+            font-size: 0.875rem;
+            font-weight: 600;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            color: var(--color-secondary);
+            margin-bottom: var(--space-sm);
+        }
+
+        .hero__headline {
+            font-family: var(--font-serif);
+            font-size: clamp(2rem, 5vw, 3rem);
+            font-weight: 400;
+            line-height: 1.2;
+            margin-bottom: var(--space-md);
+        }
+
+        .hero__subheadline {
+            font-size: clamp(1.125rem, 2.5vw, 1.5rem);
+            font-weight: 300;
+            line-height: 1.5;
+            max-width: 600px;
+            margin: 0 auto var(--space-xl);
+        }
+
+        /* ============================================
+           MAIN CONTENT WRAPPER
+           ============================================ */
+        .page-wrapper {
+            max-width: var(--content-max-width);
+            margin: 0 auto;
+            padding: var(--space-xl) var(--space-md);
+            background-color: var(--color-bg-white);
+        }
+
+        /* ============================================
+           EVENT BOOKING SECTION (Lightning Booking)
+           ============================================ */
+        .booking-section {
+            margin-bottom: var(--space-2xl);
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: var(--space-xl);
+        }
+
+        .section-header__title {
+            font-family: var(--font-serif);
+            font-size: clamp(1.75rem, 4vw, 2.5rem);
+            font-weight: 700;
+            color: var(--color-text-dark);
+            margin-bottom: var(--space-sm);
+        }
+
+        .section-header__description {
+            font-size: 1.125rem;
+            color: var(--color-text-secondary);
+        }
+
+        /* Event Cards Grid */
+        .events-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: var(--space-lg);
+            margin-bottom: var(--space-2xl);
+        }
+
+        .event-card {
+            background: var(--color-bg-white);
+            border: 2px solid var(--color-border);
+            border-radius: var(--radius-md);
+            padding: var(--space-lg);
+            cursor: pointer;
+            transition: all 0.2s ease;
+            position: relative;
+        }
+
+        .event-card:hover {
+            border-color: var(--color-primary);
+            box-shadow: var(--shadow-md);
+            transform: translateY(-2px);
+        }
+
+        .event-card:focus-visible {
+            outline: none;
+            border-color: var(--color-primary);
+            box-shadow: var(--shadow-focus);
+        }
+
+        .event-card.selected {
+            border-color: var(--color-primary);
+            background: linear-gradient(135deg, rgba(46, 92, 127, 0.05) 0%, rgba(46, 92, 127, 0.02) 100%);
+        }
+
+        .event-card.selected::before {
+            content: '';
+            position: absolute;
+            top: var(--space-md);
+            right: var(--space-md);
+            width: 24px;
+            height: 24px;
+            background: var(--color-primary);
+            border-radius: 50%;
+            background-image: url("data:image/svg+xml,%3Csvg width='14' height='11' viewBox='0 0 14 11' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M1 5.5L5 9.5L13 1.5' stroke='white' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+            background-repeat: no-repeat;
+            background-position: center;
+        }
+
+        .event-card__title {
+            font-size: 1.25rem;
+            font-weight: 600;
+            color: var(--color-text-dark);
+            margin-bottom: var(--space-md);
+            line-height: 1.3;
+        }
+
+        .event-card__meta {
+            display: flex;
+            flex-direction: column;
+            gap: var(--space-xs);
+            margin-bottom: var(--space-md);
+            font-size: 0.9rem;
+            color: var(--color-text-secondary);
+        }
+
+        .event-card__meta-item {
+            display: flex;
+            align-items: center;
+            gap: var(--space-xs);
+        }
+
+        .event-card__description {
+            font-size: 0.9rem;
+            color: var(--color-text-secondary);
+            line-height: 1.5;
+            margin-bottom: var(--space-md);
+        }
+
+        .event-card__footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding-top: var(--space-md);
+            border-top: 1px solid var(--color-border);
+        }
+
+        .event-card__type {
+            font-size: 0.75rem;
+            font-weight: 600;
+            padding: 0.25rem 0.75rem;
+            background: var(--color-bg-highlight);
+            color: var(--color-primary);
+            border-radius: var(--radius-sm);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .event-card__spots {
+            font-size: 0.75rem;
+            font-weight: 600;
+            color: var(--color-success);
+        }
+
+        /* ============================================
+           BOOKING FORM
+           ============================================ */
+        .booking-form-container {
+            margin-top: var(--space-xl);
+            animation: slideIn 0.3s ease;
+        }
+
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateY(-10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .booking-form {
+            background: var(--color-bg-white);
+            border: 2px solid var(--color-primary);
+            border-radius: var(--radius-lg);
+            padding: var(--space-xl);
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .booking-form__header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: var(--space-xl);
+        }
+
+        .booking-form__title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--color-text-dark);
+        }
+
+        .booking-form__close {
+            background: none;
+            border: none;
+            color: var(--color-text-secondary);
+            cursor: pointer;
+            padding: var(--space-sm);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: var(--radius-sm);
+            transition: all 0.15s ease;
+        }
+
+        .booking-form__close:hover {
+            background: var(--color-bg-light);
+            color: var(--color-text-dark);
+        }
+
+        .booking-form__close:focus-visible {
+            outline: 2px solid var(--color-primary);
+            outline-offset: 2px;
+        }
+
+        /* Booking Summary */
+        .booking-summary {
+            background: var(--color-bg-light);
+            border-radius: var(--radius-md);
+            padding: var(--space-lg);
+            margin-bottom: var(--space-xl);
+        }
+
+        .booking-summary__item {
+            display: flex;
+            justify-content: space-between;
+            padding: var(--space-sm) 0;
+            font-size: 0.9rem;
+        }
+
+        .booking-summary__item:not(:last-child) {
+            border-bottom: 1px solid var(--color-border);
+        }
+
+        .booking-summary__label {
+            color: var(--color-text-secondary);
+            font-weight: 500;
+        }
+
+        .booking-summary__value {
+            color: var(--color-text-dark);
+            font-weight: 600;
+        }
+
+        /* Form Fields */
+        .form-field {
+            margin-bottom: var(--space-lg);
+        }
+
+        .form-label {
+            display: block;
+            font-size: 0.9rem;
+            font-weight: 600;
+            color: var(--color-text-dark);
+            margin-bottom: var(--space-sm);
+        }
+
+        .form-input {
+            width: 100%;
+            font-family: var(--font-sans);
+            font-size: 1rem;
+            padding: 0.75rem 1rem;
+            border: 2px solid var(--color-border);
+            border-radius: var(--radius-md);
+            background: var(--color-bg-white);
+            color: var(--color-text-dark);
+            transition: all 0.15s ease;
+        }
+
+        .form-input:focus {
+            outline: none;
+            border-color: var(--color-primary);
+            box-shadow: var(--shadow-focus);
+        }
+
+        .form-input.error {
+            border-color: var(--color-error);
+        }
+
+        .form-input.success {
+            border-color: var(--color-success);
+        }
+
+        .form-error {
+            display: block;
+            font-size: 0.8rem;
+            color: var(--color-error);
+            margin-top: var(--space-sm);
+            min-height: 1rem;
+        }
+
+        /* Buttons */
+        .btn-primary {
+            font-family: var(--font-sans);
+            font-size: 1rem;
+            font-weight: 600;
+            padding: 1rem 2rem;
+            border-radius: var(--radius-md);
+            cursor: pointer;
+            transition: all 0.15s ease;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: var(--space-sm);
+            border: none;
+            width: 100%;
+            background: var(--color-primary);
+            color: white;
+            box-shadow: var(--shadow-sm);
+        }
+
+        .btn-primary:hover {
+            background: var(--color-primary-dark);
+            box-shadow: var(--shadow-md);
+            transform: translateY(-1px);
+        }
+
+        .btn-primary:active {
+            transform: translateY(0);
+        }
+
+        .btn-primary:focus-visible {
+            outline: 2px solid var(--color-primary);
+            outline-offset: 2px;
+        }
+
+        .btn-primary:disabled {
+            background: var(--color-text-light);
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: var(--color-primary);
+            border: 2px solid var(--color-border);
+        }
+
+        .btn-secondary:hover {
+            background: var(--color-bg-light);
+            border-color: var(--color-primary);
+        }
+
+        /* Success State */
+        .booking-success {
+            text-align: center;
+            padding: var(--space-2xl);
+            animation: fadeIn 0.3s ease;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: scale(0.95);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
+        .booking-success__icon {
+            margin-bottom: var(--space-xl);
+            animation: checkmark 0.5s ease;
+        }
+
+        @keyframes checkmark {
+            0% {
+                transform: scale(0) rotate(-180deg);
+            }
+            50% {
+                transform: scale(1.1) rotate(10deg);
+            }
+            100% {
+                transform: scale(1) rotate(0);
+            }
+        }
+
+        .booking-success__title {
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--color-success);
+            margin-bottom: var(--space-sm);
+        }
+
+        .booking-success__message {
+            font-size: 1.125rem;
+            color: var(--color-text-secondary);
+            margin-bottom: var(--space-xl);
+        }
+
+        .booking-success__details {
+            background: var(--color-bg-light);
+            border-radius: var(--radius-md);
+            padding: var(--space-lg);
+            margin-bottom: var(--space-xl);
+            text-align: left;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .booking-success__actions {
+            display: flex;
+            flex-direction: column;
+            gap: var(--space-md);
+            max-width: 400px;
+            margin: 0 auto;
+        }
+
+        /* ============================================
+           NEWS SECTION (Magazine-Editorial)
+           ============================================ */
+        .news-section {
+            margin-top: var(--space-2xl);
+            padding-top: var(--space-2xl);
+            border-top: 2px solid var(--color-border);
+        }
+
+        .news-grid {
+            display: grid;
+            gap: var(--space-xl);
+            margin-top: var(--space-xl);
+        }
+
+        @media (min-width: 768px) {
+            .news-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        .news-card {
+            background: var(--color-bg-white);
+            border: 1px solid var(--color-border);
+            border-radius: var(--radius-md);
+            overflow: hidden;
+            transition: box-shadow var(--transition-base);
+        }
+
+        .news-card:hover {
+            box-shadow: var(--shadow-md);
+        }
+
+        .news-card__content {
+            padding: var(--space-lg);
+        }
+
+        .news-card__category {
+            font-size: 0.75rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            color: var(--color-secondary);
+            margin-bottom: var(--space-sm);
+        }
+
+        .news-card__title {
+            font-family: var(--font-serif);
+            font-size: 1.5rem;
+            font-weight: 600;
+            line-height: 1.3;
+            color: var(--color-text-dark);
+            margin-bottom: var(--space-md);
+        }
+
+        .news-card__excerpt {
+            font-size: 0.95rem;
+            line-height: 1.6;
+            color: var(--color-text-secondary);
+            margin-bottom: var(--space-md);
+        }
+
+        .news-card__meta {
+            display: flex;
+            align-items: center;
+            gap: var(--space-md);
+            font-size: 0.85rem;
+            color: var(--color-text-light);
+        }
+
+        /* ============================================
+           RESPONSIVE DESIGN
+           ============================================ */
+        @media (max-width: 768px) {
+            .hero {
+                min-height: 350px;
+                height: 50vh;
+            }
+
+            .page-wrapper {
+                padding: var(--space-lg) var(--space-sm);
+            }
+
+            .events-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .booking-form {
+                padding: var(--space-lg);
+            }
+
+            .news-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* ============================================
+           ACCESSIBILITY - REDUCED MOTION
+           ============================================ */
+        @media (prefers-reduced-motion: reduce) {
+            *,
+            *::before,
+            *::after {
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0.01ms !important;
+            }
+        }
+
+        /* ============================================
+           UTILITY CLASSES
+           ============================================ */
+        [hidden] {
+            display: none !important;
+        }
+    </style>
+</head>
+<body>
+    <a href="/index.html" style="position: fixed; top: 20px; left: 20px; z-index: 9999; background: #2d4a3e; color: #fff; padding: 10px 20px; border-radius: 8px; text-decoration: none; font-family: system-ui, sans-serif; font-size: 14px; box-shadow: 0 2px 8px rgba(0,0,0,0.15); transition: background 0.2s ease;">← Back to Catalog</a>
+    <a href="#main-content" class="skip-link">Zum Hauptinhalt springen</a>
+
+    <a href="../index.html" class="back-to-catalog">← Zurück zum Katalog</a>
+
+    <!-- ============================================
+         HERO SECTION (Still-Life Confidence)
+         ============================================ -->
+    <section class="hero" role="banner" aria-labelledby="hero-headline">
+        <img
+            src="https://images.unsplash.com/photo-1540575467063-178a50c2df87?w=1920&q=80"
+            srcset="
+                https://images.unsplash.com/photo-1540575467063-178a50c2df87?w=640&q=80 640w,
+                https://images.unsplash.com/photo-1540575467063-178a50c2df87?w=1024&q=80 1024w,
+                https://images.unsplash.com/photo-1540575467063-178a50c2df87?w=1920&q=80 1920w
+            "
+            sizes="100vw"
+            alt="Professionelle Konferenz mit Teilnehmenden in einem modernen Veranstaltungsraum"
+            class="hero__image"
+            loading="eager"
+            fetchpriority="high"
+        >
+
+        <div class="hero__overlay" aria-hidden="true"></div>
+
+        <div class="hero__content">
+            <p class="hero__microcopy">
+                Bundesverband Katholischer Institutionen und Dienste
+            </p>
+
+            <h1 class="hero__headline" id="hero-headline">
+                BKiD Veranstaltungen 2025
+            </h1>
+
+            <p class="hero__subheadline">
+                Vernetzen, lernen und austauschen – Melden Sie sich jetzt für unsere Jahrestagungen, Workshops und Netzwerktreffen an.
+            </p>
+        </div>
+    </section>
+
+    <!-- ============================================
+         MAIN CONTENT
+         ============================================ -->
+    <main class="page-wrapper" id="main-content">
+
+        <!-- ============================================
+             EVENT BOOKING SECTION (Lightning Booking)
+             ============================================ -->
+        <section class="booking-section" aria-labelledby="booking-title">
+            <div class="section-header">
+                <h2 id="booking-title" class="section-header__title">Aktuelle Veranstaltungen</h2>
+                <p class="section-header__description">Wählen Sie eine Veranstaltung aus und melden Sie sich mit wenigen Klicks an</p>
+            </div>
+
+            <!-- Event Cards -->
+            <div class="events-grid" role="list">
+                <article class="event-card" role="listitem" data-event-id="1" tabindex="0" aria-label="BKiD Jahrestagung 2025">
+                    <h3 class="event-card__title">BKiD Jahrestagung 2025</h3>
+                    <div class="event-card__meta">
+                        <div class="event-card__meta-item">
+                            <span aria-hidden="true">📅</span>
+                            <span>15.-17. März 2025</span>
+                        </div>
+                        <div class="event-card__meta-item">
+                            <span aria-hidden="true">📍</span>
+                            <span>Berlin, Tagungszentrum Mitte</span>
+                        </div>
+                    </div>
+                    <p class="event-card__description">
+                        Unsere jährliche Fachtagung mit Vorträgen, Workshops und Networking. Thema 2025: "Zukunft der Gesundheitsversorgung im katholischen Kontext".
+                    </p>
+                    <div class="event-card__footer">
+                        <span class="event-card__type">Jahrestagung</span>
+                        <span class="event-card__spots" aria-label="45 Plätze verfügbar">45 Plätze frei</span>
+                    </div>
+                </article>
+
+                <article class="event-card" role="listitem" data-event-id="2" tabindex="0" aria-label="Netzwerktreffen Berlin">
+                    <h3 class="event-card__title">Netzwerktreffen Berlin</h3>
+                    <div class="event-card__meta">
+                        <div class="event-card__meta-item">
+                            <span aria-hidden="true">📅</span>
+                            <span>22. April 2025, 14:00-18:00 Uhr</span>
+                        </div>
+                        <div class="event-card__meta-item">
+                            <span aria-hidden="true">📍</span>
+                            <span>Berlin, BKiD Geschäftsstelle</span>
+                        </div>
+                    </div>
+                    <p class="event-card__description">
+                        Regionales Treffen für Mitglieder aus Berlin und Brandenburg. Austausch über aktuelle Entwicklungen und Herausforderungen.
+                    </p>
+                    <div class="event-card__footer">
+                        <span class="event-card__type">Netzwerk</span>
+                        <span class="event-card__spots" aria-label="18 Plätze verfügbar">18 Plätze frei</span>
+                    </div>
+                </article>
+
+                <article class="event-card" role="listitem" data-event-id="3" tabindex="0" aria-label="Online-Workshop: Neue Leitlinien">
+                    <h3 class="event-card__title">Online-Workshop: Neue Leitlinien</h3>
+                    <div class="event-card__meta">
+                        <div class="event-card__meta-item">
+                            <span aria-hidden="true">📅</span>
+                            <span>8. Mai 2025, 10:00-12:30 Uhr</span>
+                        </div>
+                        <div class="event-card__meta-item">
+                            <span aria-hidden="true">💻</span>
+                            <span>Online via Zoom</span>
+                        </div>
+                    </div>
+                    <p class="event-card__description">
+                        Einführung in die aktualisierten Leitlinien für katholische Gesundheitseinrichtungen. Mit Praxisbeispielen und Diskussion.
+                    </p>
+                    <div class="event-card__footer">
+                        <span class="event-card__type">Workshop</span>
+                        <span class="event-card__spots" aria-label="32 Plätze verfügbar">32 Plätze frei</span>
+                    </div>
+                </article>
+
+                <article class="event-card" role="listitem" data-event-id="4" tabindex="0" aria-label="Sommerfest 2025">
+                    <h3 class="event-card__title">BKiD Sommerfest 2025</h3>
+                    <div class="event-card__meta">
+                        <div class="event-card__meta-item">
+                            <span aria-hidden="true">📅</span>
+                            <span>20. Juni 2025, 17:00-22:00 Uhr</span>
+                        </div>
+                        <div class="event-card__meta-item">
+                            <span aria-hidden="true">📍</span>
+                            <span>Köln, Rheinufer</span>
+                        </div>
+                    </div>
+                    <p class="event-card__description">
+                        Geselliges Beisammensein für Mitglieder, Partner und Freunde. Mit Grußworten, Musik und kulinarischen Spezialitäten.
+                    </p>
+                    <div class="event-card__footer">
+                        <span class="event-card__type">Sommerfest</span>
+                        <span class="event-card__spots" aria-label="120 Plätze verfügbar">120 Plätze frei</span>
+                    </div>
+                </article>
+            </div>
+
+            <!-- Booking Form (Initially Hidden) -->
+            <div class="booking-form-container" id="booking-form-container" hidden>
+                <div class="booking-form">
+                    <div class="booking-form__header">
+                        <h3 class="booking-form__title">Anmeldung abschließen</h3>
+                        <button type="button" class="booking-form__close" id="cancel-booking" aria-label="Anmeldung abbrechen">
+                            <svg width="20" height="20" viewBox="0 0 20 20" fill="none" aria-hidden="true">
+                                <path d="M15 5L5 15M5 5L15 15" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                            </svg>
+                        </button>
+                    </div>
+
+                    <div class="booking-summary" id="booking-summary">
+                        <div class="booking-summary__item">
+                            <span class="booking-summary__label">Veranstaltung:</span>
+                            <span class="booking-summary__value" id="summary-event"></span>
+                        </div>
+                        <div class="booking-summary__item">
+                            <span class="booking-summary__label">Datum:</span>
+                            <span class="booking-summary__value" id="summary-date"></span>
+                        </div>
+                        <div class="booking-summary__item">
+                            <span class="booking-summary__label">Ort:</span>
+                            <span class="booking-summary__value" id="summary-location"></span>
+                        </div>
+                    </div>
+
+                    <form id="booking-form" novalidate>
+                        <div class="form-field">
+                            <label for="name" class="form-label">Vollständiger Name *</label>
+                            <input
+                                type="text"
+                                id="name"
+                                name="name"
+                                class="form-input"
+                                placeholder="Max Mustermann"
+                                required
+                                autocomplete="name"
+                                aria-required="true"
+                            >
+                            <span class="form-error" id="name-error" role="alert"></span>
+                        </div>
+
+                        <div class="form-field">
+                            <label for="email" class="form-label">E-Mail-Adresse *</label>
+                            <input
+                                type="email"
+                                id="email"
+                                name="email"
+                                class="form-input"
+                                placeholder="max.mustermann@beispiel.de"
+                                required
+                                autocomplete="email"
+                                aria-required="true"
+                            >
+                            <span class="form-error" id="email-error" role="alert"></span>
+                        </div>
+
+                        <div class="form-field">
+                            <label for="organization" class="form-label">Organisation</label>
+                            <input
+                                type="text"
+                                id="organization"
+                                name="organization"
+                                class="form-input"
+                                placeholder="Einrichtung oder Krankenhaus"
+                                autocomplete="organization"
+                            >
+                        </div>
+
+                        <button type="submit" class="btn-primary" id="submit-booking">
+                            <span class="btn-text">Jetzt anmelden</span>
+                            <span class="btn-icon" aria-hidden="true">→</span>
+                        </button>
+                    </form>
+                </div>
+            </div>
+
+            <!-- Success State (Initially Hidden) -->
+            <div class="booking-success" id="booking-success" hidden>
+                <div class="booking-success__icon" aria-hidden="true">
+                    <svg width="64" height="64" viewBox="0 0 64 64" fill="none">
+                        <circle cx="32" cy="32" r="30" fill="#10B981" opacity="0.1"/>
+                        <circle cx="32" cy="32" r="24" fill="#10B981"/>
+                        <path d="M20 32L28 40L44 24" stroke="white" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                </div>
+                <h3 class="booking-success__title">Anmeldung erfolgreich!</h3>
+                <p class="booking-success__message">Vielen Dank! Ihre Anmeldung wurde registriert. Sie erhalten in Kürze eine Bestätigungs-E-Mail.</p>
+                <div class="booking-success__details" id="success-details"></div>
+                <div class="booking-success__actions">
+                    <button type="button" class="btn-primary" id="book-another">
+                        Weitere Veranstaltung buchen
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <!-- ============================================
+             NEWS SECTION (Magazine-Editorial)
+             ============================================ -->
+        <section class="news-section" aria-labelledby="news-title">
+            <div class="section-header">
+                <h2 id="news-title" class="section-header__title">Aktuelles & Neuigkeiten</h2>
+                <p class="section-header__description">Bleiben Sie auf dem Laufenden über aktuelle Entwicklungen</p>
+            </div>
+
+            <div class="news-grid">
+                <article class="news-card">
+                    <div class="news-card__content">
+                        <p class="news-card__category">Aktuelles</p>
+                        <h3 class="news-card__title">Neue Förderrichtlinien 2025 veröffentlicht</h3>
+                        <p class="news-card__excerpt">
+                            Das Bundesministerium für Gesundheit hat aktualisierte Förderrichtlinien für katholische Gesundheitseinrichtungen bekannt gegeben. Die Änderungen betreffen insbesondere Digitalisierungsprojekte und Präventionsmaßnahmen.
+                        </p>
+                        <div class="news-card__meta">
+                            <time datetime="2025-02-15">15. Februar 2025</time>
+                            <span>4 Min. Lesezeit</span>
+                        </div>
+                    </div>
+                </article>
+
+                <article class="news-card">
+                    <div class="news-card__content">
+                        <p class="news-card__category">Mitglieder</p>
+                        <h3 class="news-card__title">Willkommen: Drei neue Mitgliedseinrichtungen</h3>
+                        <p class="news-card__excerpt">
+                            Wir freuen uns, drei neue Einrichtungen im BKiD-Netzwerk begrüßen zu dürfen: das St. Elisabeth Krankenhaus Mannheim, die Caritas-Sozialstation Freiburg und das Hospiz St. Martin in Dresden.
+                        </p>
+                        <div class="news-card__meta">
+                            <time datetime="2025-02-10">10. Februar 2025</time>
+                            <span>3 Min. Lesezeit</span>
+                        </div>
+                    </div>
+                </article>
+
+                <article class="news-card">
+                    <div class="news-card__content">
+                        <p class="news-card__category">Veranstaltungen</p>
+                        <h3 class="news-card__title">Rückblick: Wintertagung 2025 in München</h3>
+                        <p class="news-card__excerpt">
+                            Über 180 Teilnehmende kamen zur diesjährigen Wintertagung zusammen. Im Fokus standen Strategien zur Fachkräftegewinnung und innovative Versorgungsmodelle. Fotogalerie und Vorträge jetzt online verfügbar.
+                        </p>
+                        <div class="news-card__meta">
+                            <time datetime="2025-02-05">5. Februar 2025</time>
+                            <span>6 Min. Lesezeit</span>
+                        </div>
+                    </div>
+                </article>
+
+                <article class="news-card">
+                    <div class="news-card__content">
+                        <p class="news-card__category">Wissen</p>
+                        <h3 class="news-card__title">Praxisleitfaden: Ethische Entscheidungen in der Palliativversorgung</h3>
+                        <p class="news-card__excerpt">
+                            Die BKiD-Arbeitsgruppe Ethik hat einen umfassenden Leitfaden für ethische Entscheidungsfindung in der Palliativversorgung entwickelt. Der Leitfaden steht allen Mitgliedern zum Download zur Verfügung.
+                        </p>
+                        <div class="news-card__meta">
+                            <time datetime="2025-01-28">28. Januar 2025</time>
+                            <span>8 Min. Lesezeit</span>
+                        </div>
+                    </div>
+                </article>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- ============================================
+         JAVASCRIPT
+         ============================================ -->
+    <script>
+        (function() {
+            'use strict';
+
+            // Event data
+            const eventsData = {
+                '1': {
+                    id: '1',
+                    title: 'BKiD Jahrestagung 2025',
+                    date: '15.-17. März 2025',
+                    location: 'Berlin, Tagungszentrum Mitte',
+                    type: 'Jahrestagung'
+                },
+                '2': {
+                    id: '2',
+                    title: 'Netzwerktreffen Berlin',
+                    date: '22. April 2025, 14:00-18:00 Uhr',
+                    location: 'Berlin, BKiD Geschäftsstelle',
+                    type: 'Netzwerk'
+                },
+                '3': {
+                    id: '3',
+                    title: 'Online-Workshop: Neue Leitlinien',
+                    date: '8. Mai 2025, 10:00-12:30 Uhr',
+                    location: 'Online via Zoom',
+                    type: 'Workshop'
+                },
+                '4': {
+                    id: '4',
+                    title: 'BKiD Sommerfest 2025',
+                    date: '20. Juni 2025, 17:00-22:00 Uhr',
+                    location: 'Köln, Rheinufer',
+                    type: 'Sommerfest'
+                }
+            };
+
+            // State
+            let selectedEventId = null;
+
+            // DOM Elements
+            const eventCards = document.querySelectorAll('.event-card');
+            const bookingFormContainer = document.getElementById('booking-form-container');
+            const bookingForm = document.getElementById('booking-form');
+            const bookingSuccess = document.getElementById('booking-success');
+            const cancelBookingBtn = document.getElementById('cancel-booking');
+            const submitBookingBtn = document.getElementById('submit-booking');
+            const bookAnotherBtn = document.getElementById('book-another');
+
+            // Form inputs
+            const nameInput = document.getElementById('name');
+            const emailInput = document.getElementById('email');
+            const organizationInput = document.getElementById('organization');
+
+            // Summary elements
+            const summaryEvent = document.getElementById('summary-event');
+            const summaryDate = document.getElementById('summary-date');
+            const summaryLocation = document.getElementById('summary-location');
+            const successDetails = document.getElementById('success-details');
+
+            // Initialize
+            function init() {
+                eventCards.forEach(card => {
+                    card.addEventListener('click', handleEventSelect);
+                    card.addEventListener('keydown', handleEventKeydown);
+                });
+
+                if (bookingForm) {
+                    bookingForm.addEventListener('submit', handleFormSubmit);
+                }
+
+                if (cancelBookingBtn) {
+                    cancelBookingBtn.addEventListener('click', handleCancelBooking);
+                }
+
+                if (bookAnotherBtn) {
+                    bookAnotherBtn.addEventListener('click', handleBookAnother);
+                }
+
+                // Real-time validation
+                if (nameInput) {
+                    nameInput.addEventListener('blur', () => validateField('name'));
+                    nameInput.addEventListener('input', () => clearError('name'));
+                }
+
+                if (emailInput) {
+                    emailInput.addEventListener('blur', () => validateField('email'));
+                    emailInput.addEventListener('input', () => clearError('email'));
+                }
+            }
+
+            // Handle event selection
+            function handleEventSelect(e) {
+                const card = e.currentTarget;
+                const eventId = card.dataset.eventId;
+
+                if (selectedEventId === eventId) {
+                    deselectEvent();
+                } else {
+                    selectEvent(eventId);
+                }
+            }
+
+            // Handle keyboard navigation
+            function handleEventKeydown(e) {
+                if (e.key === 'Enter' || e.key === ' ') {
+                    e.preventDefault();
+                    handleEventSelect(e);
+                }
+            }
+
+            // Select event and show booking form
+            function selectEvent(eventId) {
+                eventCards.forEach(card => card.classList.remove('selected'));
+
+                const selectedCard = document.querySelector(`[data-event-id="${eventId}"]`);
+                if (selectedCard) {
+                    selectedCard.classList.add('selected');
+                    selectedEventId = eventId;
+
+                    const event = eventsData[eventId];
+                    if (event) {
+                        summaryEvent.textContent = event.title;
+                        summaryDate.textContent = event.date;
+                        summaryLocation.textContent = event.location;
+                    }
+
+                    bookingFormContainer.hidden = false;
+                    bookingSuccess.hidden = true;
+
+                    setTimeout(() => {
+                        nameInput.focus();
+                    }, 200);
+
+                    bookingFormContainer.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+                }
+            }
+
+            // Deselect event
+            function deselectEvent() {
+                eventCards.forEach(card => card.classList.remove('selected'));
+                selectedEventId = null;
+                bookingFormContainer.hidden = true;
+                bookingSuccess.hidden = true;
+            }
+
+            // Handle cancel booking
+            function handleCancelBooking() {
+                deselectEvent();
+                resetForm();
+            }
+
+            // Validate field
+            function validateField(fieldName) {
+                const input = document.getElementById(fieldName);
+                const errorSpan = document.getElementById(`${fieldName}-error`);
+
+                if (!input || !errorSpan) return true;
+
+                let isValid = true;
+                let errorMessage = '';
+
+                switch (fieldName) {
+                    case 'name':
+                        if (!input.value.trim()) {
+                            isValid = false;
+                            errorMessage = 'Bitte geben Sie Ihren Namen ein';
+                        } else if (input.value.trim().length < 2) {
+                            isValid = false;
+                            errorMessage = 'Bitte geben Sie Ihren vollständigen Namen ein';
+                        }
+                        break;
+
+                    case 'email':
+                        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+                        if (!input.value.trim()) {
+                            isValid = false;
+                            errorMessage = 'Bitte geben Sie Ihre E-Mail-Adresse ein';
+                        } else if (!emailRegex.test(input.value)) {
+                            isValid = false;
+                            errorMessage = 'Bitte geben Sie eine gültige E-Mail-Adresse ein';
+                        }
+                        break;
+                }
+
+                if (!isValid) {
+                    showFieldError(input, errorSpan, errorMessage);
+                } else {
+                    showFieldSuccess(input, errorSpan);
+                }
+
+                return isValid;
+            }
+
+            // Show field error
+            function showFieldError(input, errorSpan, errorMessage) {
+                input.classList.add('error');
+                input.classList.remove('success');
+                errorSpan.textContent = errorMessage;
+            }
+
+            // Show field success
+            function showFieldSuccess(input, errorSpan) {
+                input.classList.remove('error');
+                input.classList.add('success');
+                errorSpan.textContent = '';
+            }
+
+            // Clear error
+            function clearError(fieldName) {
+                const input = document.getElementById(fieldName);
+                const errorSpan = document.getElementById(`${fieldName}-error`);
+
+                if (input && errorSpan) {
+                    input.classList.remove('error');
+                    input.classList.remove('success');
+                    errorSpan.textContent = '';
+                }
+            }
+
+            // Validate form
+            function validateForm() {
+                const nameValid = validateField('name');
+                const emailValid = validateField('email');
+                return nameValid && emailValid;
+            }
+
+            // Handle form submission
+            function handleFormSubmit(e) {
+                e.preventDefault();
+
+                if (!validateForm()) {
+                    return;
+                }
+
+                submitBookingBtn.disabled = true;
+
+                setTimeout(() => {
+                    submitBookingBtn.disabled = false;
+                    showSuccessState();
+                }, 800);
+            }
+
+            // Show success state
+            function showSuccessState() {
+                const event = eventsData[selectedEventId];
+                const name = nameInput.value.trim();
+                const email = emailInput.value.trim();
+                const organization = organizationInput.value.trim();
+
+                const detailsHTML = `
+                    <div class="booking-summary">
+                        <div class="booking-summary__item">
+                            <span class="booking-summary__label">Name:</span>
+                            <span class="booking-summary__value">${escapeHtml(name)}</span>
+                        </div>
+                        <div class="booking-summary__item">
+                            <span class="booking-summary__label">E-Mail:</span>
+                            <span class="booking-summary__value">${escapeHtml(email)}</span>
+                        </div>
+                        ${organization ? `
+                        <div class="booking-summary__item">
+                            <span class="booking-summary__label">Organisation:</span>
+                            <span class="booking-summary__value">${escapeHtml(organization)}</span>
+                        </div>
+                        ` : ''}
+                        <div class="booking-summary__item">
+                            <span class="booking-summary__label">Veranstaltung:</span>
+                            <span class="booking-summary__value">${escapeHtml(event.title)}</span>
+                        </div>
+                        <div class="booking-summary__item">
+                            <span class="booking-summary__label">Datum:</span>
+                            <span class="booking-summary__value">${escapeHtml(event.date)}</span>
+                        </div>
+                        <div class="booking-summary__item">
+                            <span class="booking-summary__label">Ort:</span>
+                            <span class="booking-summary__value">${escapeHtml(event.location)}</span>
+                        </div>
+                    </div>
+                `;
+
+                successDetails.innerHTML = detailsHTML;
+
+                bookingFormContainer.hidden = true;
+                bookingSuccess.hidden = false;
+
+                bookingSuccess.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            }
+
+            // Handle book another
+            function handleBookAnother() {
+                deselectEvent();
+                resetForm();
+
+                document.querySelector('.events-grid').scrollIntoView({
+                    behavior: 'smooth',
+                    block: 'start'
+                });
+            }
+
+            // Reset form
+            function resetForm() {
+                if (bookingForm) {
+                    bookingForm.reset();
+                }
+
+                clearError('name');
+                clearError('email');
+            }
+
+            // Escape HTML
+            function escapeHtml(unsafe) {
+                if (typeof unsafe !== 'string') return '';
+                return unsafe
+                    .replace(/&/g, "&amp;")
+                    .replace(/</g, "&lt;")
+                    .replace(/>/g, "&gt;")
+                    .replace(/"/g, "&quot;")
+                    .replace(/'/g, "&#039;");
+            }
+
+            // Initialize on DOM ready
+            if (document.readyState === 'loading') {
+                document.addEventListener('DOMContentLoaded', init);
+            } else {
+                init();
+            }
+
+        })();
+    </script>
+</body>
+</html>

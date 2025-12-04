@@ -1,0 +1,2075 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Berater:innen finden - BKiD Ratsuchende Portal</title>
+    <meta name="description" content="Finden Sie einfühlsame Kinderwunsch-Berater:innen nach Spezialgebiet. Vertrauensvoll, kompetent, für Sie da.">
+    <style>
+        /* ============================================
+           CSS CUSTOM PROPERTIES
+           ============================================ */
+        :root {
+            /* Calming Color Palette for Vulnerable Users */
+            --color-primary: #6B8F71;          /* Soft sage green - calm, trust */
+            --color-primary-dark: #557061;     /* Darker sage */
+            --color-primary-light: #E8F2EA;    /* Very light sage */
+            --color-secondary: #D4A574;        /* Warm terracotta */
+            --color-secondary-light: #F5EDE3;  /* Warm beige */
+
+            /* Text Colors */
+            --color-text-dark: #2D2D2D;        /* Soft black */
+            --color-text-medium: #5A5A5A;      /* Medium gray */
+            --color-text-light: #FFFFFF;       /* White */
+
+            /* Backgrounds */
+            --color-bg-main: #FEFEFE;          /* Off-white */
+            --color-bg-light: #F9F9F9;         /* Light gray */
+            --color-bg-warm: #FBF8F5;          /* Warm off-white */
+
+            /* Borders & Dividers */
+            --color-border: #E5E5E5;           /* Light border */
+            --color-border-focus: #6B8F71;     /* Focus state */
+
+            /* Status Colors */
+            --color-success: #6B8F71;
+            --color-info: #7BA8C1;
+            --color-warning: #E8A87C;
+
+            /* Overlays */
+            --color-overlay: rgba(45, 45, 45, 0.6);
+
+            /* Typography */
+            --font-family-base: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', sans-serif;
+            --font-family-heading: 'Georgia', 'Times New Roman', serif;
+
+            /* Spacing */
+            --spacing-xs: 0.5rem;
+            --spacing-sm: 1rem;
+            --spacing-md: 1.5rem;
+            --spacing-lg: 2rem;
+            --spacing-xl: 3rem;
+            --spacing-2xl: 4rem;
+
+            /* Transitions */
+            --transition-base: 0.3s ease;
+            --transition-slow: 0.5s ease;
+        }
+
+        /* ============================================
+           RESET & BASE STYLES
+           ============================================ */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: var(--font-family-base);
+            font-size: 16px;
+            line-height: 1.6;
+            color: var(--color-text-dark);
+            background-color: var(--color-bg-main);
+        }
+
+        /* ============================================
+           ACCESSIBILITY UTILITIES
+           ============================================ */
+        .skip-link {
+            position: absolute;
+            top: -40px;
+            left: 0;
+            background: var(--color-primary);
+            color: var(--color-text-light);
+            padding: 0.5rem 1rem;
+            text-decoration: none;
+            z-index: 1000;
+            border-radius: 0 0 4px 0;
+        }
+
+        .skip-link:focus {
+            top: 0;
+        }
+
+        .visually-hidden {
+            position: absolute;
+            width: 1px;
+            height: 1px;
+            padding: 0;
+            margin: -1px;
+            overflow: hidden;
+            clip: rect(0, 0, 0, 0);
+            white-space: nowrap;
+            border-width: 0;
+        }
+
+        /* ============================================
+           BACK TO CATALOG LINK
+           ============================================ */
+        .back-to-catalog {
+            position: fixed;
+            top: 1rem;
+            left: 1rem;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.75rem 1rem;
+            background: var(--color-text-light);
+            color: var(--color-text-dark);
+            text-decoration: none;
+            border-radius: 8px;
+            font-size: 0.9rem;
+            font-weight: 500;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+            transition: all var(--transition-base);
+            z-index: 100;
+        }
+
+        .back-to-catalog:hover,
+        .back-to-catalog:focus {
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+            transform: translateX(-2px);
+        }
+
+        /* ============================================
+           STILL-LIFE CONFIDENCE HERO
+           ============================================ */
+        .hero {
+            position: relative;
+            min-height: 500px;
+            height: 70vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            isolation: isolate;
+        }
+
+        .hero__image {
+            position: absolute;
+            inset: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            object-position: center;
+            z-index: -2;
+        }
+
+        .hero__overlay {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(
+                135deg,
+                rgba(45, 45, 45, 0.5) 0%,
+                rgba(45, 45, 45, 0.2) 100%
+            );
+            z-index: -1;
+        }
+
+        .hero__content {
+            max-width: 800px;
+            width: 90%;
+            padding: var(--spacing-lg);
+            text-align: center;
+            color: var(--color-text-light);
+            animation: fadeInUp 1s ease forwards;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .hero__microcopy {
+            font-size: 0.875rem;
+            font-weight: 500;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            color: var(--color-secondary-light);
+            margin-bottom: var(--spacing-sm);
+        }
+
+        .hero__headline {
+            font-family: var(--font-family-heading);
+            font-size: clamp(2rem, 5vw, 3.5rem);
+            font-weight: 400;
+            line-height: 1.2;
+            margin-bottom: var(--spacing-md);
+        }
+
+        .hero__subheadline {
+            font-size: clamp(1.125rem, 2.5vw, 1.5rem);
+            font-weight: 300;
+            line-height: 1.5;
+            margin-bottom: var(--spacing-xl);
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .hero__cta {
+            display: inline-flex;
+            align-items: center;
+            gap: var(--spacing-xs);
+            padding: var(--spacing-md) var(--spacing-xl);
+            font-size: 1.125rem;
+            font-weight: 500;
+            color: var(--color-text-light);
+            background-color: var(--color-primary);
+            border: 2px solid var(--color-primary);
+            border-radius: 8px;
+            text-decoration: none;
+            transition: all var(--transition-base);
+            cursor: pointer;
+        }
+
+        .hero__cta:hover,
+        .hero__cta:focus {
+            background-color: var(--color-primary-dark);
+            border-color: var(--color-primary-dark);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+        }
+
+        /* ============================================
+           INLINE CONTEXTUAL HELP SECTION
+           ============================================ */
+        .help-section {
+            background: var(--color-bg-warm);
+            padding: var(--spacing-xl) var(--spacing-md);
+        }
+
+        .help-section__container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .help-section__title {
+            font-family: var(--font-family-heading);
+            font-size: 2rem;
+            text-align: center;
+            margin-bottom: var(--spacing-lg);
+            color: var(--color-text-dark);
+        }
+
+        .help-cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: var(--spacing-md);
+            margin-top: var(--spacing-lg);
+        }
+
+        .help-card {
+            background: var(--color-text-light);
+            border-radius: 12px;
+            padding: var(--spacing-lg);
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+            transition: all var(--transition-base);
+        }
+
+        .help-card:hover {
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.12);
+            transform: translateY(-2px);
+        }
+
+        .help-card__header {
+            display: flex;
+            align-items: flex-start;
+            gap: var(--spacing-sm);
+            margin-bottom: var(--spacing-sm);
+        }
+
+        .help-card__icon {
+            flex-shrink: 0;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: var(--color-primary-light);
+            color: var(--color-primary);
+            border-radius: 50%;
+        }
+
+        .help-card__question {
+            font-size: 1.25rem;
+            font-weight: 600;
+            color: var(--color-text-dark);
+            margin: 0;
+        }
+
+        .help-card__answer {
+            color: var(--color-text-medium);
+            line-height: 1.7;
+        }
+
+        .help-card__answer ul {
+            margin: var(--spacing-sm) 0 0 var(--spacing-md);
+        }
+
+        .help-card__answer li {
+            margin-bottom: var(--spacing-xs);
+        }
+
+        /* ============================================
+           SEARCH & FILTER SECTION
+           ============================================ */
+        .search-section {
+            background: var(--color-text-light);
+            padding: var(--spacing-xl) var(--spacing-md);
+        }
+
+        .search-container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .search-header {
+            text-align: center;
+            margin-bottom: var(--spacing-lg);
+        }
+
+        .search-header__title {
+            font-family: var(--font-family-heading);
+            font-size: 2.5rem;
+            margin-bottom: var(--spacing-sm);
+            color: var(--color-text-dark);
+        }
+
+        .search-header__subtitle {
+            font-size: 1.125rem;
+            color: var(--color-text-medium);
+        }
+
+        /* Search Input */
+        .search-input-wrapper {
+            position: relative;
+            max-width: 600px;
+            margin: 0 auto var(--spacing-lg);
+        }
+
+        .search-icon {
+            position: absolute;
+            left: 1rem;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--color-text-medium);
+            pointer-events: none;
+        }
+
+        .search-input {
+            width: 100%;
+            padding: 1rem 1rem 1rem 3rem;
+            font-size: 1rem;
+            border: 2px solid var(--color-border);
+            border-radius: 50px;
+            background: var(--color-bg-light);
+            transition: all var(--transition-base);
+        }
+
+        .search-input:focus {
+            outline: none;
+            border-color: var(--color-border-focus);
+            background: var(--color-text-light);
+            box-shadow: 0 0 0 3px var(--color-primary-light);
+        }
+
+        /* Specialty Filter Pills */
+        .specialty-filters {
+            display: flex;
+            flex-wrap: wrap;
+            gap: var(--spacing-sm);
+            justify-content: center;
+            margin-bottom: var(--spacing-lg);
+        }
+
+        .filter-pill {
+            padding: 0.75rem 1.5rem;
+            font-size: 0.95rem;
+            font-weight: 500;
+            color: var(--color-text-dark);
+            background: var(--color-bg-light);
+            border: 2px solid var(--color-border);
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all var(--transition-base);
+        }
+
+        .filter-pill:hover,
+        .filter-pill:focus {
+            background: var(--color-primary-light);
+            border-color: var(--color-primary);
+            transform: translateY(-1px);
+        }
+
+        .filter-pill.active {
+            background: var(--color-primary);
+            color: var(--color-text-light);
+            border-color: var(--color-primary);
+        }
+
+        .filter-pill:focus {
+            outline: 3px solid var(--color-primary-light);
+            outline-offset: 2px;
+        }
+
+        /* Results Count */
+        .results-status {
+            text-align: center;
+            font-size: 0.95rem;
+            color: var(--color-text-medium);
+            margin-bottom: var(--spacing-md);
+        }
+
+        /* ============================================
+           COUNSELOR PROFILE CARDS
+           ============================================ */
+        .counselors-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            gap: var(--spacing-lg);
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 var(--spacing-md) var(--spacing-xl);
+        }
+
+        .counselor-card {
+            background: var(--color-text-light);
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
+            transition: all var(--transition-base);
+            display: flex;
+            flex-direction: column;
+        }
+
+        .counselor-card:hover {
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+            transform: translateY(-4px);
+        }
+
+        .counselor-card[hidden] {
+            display: none;
+        }
+
+        .counselor-card__header {
+            padding: var(--spacing-lg);
+            display: flex;
+            align-items: center;
+            gap: var(--spacing-md);
+        }
+
+        .counselor-card__photo {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            background: var(--color-primary-light);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            color: var(--color-primary);
+            flex-shrink: 0;
+        }
+
+        .counselor-card__name-area {
+            flex: 1;
+        }
+
+        .counselor-card__name {
+            font-size: 1.25rem;
+            font-weight: 600;
+            margin-bottom: 0.25rem;
+            color: var(--color-text-dark);
+        }
+
+        .counselor-card__credentials {
+            font-size: 0.875rem;
+            color: var(--color-text-medium);
+        }
+
+        .counselor-card__body {
+            padding: 0 var(--spacing-lg) var(--spacing-lg);
+            flex: 1;
+        }
+
+        .counselor-card__specialty {
+            display: inline-block;
+            padding: 0.5rem 1rem;
+            background: var(--color-primary-light);
+            color: var(--color-primary-dark);
+            border-radius: 50px;
+            font-size: 0.875rem;
+            font-weight: 500;
+            margin-bottom: var(--spacing-sm);
+        }
+
+        .counselor-card__description {
+            color: var(--color-text-medium);
+            line-height: 1.6;
+            margin-bottom: var(--spacing-md);
+        }
+
+        .counselor-card__meta {
+            display: flex;
+            flex-direction: column;
+            gap: var(--spacing-xs);
+            margin-bottom: var(--spacing-md);
+            padding-top: var(--spacing-sm);
+            border-top: 1px solid var(--color-border);
+        }
+
+        .counselor-card__meta-item {
+            display: flex;
+            align-items: center;
+            gap: var(--spacing-xs);
+            font-size: 0.9rem;
+            color: var(--color-text-medium);
+        }
+
+        .counselor-card__meta-icon {
+            color: var(--color-primary);
+            flex-shrink: 0;
+        }
+
+        .counselor-card__badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.25rem;
+            padding: 0.25rem 0.75rem;
+            background: var(--color-secondary-light);
+            color: var(--color-secondary);
+            border-radius: 50px;
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
+
+        .counselor-card__actions {
+            padding: var(--spacing-md) var(--spacing-lg) var(--spacing-lg);
+            display: flex;
+            gap: var(--spacing-sm);
+        }
+
+        .btn {
+            padding: 0.75rem 1.5rem;
+            font-size: 1rem;
+            font-weight: 500;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all var(--transition-base);
+            border: none;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+        }
+
+        .btn-primary {
+            background: var(--color-primary);
+            color: var(--color-text-light);
+            flex: 1;
+        }
+
+        .btn-primary:hover,
+        .btn-primary:focus {
+            background: var(--color-primary-dark);
+            transform: translateY(-1px);
+            box-shadow: 0 4px 12px rgba(107, 143, 113, 0.3);
+        }
+
+        .btn-secondary {
+            background: var(--color-bg-light);
+            color: var(--color-text-dark);
+            border: 2px solid var(--color-border);
+        }
+
+        .btn-secondary:hover,
+        .btn-secondary:focus {
+            background: var(--color-text-light);
+            border-color: var(--color-primary);
+        }
+
+        /* ============================================
+           GUIDED MATCHING WIZARD MODAL
+           ============================================ */
+        .modal {
+            position: fixed;
+            inset: 0;
+            z-index: 1000;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            padding: var(--spacing-md);
+        }
+
+        .modal.active {
+            display: flex;
+        }
+
+        .modal__overlay {
+            position: absolute;
+            inset: 0;
+            background: var(--color-overlay);
+            animation: fadeIn 0.3s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        .modal__content {
+            position: relative;
+            background: var(--color-text-light);
+            border-radius: 16px;
+            max-width: 600px;
+            width: 100%;
+            max-height: 90vh;
+            overflow-y: auto;
+            padding: var(--spacing-xl);
+            animation: slideUp 0.3s ease;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+        }
+
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .modal__close {
+            position: absolute;
+            top: var(--spacing-md);
+            right: var(--spacing-md);
+            width: 40px;
+            height: 40px;
+            border: none;
+            background: var(--color-bg-light);
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all var(--transition-base);
+        }
+
+        .modal__close:hover,
+        .modal__close:focus {
+            background: var(--color-primary-light);
+            transform: rotate(90deg);
+        }
+
+        /* Wizard Steps */
+        .wizard {
+            margin-top: var(--spacing-md);
+        }
+
+        .wizard__header {
+            text-align: center;
+            margin-bottom: var(--spacing-lg);
+        }
+
+        .wizard__title {
+            font-family: var(--font-family-heading);
+            font-size: 2rem;
+            margin-bottom: var(--spacing-sm);
+            color: var(--color-text-dark);
+        }
+
+        .wizard__subtitle {
+            color: var(--color-text-medium);
+        }
+
+        .wizard__progress {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: var(--spacing-xl);
+            position: relative;
+        }
+
+        .wizard__progress::before {
+            content: '';
+            position: absolute;
+            top: 20px;
+            left: 10%;
+            right: 10%;
+            height: 2px;
+            background: var(--color-border);
+            z-index: 0;
+        }
+
+        .wizard__step {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: var(--spacing-xs);
+            flex: 1;
+            position: relative;
+            z-index: 1;
+        }
+
+        .wizard__step-number {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: var(--color-bg-light);
+            border: 2px solid var(--color-border);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 600;
+            transition: all var(--transition-base);
+        }
+
+        .wizard__step.active .wizard__step-number {
+            background: var(--color-primary);
+            color: var(--color-text-light);
+            border-color: var(--color-primary);
+            transform: scale(1.1);
+        }
+
+        .wizard__step.completed .wizard__step-number {
+            background: var(--color-success);
+            color: var(--color-text-light);
+            border-color: var(--color-success);
+        }
+
+        .wizard__step-label {
+            font-size: 0.875rem;
+            color: var(--color-text-medium);
+            text-align: center;
+        }
+
+        /* Wizard Step Content */
+        .wizard__step-content {
+            display: none;
+        }
+
+        .wizard__step-content.active {
+            display: block;
+            animation: fadeInUp 0.4s ease;
+        }
+
+        .wizard__question {
+            font-size: 1.25rem;
+            font-weight: 600;
+            margin-bottom: var(--spacing-md);
+            color: var(--color-text-dark);
+        }
+
+        .wizard__options {
+            display: flex;
+            flex-direction: column;
+            gap: var(--spacing-sm);
+        }
+
+        .wizard__option {
+            padding: var(--spacing-md);
+            background: var(--color-bg-light);
+            border: 2px solid var(--color-border);
+            border-radius: 12px;
+            cursor: pointer;
+            transition: all var(--transition-base);
+            text-align: left;
+        }
+
+        .wizard__option:hover,
+        .wizard__option:focus {
+            background: var(--color-primary-light);
+            border-color: var(--color-primary);
+            transform: translateX(4px);
+        }
+
+        .wizard__option.selected {
+            background: var(--color-primary-light);
+            border-color: var(--color-primary);
+            box-shadow: 0 0 0 3px var(--color-primary-light);
+        }
+
+        .wizard__option-title {
+            font-weight: 600;
+            margin-bottom: 0.25rem;
+            color: var(--color-text-dark);
+        }
+
+        .wizard__option-description {
+            font-size: 0.9rem;
+            color: var(--color-text-medium);
+        }
+
+        .wizard__actions {
+            display: flex;
+            gap: var(--spacing-sm);
+            margin-top: var(--spacing-lg);
+        }
+
+        .wizard__actions .btn {
+            flex: 1;
+        }
+
+        /* Match Results */
+        .match-results {
+            text-align: center;
+        }
+
+        .match-results__icon {
+            width: 80px;
+            height: 80px;
+            margin: 0 auto var(--spacing-md);
+            background: var(--color-primary-light);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--color-primary);
+        }
+
+        .match-results__title {
+            font-size: 1.5rem;
+            margin-bottom: var(--spacing-sm);
+        }
+
+        .match-results__description {
+            color: var(--color-text-medium);
+            margin-bottom: var(--spacing-lg);
+        }
+
+        /* Empty State */
+        .empty-state {
+            text-align: center;
+            padding: var(--spacing-xl);
+            color: var(--color-text-medium);
+        }
+
+        .empty-state[hidden] {
+            display: none;
+        }
+
+        .empty-state__icon {
+            width: 64px;
+            height: 64px;
+            margin: 0 auto var(--spacing-md);
+            color: var(--color-text-medium);
+            opacity: 0.5;
+        }
+
+        .empty-state__title {
+            font-size: 1.5rem;
+            margin-bottom: var(--spacing-sm);
+            color: var(--color-text-dark);
+        }
+
+        /* ============================================
+           RESPONSIVE DESIGN
+           ============================================ */
+        @media (max-width: 768px) {
+            .hero {
+                height: 60vh;
+                min-height: 400px;
+            }
+
+            .hero__headline {
+                font-size: 1.75rem;
+            }
+
+            .search-header__title {
+                font-size: 1.75rem;
+            }
+
+            .help-cards {
+                grid-template-columns: 1fr;
+            }
+
+            .counselors-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .specialty-filters {
+                flex-direction: column;
+            }
+
+            .filter-pill {
+                width: 100%;
+            }
+
+            .wizard__progress {
+                margin-bottom: var(--spacing-md);
+            }
+
+            .wizard__step-label {
+                font-size: 0.75rem;
+            }
+
+            .modal__content {
+                padding: var(--spacing-lg);
+            }
+        }
+
+        /* ============================================
+           ACCESSIBILITY
+           ============================================ */
+        @media (prefers-reduced-motion: reduce) {
+            *,
+            *::before,
+            *::after {
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0.01ms !important;
+            }
+        }
+
+        @media (prefers-contrast: high) {
+            .filter-pill,
+            .btn,
+            .counselor-card {
+                border-width: 3px;
+            }
+        }
+
+        /* Focus Visible */
+        :focus-visible {
+            outline: 3px solid var(--color-primary);
+            outline-offset: 2px;
+        }
+
+        button:focus-visible,
+        a:focus-visible {
+            outline: 3px solid var(--color-primary);
+            outline-offset: 3px;
+        }
+    </style>
+</head>
+<body>
+    <!-- Skip Link -->
+    <a href="#main-content" class="skip-link">Zum Hauptinhalt springen</a>
+
+    <!-- Back to Catalog -->
+    <a href="../index.html" class="back-to-catalog">← Zurück zum Katalog</a>
+
+    <!-- Hero Section -->
+    <section class="hero" role="banner">
+        <img
+            src="https://images.unsplash.com/photo-1516733968668-dbdce39c4651?w=1920&q=80"
+            alt="Ruhige Atmosphäre mit natürlichen Elementen"
+            class="hero__image"
+            loading="eager"
+        >
+        <div class="hero__overlay" aria-hidden="true"></div>
+        <div class="hero__content">
+            <p class="hero__microcopy">Sie sind am richtigen Ort</p>
+            <h1 class="hero__headline">Einfühlsame Beratung für Ihren Kinderwunsch</h1>
+            <p class="hero__subheadline">
+                Finden Sie qualifizierte Berater:innen, die Sie auf Ihrem persönlichen Weg begleiten.
+                Vertrauensvoll, kompetent und spezialisiert auf Ihre Situation.
+            </p>
+            <a href="#search" class="hero__cta">
+                Berater:innen finden
+                <span aria-hidden="true">→</span>
+            </a>
+        </div>
+    </section>
+
+    <!-- Inline Help Section -->
+    <section class="help-section" aria-labelledby="help-title">
+        <div class="help-section__container">
+            <h2 id="help-title" class="help-section__title">Häufige Fragen</h2>
+            <div class="help-cards">
+                <div class="help-card">
+                    <div class="help-card__header">
+                        <div class="help-card__icon" aria-hidden="true">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+                                <path d="M12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22Z" stroke="currentColor" stroke-width="2"/>
+                                <path d="M12 16V12M12 8H12.01" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                            </svg>
+                        </div>
+                        <h3 class="help-card__question">Was passiert in der Beratung?</h3>
+                    </div>
+                    <p class="help-card__answer">
+                        In einem vertraulichen Gespräch nehmen sich unsere Berater:innen Zeit für Ihre Fragen und Sorgen.
+                        Sie besprechen Ihre individuelle Situation, informieren über Möglichkeiten und begleiten Sie bei
+                        wichtigen Entscheidungen. Die Beratung ist ergebnisoffen und orientiert sich an Ihren Bedürfnissen.
+                    </p>
+                </div>
+
+                <div class="help-card">
+                    <div class="help-card__header">
+                        <div class="help-card__icon" aria-hidden="true">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+                                <path d="M12 15V17M6 21H18C19.1046 21 20 20.1046 20 19V13C20 11.8954 19.1046 11 18 11H6C4.89543 11 4 11.8954 4 13V19C4 20.1046 4.89543 21 6 21Z" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                                <path d="M16 11V7C16 4.79086 14.2091 3 12 3C9.79086 3 8 4.79086 8 7V11" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                            </svg>
+                        </div>
+                        <h3 class="help-card__question">Ist das vertraulich?</h3>
+                    </div>
+                    <p class="help-card__answer">
+                        Ja, absolut. Alle Berater:innen unterliegen der gesetzlichen Schweigepflicht nach § 203 StGB.
+                        Ihre persönlichen Informationen werden streng vertraulich behandelt und niemals ohne Ihre
+                        ausdrückliche Zustimmung weitergegeben. Sie können offen und sicher über Ihre Situation sprechen.
+                    </p>
+                </div>
+
+                <div class="help-card">
+                    <div class="help-card__header">
+                        <div class="help-card__icon" aria-hidden="true">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+                                <circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="2"/>
+                                <path d="M12 6V12L16 14" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                            </svg>
+                        </div>
+                        <h3 class="help-card__question">Wie lange dauert es?</h3>
+                    </div>
+                    <p class="help-card__answer">
+                        Ein Erstgespräch dauert in der Regel 60-90 Minuten. Je nach Thema und Bedarf können weitere
+                        Termine folgen. Viele Ratsuchende kommen 2-5 Mal zur Beratung. Sie bestimmen selbst, wie viele
+                        Termine Sie wahrnehmen möchten. Es gibt keine Verpflichtung zu Folgeterminen.
+                    </p>
+                </div>
+
+                <div class="help-card">
+                    <div class="help-card__header">
+                        <div class="help-card__icon" aria-hidden="true">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+                                <path d="M12 2L2 7L12 12L22 7L12 2Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                <path d="M2 17L12 22L22 17M2 12L12 17L22 12" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            </svg>
+                        </div>
+                        <h3 class="help-card__question">Was kostet die Beratung?</h3>
+                    </div>
+                    <p class="help-card__answer">
+                        Die psychosoziale Kinderwunsch-Beratung vor, während und nach einer Kinderwunschbehandlung
+                        ist für gesetzlich Versicherte kostenfrei. Bei anderen Beratungsanliegen variieren die Kosten
+                        je nach Berater:in. Informationen zu den Kosten finden Sie in den jeweiligen Profilen.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Search & Filter Section -->
+    <section id="search" class="search-section" id="main-content" role="search" aria-labelledby="search-title">
+        <div class="search-container">
+            <div class="search-header">
+                <h2 id="search-title" class="search-header__title">Finden Sie Ihre Beratung</h2>
+                <p class="search-header__subtitle">Filtern Sie nach Spezialgebiet oder suchen Sie direkt</p>
+            </div>
+
+            <!-- Search Input -->
+            <div class="search-input-wrapper">
+                <svg class="search-icon" width="20" height="20" viewBox="0 0 20 20" fill="none" aria-hidden="true">
+                    <path d="M9 17A8 8 0 1 0 9 1a8 8 0 0 0 0 16zM18 18l-4.35-4.35" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                </svg>
+                <input
+                    type="search"
+                    id="counselor-search"
+                    class="search-input"
+                    placeholder="Nach Name, Ort oder Schwerpunkt suchen..."
+                    aria-label="Berater:innen suchen"
+                >
+            </div>
+
+            <!-- Specialty Filter Pills -->
+            <div class="specialty-filters" role="group" aria-label="Nach Spezialgebiet filtern">
+                <button class="filter-pill active" data-specialty="alle" aria-pressed="true">
+                    Alle Beratungen
+                </button>
+                <button class="filter-pill" data-specialty="kinderwunsch" aria-pressed="false">
+                    Kinderwunsch-Beratung
+                </button>
+                <button class="filter-pill" data-specialty="adoption" aria-pressed="false">
+                    Adoption
+                </button>
+                <button class="filter-pill" data-specialty="ivf" aria-pressed="false">
+                    IVF-Begleitung
+                </button>
+                <button class="filter-pill" data-specialty="trauerbegleitung" aria-pressed="false">
+                    Trauerbegleitung
+                </button>
+                <button class="filter-pill" data-specialty="fehlgeburt" aria-pressed="false">
+                    Fehlgeburt
+                </button>
+                <button class="filter-pill" data-specialty="regenbogenfamilien" aria-pressed="false">
+                    Regenbogenfamilien
+                </button>
+            </div>
+
+            <!-- Guided Matching Button -->
+            <div style="text-align: center; margin-bottom: var(--spacing-lg);">
+                <button class="btn btn-secondary" onclick="startWizard()" aria-label="Geführte Suche starten">
+                    <svg width="20" height="20" viewBox="0 0 20 20" fill="none" aria-hidden="true">
+                        <path d="M10 18C14.4183 18 18 14.4183 18 10C18 5.58172 14.4183 2 10 2C5.58172 2 2 5.58172 2 10C2 14.4183 5.58172 18 10 18Z" stroke="currentColor" stroke-width="2"/>
+                        <path d="M10 6L14 10L10 14M4 10H14" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                    Nicht sicher? Geführte Suche starten
+                </button>
+            </div>
+
+            <!-- Results Status -->
+            <div class="results-status" role="status" aria-live="polite">
+                <span id="results-count">12 Berater:innen gefunden</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- Counselors Grid -->
+    <section class="counselors-grid" aria-label="Berater:innen Profile">
+
+        <!-- Counselor Card 1 -->
+        <article class="counselor-card" data-specialty="kinderwunsch ivf" data-location="Berlin" data-name="Dr. Anna Müller">
+            <div class="counselor-card__header">
+                <div class="counselor-card__photo" aria-hidden="true">AM</div>
+                <div class="counselor-card__name-area">
+                    <h3 class="counselor-card__name">Dr. Anna Müller</h3>
+                    <p class="counselor-card__credentials">Dipl.-Psychologin, Psychotherapeutin</p>
+                </div>
+            </div>
+            <div class="counselor-card__body">
+                <span class="counselor-card__specialty">Kinderwunsch-Beratung</span>
+                <p class="counselor-card__description">
+                    Einfühlsame Begleitung auf dem Weg zum Wunschkind. Ich unterstütze Sie bei allen Fragen
+                    rund um unerfüllten Kinderwunsch, Reproduktionsmedizin und die emotionalen Herausforderungen
+                    dieser besonderen Zeit.
+                </p>
+                <div class="counselor-card__meta">
+                    <div class="counselor-card__meta-item">
+                        <svg class="counselor-card__meta-icon" width="18" height="18" viewBox="0 0 18 18" fill="none">
+                            <path d="M9 15.75C12.7279 15.75 15.75 12.7279 15.75 9C15.75 5.27208 12.7279 2.25 9 2.25C5.27208 2.25 2.25 5.27208 2.25 9C2.25 12.7279 5.27208 15.75 9 15.75Z" stroke="currentColor" stroke-width="1.5"/>
+                            <path d="M9 4.5V9L11.25 10.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+                        </svg>
+                        Berlin-Mitte
+                    </div>
+                    <div class="counselor-card__meta-item">
+                        <svg class="counselor-card__meta-icon" width="18" height="18" viewBox="0 0 18 18" fill="none">
+                            <rect x="3" y="4.5" width="12" height="10.5" rx="1.5" stroke="currentColor" stroke-width="1.5"/>
+                            <path d="M6 7.5H12M6 10.5H9.75" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+                        </svg>
+                        15+ Jahre Erfahrung
+                    </div>
+                    <div class="counselor-card__meta-item">
+                        <span class="counselor-card__badge">
+                            ✓ Online verfügbar
+                        </span>
+                    </div>
+                </div>
+            </div>
+            <div class="counselor-card__actions">
+                <button class="btn btn-primary" onclick="showCounselorDetails(1)">
+                    Profil ansehen
+                </button>
+            </div>
+        </article>
+
+        <!-- Counselor Card 2 -->
+        <article class="counselor-card" data-specialty="adoption" data-location="München" data-name="Thomas Schmidt">
+            <div class="counselor-card__header">
+                <div class="counselor-card__photo" aria-hidden="true">TS</div>
+                <div class="counselor-card__name-area">
+                    <h3 class="counselor-card__name">Thomas Schmidt</h3>
+                    <p class="counselor-card__credentials">Sozialpädagoge, Adoptionsfachberater</p>
+                </div>
+            </div>
+            <div class="counselor-card__body">
+                <span class="counselor-card__specialty">Adoption</span>
+                <p class="counselor-card__description">
+                    Spezialisiert auf Adoptionsberatung und Begleitung im gesamten Adoptionsprozess.
+                    Von der Erstberatung über die Vorbereitung bis zur Nachbetreuung stehe ich Ihnen
+                    mit Fachwissen und Empathie zur Seite.
+                </p>
+                <div class="counselor-card__meta">
+                    <div class="counselor-card__meta-item">
+                        <svg class="counselor-card__meta-icon" width="18" height="18" viewBox="0 0 18 18" fill="none">
+                            <path d="M9 15.75C12.7279 15.75 15.75 12.7279 15.75 9C15.75 5.27208 12.7279 2.25 9 2.25C5.27208 2.25 2.25 5.27208 2.25 9C2.25 12.7279 5.27208 15.75 9 15.75Z" stroke="currentColor" stroke-width="1.5"/>
+                            <path d="M9 4.5V9L11.25 10.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+                        </svg>
+                        München
+                    </div>
+                    <div class="counselor-card__meta-item">
+                        <svg class="counselor-card__meta-icon" width="18" height="18" viewBox="0 0 18 18" fill="none">
+                            <rect x="3" y="4.5" width="12" height="10.5" rx="1.5" stroke="currentColor" stroke-width="1.5"/>
+                            <path d="M6 7.5H12M6 10.5H9.75" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+                        </svg>
+                        10 Jahre Erfahrung
+                    </div>
+                    <div class="counselor-card__meta-item">
+                        <span class="counselor-card__badge">
+                            ✓ Online verfügbar
+                        </span>
+                    </div>
+                </div>
+            </div>
+            <div class="counselor-card__actions">
+                <button class="btn btn-primary" onclick="showCounselorDetails(2)">
+                    Profil ansehen
+                </button>
+            </div>
+        </article>
+
+        <!-- Counselor Card 3 -->
+        <article class="counselor-card" data-specialty="ivf kinderwunsch" data-location="Hamburg" data-name="Dr. Sarah Klein">
+            <div class="counselor-card__header">
+                <div class="counselor-card__photo" aria-hidden="true">SK</div>
+                <div class="counselor-card__name-area">
+                    <h3 class="counselor-card__name">Dr. Sarah Klein</h3>
+                    <p class="counselor-card__credentials">Psychologin, Reproduktionsmedizin-Beraterin</p>
+                </div>
+            </div>
+            <div class="counselor-card__body">
+                <span class="counselor-card__specialty">IVF-Begleitung</span>
+                <p class="counselor-card__description">
+                    Psychologische Begleitung während IVF/ICSI-Behandlungen. Ich helfe Ihnen, mit der
+                    emotionalen Belastung umzugehen, den Behandlungsstress zu bewältigen und Ihre
+                    Ressourcen zu stärken.
+                </p>
+                <div class="counselor-card__meta">
+                    <div class="counselor-card__meta-item">
+                        <svg class="counselor-card__meta-icon" width="18" height="18" viewBox="0 0 18 18" fill="none">
+                            <path d="M9 15.75C12.7279 15.75 15.75 12.7279 15.75 9C15.75 5.27208 12.7279 2.25 9 2.25C5.27208 2.25 2.25 5.27208 2.25 9C2.25 12.7279 5.27208 15.75 9 15.75Z" stroke="currentColor" stroke-width="1.5"/>
+                            <path d="M9 4.5V9L11.25 10.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+                        </svg>
+                        Hamburg
+                    </div>
+                    <div class="counselor-card__meta-item">
+                        <svg class="counselor-card__meta-icon" width="18" height="18" viewBox="0 0 18 18" fill="none">
+                            <rect x="3" y="4.5" width="12" height="10.5" rx="1.5" stroke="currentColor" stroke-width="1.5"/>
+                            <path d="M6 7.5H12M6 10.5H9.75" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+                        </svg>
+                        8 Jahre Erfahrung
+                    </div>
+                    <div class="counselor-card__meta-item">
+                        <span class="counselor-card__badge">
+                            ✓ Online verfügbar
+                        </span>
+                    </div>
+                </div>
+            </div>
+            <div class="counselor-card__actions">
+                <button class="btn btn-primary" onclick="showCounselorDetails(3)">
+                    Profil ansehen
+                </button>
+            </div>
+        </article>
+
+        <!-- Counselor Card 4 -->
+        <article class="counselor-card" data-specialty="trauerbegleitung fehlgeburt" data-location="Frankfurt" data-name="Maria Weber">
+            <div class="counselor-card__header">
+                <div class="counselor-card__photo" aria-hidden="true">MW</div>
+                <div class="counselor-card__name-area">
+                    <h3 class="counselor-card__name">Maria Weber</h3>
+                    <p class="counselor-card__credentials">Trauerbegleiterin, Heilpraktikerin Psychotherapie</p>
+                </div>
+            </div>
+            <div class="counselor-card__body">
+                <span class="counselor-card__specialty">Trauerbegleitung</span>
+                <p class="counselor-card__description">
+                    Einfühlsame Unterstützung bei Fehlgeburten und dem Verlust eines Kindes. In einem
+                    geschützten Raum begleite ich Sie durch die Trauer und helfe Ihnen, Ihren eigenen
+                    Weg der Verarbeitung zu finden.
+                </p>
+                <div class="counselor-card__meta">
+                    <div class="counselor-card__meta-item">
+                        <svg class="counselor-card__meta-icon" width="18" height="18" viewBox="0 0 18 18" fill="none">
+                            <path d="M9 15.75C12.7279 15.75 15.75 12.7279 15.75 9C15.75 5.27208 12.7279 2.25 9 2.25C5.27208 2.25 2.25 5.27208 2.25 9C2.25 12.7279 5.27208 15.75 9 15.75Z" stroke="currentColor" stroke-width="1.5"/>
+                            <path d="M9 4.5V9L11.25 10.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+                        </svg>
+                        Frankfurt am Main
+                    </div>
+                    <div class="counselor-card__meta-item">
+                        <svg class="counselor-card__meta-icon" width="18" height="18" viewBox="0 0 18 18" fill="none">
+                            <rect x="3" y="4.5" width="12" height="10.5" rx="1.5" stroke="currentColor" stroke-width="1.5"/>
+                            <path d="M6 7.5H12M6 10.5H9.75" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+                        </svg>
+                        12 Jahre Erfahrung
+                    </div>
+                    <div class="counselor-card__meta-item">
+                        <span class="counselor-card__badge">
+                            ✓ Online verfügbar
+                        </span>
+                    </div>
+                </div>
+            </div>
+            <div class="counselor-card__actions">
+                <button class="btn btn-primary" onclick="showCounselorDetails(4)">
+                    Profil ansehen
+                </button>
+            </div>
+        </article>
+
+        <!-- Counselor Card 5 -->
+        <article class="counselor-card" data-specialty="regenbogenfamilien kinderwunsch" data-location="Köln" data-name="Dr. Lisa Hoffmann">
+            <div class="counselor-card__header">
+                <div class="counselor-card__photo" aria-hidden="true">LH</div>
+                <div class="counselor-card__name-area">
+                    <h3 class="counselor-card__name">Dr. Lisa Hoffmann</h3>
+                    <p class="counselor-card__credentials">Psychologin, LSBTIQ+ Beraterin</p>
+                </div>
+            </div>
+            <div class="counselor-card__body">
+                <span class="counselor-card__specialty">Regenbogenfamilien</span>
+                <p class="counselor-card__description">
+                    Spezialisiert auf die Beratung von LSBTIQ+ Personen und Paaren mit Kinderwunsch.
+                    Ich begleite Sie durch alle Fragen rund um Familiengründung, rechtliche Aspekte
+                    und die besonderen Herausforderungen für Regenbogenfamilien.
+                </p>
+                <div class="counselor-card__meta">
+                    <div class="counselor-card__meta-item">
+                        <svg class="counselor-card__meta-icon" width="18" height="18" viewBox="0 0 18 18" fill="none">
+                            <path d="M9 15.75C12.7279 15.75 15.75 12.7279 15.75 9C15.75 5.27208 12.7279 2.25 9 2.25C5.27208 2.25 2.25 5.27208 2.25 9C2.25 12.7279 5.27208 15.75 9 15.75Z" stroke="currentColor" stroke-width="1.5"/>
+                            <path d="M9 4.5V9L11.25 10.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+                        </svg>
+                        Köln
+                    </div>
+                    <div class="counselor-card__meta-item">
+                        <svg class="counselor-card__meta-icon" width="18" height="18" viewBox="0 0 18 18" fill="none">
+                            <rect x="3" y="4.5" width="12" height="10.5" rx="1.5" stroke="currentColor" stroke-width="1.5"/>
+                            <path d="M6 7.5H12M6 10.5H9.75" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+                        </svg>
+                        9 Jahre Erfahrung
+                    </div>
+                    <div class="counselor-card__meta-item">
+                        <span class="counselor-card__badge">
+                            ✓ Online verfügbar
+                        </span>
+                    </div>
+                </div>
+            </div>
+            <div class="counselor-card__actions">
+                <button class="btn btn-primary" onclick="showCounselorDetails(5)">
+                    Profil ansehen
+                </button>
+            </div>
+        </article>
+
+        <!-- Counselor Card 6 -->
+        <article class="counselor-card" data-specialty="fehlgeburt trauerbegleitung" data-location="Stuttgart" data-name="Claudia Becker">
+            <div class="counselor-card__header">
+                <div class="counselor-card__photo" aria-hidden="true">CB</div>
+                <div class="counselor-card__name-area">
+                    <h3 class="counselor-card__name">Claudia Becker</h3>
+                    <p class="counselor-card__credentials">Hebamme, Systemische Therapeutin</p>
+                </div>
+            </div>
+            <div class="counselor-card__body">
+                <span class="counselor-card__specialty">Fehlgeburt</span>
+                <p class="counselor-card__description">
+                    Als Hebamme und Therapeutin begleite ich Frauen und Paare nach Fehlgeburten.
+                    Ich biete einen sicheren Raum für Trauer, Wut und alle Gefühle, die zu diesem
+                    schweren Verlust gehören. Sie sind nicht allein.
+                </p>
+                <div class="counselor-card__meta">
+                    <div class="counselor-card__meta-item">
+                        <svg class="counselor-card__meta-icon" width="18" height="18" viewBox="0 0 18 18" fill="none">
+                            <path d="M9 15.75C12.7279 15.75 15.75 12.7279 15.75 9C15.75 5.27208 12.7279 2.25 9 2.25C5.27208 2.25 2.25 5.27208 2.25 9C2.25 12.7279 5.27208 15.75 9 15.75Z" stroke="currentColor" stroke-width="1.5"/>
+                            <path d="M9 4.5V9L11.25 10.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+                        </svg>
+                        Stuttgart
+                    </div>
+                    <div class="counselor-card__meta-item">
+                        <svg class="counselor-card__meta-icon" width="18" height="18" viewBox="0 0 18 18" fill="none">
+                            <rect x="3" y="4.5" width="12" height="10.5" rx="1.5" stroke="currentColor" stroke-width="1.5"/>
+                            <path d="M6 7.5H12M6 10.5H9.75" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+                        </svg>
+                        18 Jahre Erfahrung
+                    </div>
+                    <div class="counselor-card__meta-item">
+                        <span class="counselor-card__badge">
+                            ✓ Online verfügbar
+                        </span>
+                    </div>
+                </div>
+            </div>
+            <div class="counselor-card__actions">
+                <button class="btn btn-primary" onclick="showCounselorDetails(6)">
+                    Profil ansehen
+                </button>
+            </div>
+        </article>
+
+        <!-- Counselor Card 7 -->
+        <article class="counselor-card" data-specialty="kinderwunsch ivf" data-location="Düsseldorf" data-name="Michael Braun">
+            <div class="counselor-card__header">
+                <div class="counselor-card__photo" aria-hidden="true">MB</div>
+                <div class="counselor-card__name-area">
+                    <h3 class="counselor-card__name">Michael Braun</h3>
+                    <p class="counselor-card__credentials">Psychologe, Paartherapeut</p>
+                </div>
+            </div>
+            <div class="counselor-card__body">
+                <span class="counselor-card__specialty">Kinderwunsch-Beratung</span>
+                <p class="counselor-card__description">
+                    Unterstützung für Paare auf dem Kinderwunsch-Weg. Ich helfe Ihnen, als Paar
+                    zusammenzubleiben, Konflikte zu lösen und gemeinsam stark durch diese
+                    herausfordernde Zeit zu gehen.
+                </p>
+                <div class="counselor-card__meta">
+                    <div class="counselor-card__meta-item">
+                        <svg class="counselor-card__meta-icon" width="18" height="18" viewBox="0 0 18 18" fill="none">
+                            <path d="M9 15.75C12.7279 15.75 15.75 12.7279 15.75 9C15.75 5.27208 12.7279 2.25 9 2.25C5.27208 2.25 2.25 5.27208 2.25 9C2.25 12.7279 5.27208 15.75 9 15.75Z" stroke="currentColor" stroke-width="1.5"/>
+                            <path d="M9 4.5V9L11.25 10.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+                        </svg>
+                        Düsseldorf
+                    </div>
+                    <div class="counselor-card__meta-item">
+                        <svg class="counselor-card__meta-icon" width="18" height="18" viewBox="0 0 18 18" fill="none">
+                            <rect x="3" y="4.5" width="12" height="10.5" rx="1.5" stroke="currentColor" stroke-width="1.5"/>
+                            <path d="M6 7.5H12M6 10.5H9.75" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+                        </svg>
+                        11 Jahre Erfahrung
+                    </div>
+                    <div class="counselor-card__meta-item">
+                        <span class="counselor-card__badge">
+                            ✓ Online verfügbar
+                        </span>
+                    </div>
+                </div>
+            </div>
+            <div class="counselor-card__actions">
+                <button class="btn btn-primary" onclick="showCounselorDetails(7)">
+                    Profil ansehen
+                </button>
+            </div>
+        </article>
+
+        <!-- Counselor Card 8 -->
+        <article class="counselor-card" data-specialty="adoption kinderwunsch" data-location="Leipzig" data-name="Julia Richter">
+            <div class="counselor-card__header">
+                <div class="counselor-card__photo" aria-hidden="true">JR</div>
+                <div class="counselor-card__name-area">
+                    <h3 class="counselor-card__name">Julia Richter</h3>
+                    <p class="counselor-card__credentials">Sozialpädagogin, Familienberaterin</p>
+                </div>
+            </div>
+            <div class="counselor-card__body">
+                <span class="counselor-card__specialty">Adoption</span>
+                <p class="counselor-card__description">
+                    Beratung und Begleitung auf dem Weg zur Adoptivfamilie. Von der Entscheidungsfindung
+                    über die Eignungsprüfung bis zur Integration des Kindes in Ihre Familie stehe ich
+                    Ihnen zur Seite.
+                </p>
+                <div class="counselor-card__meta">
+                    <div class="counselor-card__meta-item">
+                        <svg class="counselor-card__meta-icon" width="18" height="18" viewBox="0 0 18 18" fill="none">
+                            <path d="M9 15.75C12.7279 15.75 15.75 12.7279 15.75 9C15.75 5.27208 12.7279 2.25 9 2.25C5.27208 2.25 2.25 5.27208 2.25 9C2.25 12.7279 5.27208 15.75 9 15.75Z" stroke="currentColor" stroke-width="1.5"/>
+                            <path d="M9 4.5V9L11.25 10.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+                        </svg>
+                        Leipzig
+                    </div>
+                    <div class="counselor-card__meta-item">
+                        <svg class="counselor-card__meta-icon" width="18" height="18" viewBox="0 0 18 18" fill="none">
+                            <rect x="3" y="4.5" width="12" height="10.5" rx="1.5" stroke="currentColor" stroke-width="1.5"/>
+                            <path d="M6 7.5H12M6 10.5H9.75" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+                        </svg>
+                        7 Jahre Erfahrung
+                    </div>
+                    <div class="counselor-card__meta-item">
+                        <span class="counselor-card__badge">
+                            ✓ Online verfügbar
+                        </span>
+                    </div>
+                </div>
+            </div>
+            <div class="counselor-card__actions">
+                <button class="btn btn-primary" onclick="showCounselorDetails(8)">
+                    Profil ansehen
+                </button>
+            </div>
+        </article>
+
+        <!-- Counselor Card 9 -->
+        <article class="counselor-card" data-specialty="ivf kinderwunsch" data-location="Nürnberg" data-name="Dr. Robert Fischer">
+            <div class="counselor-card__header">
+                <div class="counselor-card__photo" aria-hidden="true">RF</div>
+                <div class="counselor-card__name-area">
+                    <h3 class="counselor-card__name">Dr. Robert Fischer</h3>
+                    <p class="counselor-card__credentials">Psychologe, Reproduktionsberater</p>
+                </div>
+            </div>
+            <div class="counselor-card__body">
+                <span class="counselor-card__specialty">IVF-Begleitung</span>
+                <p class="counselor-card__description">
+                    Psychologische Beratung vor und während reproduktionsmedizinischer Behandlungen.
+                    Ich unterstütze Sie dabei, informierte Entscheidungen zu treffen und die Behandlung
+                    mental gestärkt durchzustehen.
+                </p>
+                <div class="counselor-card__meta">
+                    <div class="counselor-card__meta-item">
+                        <svg class="counselor-card__meta-icon" width="18" height="18" viewBox="0 0 18 18" fill="none">
+                            <path d="M9 15.75C12.7279 15.75 15.75 12.7279 15.75 9C15.75 5.27208 12.7279 2.25 9 2.25C5.27208 2.25 2.25 5.27208 2.25 9C2.25 12.7279 5.27208 15.75 9 15.75Z" stroke="currentColor" stroke-width="1.5"/>
+                            <path d="M9 4.5V9L11.25 10.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+                        </svg>
+                        Nürnberg
+                    </div>
+                    <div class="counselor-card__meta-item">
+                        <svg class="counselor-card__meta-icon" width="18" height="18" viewBox="0 0 18 18" fill="none">
+                            <rect x="3" y="4.5" width="12" height="10.5" rx="1.5" stroke="currentColor" stroke-width="1.5"/>
+                            <path d="M6 7.5H12M6 10.5H9.75" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+                        </svg>
+                        13 Jahre Erfahrung
+                    </div>
+                    <div class="counselor-card__meta-item">
+                        <span class="counselor-card__badge">
+                            ✓ Online verfügbar
+                        </span>
+                    </div>
+                </div>
+            </div>
+            <div class="counselor-card__actions">
+                <button class="btn btn-primary" onclick="showCounselorDetails(9)">
+                    Profil ansehen
+                </button>
+            </div>
+        </article>
+
+        <!-- Counselor Card 10 -->
+        <article class="counselor-card" data-specialty="regenbogenfamilien" data-location="Bremen" data-name="Nina Schröder">
+            <div class="counselor-card__header">
+                <div class="counselor-card__photo" aria-hidden="true">NS</div>
+                <div class="counselor-card__name-area">
+                    <h3 class="counselor-card__name">Nina Schröder</h3>
+                    <p class="counselor-card__credentials">Soziologin, LSBTIQ+ Fachberaterin</p>
+                </div>
+            </div>
+            <div class="counselor-card__body">
+                <span class="counselor-card__specialty">Regenbogenfamilien</span>
+                <p class="counselor-card__description">
+                    Beratung für queere Paare und Singles mit Kinderwunsch. Ich kenne die rechtlichen,
+                    medizinischen und sozialen Besonderheiten und begleite Sie einfühlsam auf Ihrem
+                    individuellen Weg zur Familie.
+                </p>
+                <div class="counselor-card__meta">
+                    <div class="counselor-card__meta-item">
+                        <svg class="counselor-card__meta-icon" width="18" height="18" viewBox="0 0 18 18" fill="none">
+                            <path d="M9 15.75C12.7279 15.75 15.75 12.7279 15.75 9C15.75 5.27208 12.7279 2.25 9 2.25C5.27208 2.25 2.25 5.27208 2.25 9C2.25 12.7279 5.27208 15.75 9 15.75Z" stroke="currentColor" stroke-width="1.5"/>
+                            <path d="M9 4.5V9L11.25 10.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+                        </svg>
+                        Bremen
+                    </div>
+                    <div class="counselor-card__meta-item">
+                        <svg class="counselor-card__meta-icon" width="18" height="18" viewBox="0 0 18 18" fill="none">
+                            <rect x="3" y="4.5" width="12" height="10.5" rx="1.5" stroke="currentColor" stroke-width="1.5"/>
+                            <path d="M6 7.5H12M6 10.5H9.75" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+                        </svg>
+                        6 Jahre Erfahrung
+                    </div>
+                    <div class="counselor-card__meta-item">
+                        <span class="counselor-card__badge">
+                            ✓ Online verfügbar
+                        </span>
+                    </div>
+                </div>
+            </div>
+            <div class="counselor-card__actions">
+                <button class="btn btn-primary" onclick="showCounselorDetails(10)">
+                    Profil ansehen
+                </button>
+            </div>
+        </article>
+
+        <!-- Counselor Card 11 -->
+        <article class="counselor-card" data-specialty="trauerbegleitung fehlgeburt" data-location="Hannover" data-name="Eva Zimmermann">
+            <div class="counselor-card__header">
+                <div class="counselor-card__photo" aria-hidden="true">EZ</div>
+                <div class="counselor-card__name-area">
+                    <h3 class="counselor-card__name">Eva Zimmermann</h3>
+                    <p class="counselor-card__credentials">Therapeutin, Trauerbegleiterin</p>
+                </div>
+            </div>
+            <div class="counselor-card__body">
+                <span class="counselor-card__specialty">Trauerbegleitung</span>
+                <p class="counselor-card__description">
+                    Einfühlsame Begleitung nach dem Verlust eines Kindes - ob Fehlgeburt, Totgeburt
+                    oder perinataler Tod. Ihre Trauer ist wichtig und verdient einen geschützten Raum.
+                    Ich bin für Sie da.
+                </p>
+                <div class="counselor-card__meta">
+                    <div class="counselor-card__meta-item">
+                        <svg class="counselor-card__meta-icon" width="18" height="18" viewBox="0 0 18 18" fill="none">
+                            <path d="M9 15.75C12.7279 15.75 15.75 12.7279 15.75 9C15.75 5.27208 12.7279 2.25 9 2.25C5.27208 2.25 2.25 5.27208 2.25 9C2.25 12.7279 5.27208 15.75 9 15.75Z" stroke="currentColor" stroke-width="1.5"/>
+                            <path d="M9 4.5V9L11.25 10.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+                        </svg>
+                        Hannover
+                    </div>
+                    <div class="counselor-card__meta-item">
+                        <svg class="counselor-card__meta-icon" width="18" height="18" viewBox="0 0 18 18" fill="none">
+                            <rect x="3" y="4.5" width="12" height="10.5" rx="1.5" stroke="currentColor" stroke-width="1.5"/>
+                            <path d="M6 7.5H12M6 10.5H9.75" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+                        </svg>
+                        14 Jahre Erfahrung
+                    </div>
+                    <div class="counselor-card__meta-item">
+                        <span class="counselor-card__badge">
+                            ✓ Online verfügbar
+                        </span>
+                    </div>
+                </div>
+            </div>
+            <div class="counselor-card__actions">
+                <button class="btn btn-primary" onclick="showCounselorDetails(11)">
+                    Profil ansehen
+                </button>
+            </div>
+        </article>
+
+        <!-- Counselor Card 12 -->
+        <article class="counselor-card" data-specialty="kinderwunsch ivf" data-location="Dresden" data-name="Dr. Frank Keller">
+            <div class="counselor-card__header">
+                <div class="counselor-card__photo" aria-hidden="true">FK</div>
+                <div class="counselor-card__name-area">
+                    <h3 class="counselor-card__name">Dr. Frank Keller</h3>
+                    <p class="counselor-card__credentials">Psychologe, Kinderwunsch-Berater</p>
+                </div>
+            </div>
+            <div class="counselor-card__body">
+                <span class="counselor-card__specialty">Kinderwunsch-Beratung</span>
+                <p class="counselor-card__description">
+                    Ganzheitliche Beratung bei unerfülltem Kinderwunsch. Ich unterstütze Sie bei
+                    medizinischen Entscheidungen, dem Umgang mit Enttäuschungen und dabei, Hoffnung
+                    und Lebensfreude zu bewahren.
+                </p>
+                <div class="counselor-card__meta">
+                    <div class="counselor-card__meta-item">
+                        <svg class="counselor-card__meta-icon" width="18" height="18" viewBox="0 0 18 18" fill="none">
+                            <path d="M9 15.75C12.7279 15.75 15.75 12.7279 15.75 9C15.75 5.27208 12.7279 2.25 9 2.25C5.27208 2.25 2.25 5.27208 2.25 9C2.25 12.7279 5.27208 15.75 9 15.75Z" stroke="currentColor" stroke-width="1.5"/>
+                            <path d="M9 4.5V9L11.25 10.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+                        </svg>
+                        Dresden
+                    </div>
+                    <div class="counselor-card__meta-item">
+                        <svg class="counselor-card__meta-icon" width="18" height="18" viewBox="0 0 18 18" fill="none">
+                            <rect x="3" y="4.5" width="12" height="10.5" rx="1.5" stroke="currentColor" stroke-width="1.5"/>
+                            <path d="M6 7.5H12M6 10.5H9.75" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+                        </svg>
+                        16 Jahre Erfahrung
+                    </div>
+                    <div class="counselor-card__meta-item">
+                        <span class="counselor-card__badge">
+                            ✓ Online verfügbar
+                        </span>
+                    </div>
+                </div>
+            </div>
+            <div class="counselor-card__actions">
+                <button class="btn btn-primary" onclick="showCounselorDetails(12)">
+                    Profil ansehen
+                </button>
+            </div>
+        </article>
+
+    </section>
+
+    <!-- Empty State -->
+    <div class="empty-state" hidden id="empty-state">
+        <svg class="empty-state__icon" width="64" height="64" viewBox="0 0 64 64" fill="none" aria-hidden="true">
+            <circle cx="32" cy="32" r="30" stroke="currentColor" stroke-width="2" stroke-dasharray="4 4"/>
+            <path d="M32 20v24M20 32h24" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+        </svg>
+        <h2 class="empty-state__title">Keine Berater:innen gefunden</h2>
+        <p class="empty-state__description">
+            Versuchen Sie es mit anderen Suchbegriffen oder wählen Sie ein anderes Spezialgebiet.
+        </p>
+    </div>
+
+    <!-- Guided Matching Wizard Modal -->
+    <div class="modal" id="wizard-modal" role="dialog" aria-modal="true" aria-labelledby="wizard-title">
+        <div class="modal__overlay" onclick="closeWizard()"></div>
+        <div class="modal__content">
+            <button class="modal__close" onclick="closeWizard()" aria-label="Dialog schließen">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+                    <path d="M18 6L6 18M6 6L18 18" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                </svg>
+            </button>
+
+            <div class="wizard">
+                <div class="wizard__header">
+                    <h2 id="wizard-title" class="wizard__title">Finden Sie die passende Beratung</h2>
+                    <p class="wizard__subtitle">Wir helfen Ihnen in wenigen Schritten</p>
+                </div>
+
+                <!-- Progress Indicator -->
+                <div class="wizard__progress" role="progressbar" aria-valuenow="33" aria-valuemin="0" aria-valuemax="100">
+                    <div class="wizard__step active" data-step="1">
+                        <div class="wizard__step-number">1</div>
+                        <span class="wizard__step-label">Ihre Situation</span>
+                    </div>
+                    <div class="wizard__step" data-step="2">
+                        <div class="wizard__step-number">2</div>
+                        <span class="wizard__step-label">Ihre Bedürfnisse</span>
+                    </div>
+                    <div class="wizard__step" data-step="3">
+                        <div class="wizard__step-number">3</div>
+                        <span class="wizard__step-label">Ergebnis</span>
+                    </div>
+                </div>
+
+                <!-- Step 1: Situation -->
+                <div class="wizard__step-content active" data-step="1">
+                    <h3 class="wizard__question">Was beschreibt Ihre Situation am besten?</h3>
+                    <div class="wizard__options">
+                        <button class="wizard__option" data-value="kinderwunsch" onclick="selectOption(this)">
+                            <div class="wizard__option-title">Wir wünschen uns ein Kind</div>
+                            <div class="wizard__option-description">Ich/Wir möchte(n) schwanger werden und brauche(n) Unterstützung</div>
+                        </button>
+                        <button class="wizard__option" data-value="behandlung" onclick="selectOption(this)">
+                            <div class="wizard__option-title">Ich bin in Behandlung</div>
+                            <div class="wizard__option-description">IVF, ICSI oder andere reproduktionsmedizinische Behandlung</div>
+                        </button>
+                        <button class="wizard__option" data-value="verlust" onclick="selectOption(this)">
+                            <div class="wizard__option-title">Ich habe einen Verlust erlebt</div>
+                            <div class="wizard__option-description">Fehlgeburt, stille Geburt oder Tod eines Kindes</div>
+                        </button>
+                        <button class="wizard__option" data-value="adoption" onclick="selectOption(this)">
+                            <div class="wizard__option-title">Wir denken über Adoption nach</div>
+                            <div class="wizard__option-description">Informationen und Begleitung im Adoptionsprozess</div>
+                        </button>
+                        <button class="wizard__option" data-value="regenbogen" onclick="selectOption(this)">
+                            <div class="wizard__option-title">Wir sind ein queeres Paar/Single</div>
+                            <div class="wizard__option-description">Beratung für LSBTIQ+ Personen mit Kinderwunsch</div>
+                        </button>
+                    </div>
+                    <div class="wizard__actions">
+                        <button class="btn btn-secondary" onclick="closeWizard()">Abbrechen</button>
+                        <button class="btn btn-primary" onclick="nextWizardStep()" disabled id="next-btn-1">Weiter</button>
+                    </div>
+                </div>
+
+                <!-- Step 2: Needs -->
+                <div class="wizard__step-content" data-step="2">
+                    <h3 class="wizard__question">Was ist Ihnen wichtig?</h3>
+                    <div class="wizard__options">
+                        <button class="wizard__option" data-value="online" onclick="selectOption(this)">
+                            <div class="wizard__option-title">Online-Beratung</div>
+                            <div class="wizard__option-description">Ich möchte von zu Hause aus beraten werden</div>
+                        </button>
+                        <button class="wizard__option" data-value="persoenlich" onclick="selectOption(this)">
+                            <div class="wizard__option-title">Persönlicher Kontakt</div>
+                            <div class="wizard__option-description">Ich möchte die Beratung vor Ort wahrnehmen</div>
+                        </button>
+                        <button class="wizard__option" data-value="beides" onclick="selectOption(this)">
+                            <div class="wizard__option-title">Flexibel</div>
+                            <div class="wizard__option-description">Sowohl online als auch vor Ort ist möglich</div>
+                        </button>
+                    </div>
+                    <div class="wizard__actions">
+                        <button class="btn btn-secondary" onclick="previousWizardStep()">Zurück</button>
+                        <button class="btn btn-primary" onclick="nextWizardStep()" disabled id="next-btn-2">Weiter</button>
+                    </div>
+                </div>
+
+                <!-- Step 3: Results -->
+                <div class="wizard__step-content" data-step="3">
+                    <div class="match-results">
+                        <div class="match-results__icon">
+                            <svg width="48" height="48" viewBox="0 0 48 48" fill="none">
+                                <path d="M20 24L24 28L36 16" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+                                <circle cx="24" cy="24" r="20" stroke="currentColor" stroke-width="3"/>
+                            </svg>
+                        </div>
+                        <h3 class="match-results__title">Wir haben passende Berater:innen für Sie gefunden!</h3>
+                        <p class="match-results__description" id="match-description">
+                            Basierend auf Ihren Angaben empfehlen wir Ihnen folgende Berater:innen.
+                        </p>
+                    </div>
+                    <div class="wizard__actions">
+                        <button class="btn btn-secondary" onclick="previousWizardStep()">Zurück</button>
+                        <button class="btn btn-primary" onclick="showMatchResults()">Ergebnisse anzeigen</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- JavaScript -->
+    <script>
+        // ============================================
+        // GLOBAL STATE
+        // ============================================
+        let wizardData = {
+            situation: null,
+            needs: null
+        };
+
+        let currentWizardStep = 1;
+
+        // ============================================
+        // SEARCH & FILTER FUNCTIONALITY
+        // ============================================
+        const searchInput = document.getElementById('counselor-search');
+        const filterPills = document.querySelectorAll('.filter-pill');
+        const counselorCards = document.querySelectorAll('.counselor-card');
+        const resultsCount = document.getElementById('results-count');
+        const emptyState = document.getElementById('empty-state');
+
+        // Search functionality
+        searchInput.addEventListener('input', (e) => {
+            const searchTerm = e.target.value.toLowerCase();
+            filterCounselors();
+        });
+
+        // Filter pill functionality
+        filterPills.forEach(pill => {
+            pill.addEventListener('click', () => {
+                // Update active state
+                filterPills.forEach(p => {
+                    p.classList.remove('active');
+                    p.setAttribute('aria-pressed', 'false');
+                });
+                pill.classList.add('active');
+                pill.setAttribute('aria-pressed', 'true');
+
+                filterCounselors();
+            });
+        });
+
+        function filterCounselors() {
+            const searchTerm = searchInput.value.toLowerCase();
+            const activeSpecialty = document.querySelector('.filter-pill.active').dataset.specialty;
+            let visibleCount = 0;
+
+            counselorCards.forEach(card => {
+                const name = card.dataset.name.toLowerCase();
+                const location = card.dataset.location.toLowerCase();
+                const specialties = card.dataset.specialty.toLowerCase();
+
+                const matchesSearch = name.includes(searchTerm) ||
+                                    location.includes(searchTerm) ||
+                                    specialties.includes(searchTerm);
+
+                const matchesFilter = activeSpecialty === 'alle' ||
+                                     specialties.includes(activeSpecialty);
+
+                if (matchesSearch && matchesFilter) {
+                    card.hidden = false;
+                    visibleCount++;
+                } else {
+                    card.hidden = true;
+                }
+            });
+
+            // Update results count
+            resultsCount.textContent = `${visibleCount} Berater:innen gefunden`;
+
+            // Show/hide empty state
+            if (visibleCount === 0) {
+                emptyState.hidden = false;
+            } else {
+                emptyState.hidden = true;
+            }
+        }
+
+        // ============================================
+        // COUNSELOR DETAILS
+        // ============================================
+        function showCounselorDetails(id) {
+            // In a real implementation, this would open a detailed modal
+            alert('Detailansicht für Berater:in ' + id + '\n\nHier würden Sie weitere Informationen sehen und einen Termin buchen können.');
+        }
+
+        // ============================================
+        // GUIDED MATCHING WIZARD
+        // ============================================
+        function startWizard() {
+            const modal = document.getElementById('wizard-modal');
+            modal.classList.add('active');
+            document.body.style.overflow = 'hidden';
+            currentWizardStep = 1;
+            resetWizard();
+        }
+
+        function closeWizard() {
+            const modal = document.getElementById('wizard-modal');
+            modal.classList.remove('active');
+            document.body.style.overflow = '';
+            resetWizard();
+        }
+
+        function resetWizard() {
+            wizardData = { situation: null, needs: null };
+            currentWizardStep = 1;
+
+            // Reset all steps
+            document.querySelectorAll('.wizard__step').forEach(step => {
+                step.classList.remove('active', 'completed');
+            });
+            document.querySelector('.wizard__step[data-step="1"]').classList.add('active');
+
+            // Reset step contents
+            document.querySelectorAll('.wizard__step-content').forEach(content => {
+                content.classList.remove('active');
+            });
+            document.querySelector('.wizard__step-content[data-step="1"]').classList.add('active');
+
+            // Reset selections
+            document.querySelectorAll('.wizard__option').forEach(option => {
+                option.classList.remove('selected');
+            });
+
+            // Disable next buttons
+            document.getElementById('next-btn-1').disabled = true;
+            document.getElementById('next-btn-2').disabled = true;
+        }
+
+        function selectOption(button) {
+            // Remove selected from siblings
+            button.parentElement.querySelectorAll('.wizard__option').forEach(opt => {
+                opt.classList.remove('selected');
+            });
+
+            // Add selected to clicked option
+            button.classList.add('selected');
+
+            // Store selection
+            const value = button.dataset.value;
+            if (currentWizardStep === 1) {
+                wizardData.situation = value;
+                document.getElementById('next-btn-1').disabled = false;
+            } else if (currentWizardStep === 2) {
+                wizardData.needs = value;
+                document.getElementById('next-btn-2').disabled = false;
+            }
+        }
+
+        function nextWizardStep() {
+            if (currentWizardStep < 3) {
+                // Mark current step as completed
+                document.querySelector(`.wizard__step[data-step="${currentWizardStep}"]`).classList.add('completed');
+
+                currentWizardStep++;
+
+                // Update step indicator
+                document.querySelectorAll('.wizard__step').forEach(step => {
+                    step.classList.remove('active');
+                });
+                document.querySelector(`.wizard__step[data-step="${currentWizardStep}"]`).classList.add('active');
+
+                // Update content
+                document.querySelectorAll('.wizard__step-content').forEach(content => {
+                    content.classList.remove('active');
+                });
+                document.querySelector(`.wizard__step-content[data-step="${currentWizardStep}"]`).classList.add('active');
+
+                // Update progress bar
+                const progress = (currentWizardStep / 3) * 100;
+                document.querySelector('.wizard__progress').setAttribute('aria-valuenow', progress);
+            }
+        }
+
+        function previousWizardStep() {
+            if (currentWizardStep > 1) {
+                currentWizardStep--;
+
+                // Update step indicator
+                document.querySelectorAll('.wizard__step').forEach(step => {
+                    step.classList.remove('active');
+                });
+                document.querySelector(`.wizard__step[data-step="${currentWizardStep}"]`).classList.add('active');
+
+                // Update content
+                document.querySelectorAll('.wizard__step-content').forEach(content => {
+                    content.classList.remove('active');
+                });
+                document.querySelector(`.wizard__step-content[data-step="${currentWizardStep}"]`).classList.add('active');
+
+                // Update progress bar
+                const progress = (currentWizardStep / 3) * 100;
+                document.querySelector('.wizard__progress').setAttribute('aria-valuenow', progress);
+            }
+        }
+
+        function showMatchResults() {
+            // Map wizard selections to filter values
+            const specialtyMap = {
+                'kinderwunsch': 'kinderwunsch',
+                'behandlung': 'ivf',
+                'verlust': 'trauerbegleitung',
+                'adoption': 'adoption',
+                'regenbogen': 'regenbogenfamilien'
+            };
+
+            const targetSpecialty = specialtyMap[wizardData.situation] || 'alle';
+
+            // Close wizard
+            closeWizard();
+
+            // Apply filter
+            const targetPill = document.querySelector(`.filter-pill[data-specialty="${targetSpecialty}"]`);
+            if (targetPill) {
+                filterPills.forEach(p => {
+                    p.classList.remove('active');
+                    p.setAttribute('aria-pressed', 'false');
+                });
+                targetPill.classList.add('active');
+                targetPill.setAttribute('aria-pressed', 'true');
+            }
+
+            // Scroll to results
+            document.getElementById('search').scrollIntoView({ behavior: 'smooth' });
+
+            // Filter counselors
+            filterCounselors();
+        }
+
+        // ============================================
+        // KEYBOARD NAVIGATION
+        // ============================================
+        document.addEventListener('keydown', (e) => {
+            // Close modal on Escape
+            if (e.key === 'Escape') {
+                const wizardModal = document.getElementById('wizard-modal');
+                if (wizardModal.classList.contains('active')) {
+                    closeWizard();
+                }
+            }
+        });
+
+        // ============================================
+        // SMOOTH SCROLL FOR HERO CTA
+        // ============================================
+        document.querySelector('.hero__cta').addEventListener('click', (e) => {
+            e.preventDefault();
+            document.getElementById('search').scrollIntoView({ behavior: 'smooth' });
+        });
+
+        // ============================================
+        // ACCESSIBILITY: TRAP FOCUS IN MODAL
+        // ============================================
+        function trapFocus(element) {
+            const focusableElements = element.querySelectorAll(
+                'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])'
+            );
+            const firstElement = focusableElements[0];
+            const lastElement = focusableElements[focusableElements.length - 1];
+
+            element.addEventListener('keydown', (e) => {
+                if (e.key === 'Tab') {
+                    if (e.shiftKey && document.activeElement === firstElement) {
+                        lastElement.focus();
+                        e.preventDefault();
+                    } else if (!e.shiftKey && document.activeElement === lastElement) {
+                        firstElement.focus();
+                        e.preventDefault();
+                    }
+                }
+            });
+        }
+
+        // Apply focus trap to wizard modal
+        const wizardModal = document.getElementById('wizard-modal');
+        trapFocus(wizardModal);
+    </script>
+</body>
+</html>

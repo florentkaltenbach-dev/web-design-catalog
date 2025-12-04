@@ -1,0 +1,1738 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BKiD Fortbildung Academy - Professionelle Zertifizierung</title>
+    <style>
+        :root {
+            --color-primary: #4A7C9D;
+            --color-primary-hover: #3A6B8A;
+            --color-primary-light: #E8F1F5;
+            --color-accent: #6B9E78;
+            --color-accent-light: #E8F5EB;
+            --color-warning: #D4A574;
+            --color-text-primary: #2C3E50;
+            --color-text-secondary: #546E7A;
+            --color-text-muted: #78909C;
+            --color-background: #FAFBFC;
+            --color-surface: #FFFFFF;
+            --color-border: #CFD8DC;
+            --font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            --spacing-xs: 0.5rem;
+            --spacing-sm: 1rem;
+            --spacing-md: 1.5rem;
+            --spacing-lg: 2rem;
+            --spacing-xl: 3rem;
+            --spacing-2xl: 4rem;
+            --radius-md: 8px;
+            --radius-lg: 12px;
+            --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.06);
+            --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.08);
+            --shadow-lg: 0 8px 24px rgba(0, 0, 0, 0.10);
+            --transition: 250ms ease;
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            *, *::before, *::after {
+                animation-duration: 0.01ms !important;
+                transition-duration: 0.01ms !important;
+            }
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: var(--font-family);
+            line-height: 1.6;
+            color: var(--color-text-primary);
+            background-color: var(--color-background);
+            -webkit-font-smoothing: antialiased;
+        }
+
+        /* Skip Link */
+        .skip-link {
+            position: absolute;
+            top: -40px;
+            left: 0;
+            background: var(--color-primary);
+            color: #fff;
+            padding: 8px 16px;
+            text-decoration: none;
+            z-index: 1000;
+            border-radius: 0 0 4px 0;
+        }
+        .skip-link:focus {
+            top: 0;
+        }
+
+        /* Back to Catalog */
+        .back-to-catalog {
+            display: inline-flex;
+            align-items: center;
+            gap: var(--spacing-xs);
+            padding: var(--spacing-sm) var(--spacing-md);
+            color: var(--color-primary);
+            text-decoration: none;
+            font-weight: 500;
+            transition: var(--transition);
+            margin: var(--spacing-md);
+        }
+        .back-to-catalog:hover {
+            color: var(--color-primary-hover);
+            transform: translateX(-4px);
+        }
+
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(to bottom, var(--color-surface) 0%, var(--color-primary-light) 100%);
+            padding: var(--spacing-2xl) var(--spacing-md);
+            text-align: center;
+        }
+
+        .hero__container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .hero__headline {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--color-text-primary);
+            margin-bottom: var(--spacing-md);
+        }
+
+        .hero__headline-emphasis {
+            color: var(--color-primary);
+        }
+
+        .hero__subheadline {
+            font-size: 1.25rem;
+            color: var(--color-text-secondary);
+            max-width: 700px;
+            margin: 0 auto var(--spacing-lg);
+        }
+
+        .hero__trust-badges {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: var(--spacing-md);
+            margin-top: var(--spacing-xl);
+        }
+
+        .trust-badge {
+            display: flex;
+            align-items: center;
+            gap: var(--spacing-xs);
+            padding: var(--spacing-sm) var(--spacing-md);
+            background: var(--color-surface);
+            border-radius: var(--radius-md);
+            box-shadow: var(--shadow-sm);
+            font-size: 0.875rem;
+            color: var(--color-text-secondary);
+        }
+
+        .trust-badge__icon {
+            width: 20px;
+            height: 20px;
+            color: var(--color-accent);
+        }
+
+        /* Filter Section */
+        .filter-section {
+            background: var(--color-surface);
+            padding: var(--spacing-lg) var(--spacing-md);
+            box-shadow: var(--shadow-sm);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .filter-container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .filter-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: var(--spacing-md);
+            margin-bottom: var(--spacing-md);
+        }
+
+        .filter-group {
+            display: flex;
+            flex-direction: column;
+            gap: var(--spacing-xs);
+        }
+
+        .filter-label {
+            font-size: 0.875rem;
+            font-weight: 600;
+            color: var(--color-text-primary);
+        }
+
+        .filter-select {
+            padding: var(--spacing-sm);
+            border: 2px solid var(--color-border);
+            border-radius: var(--radius-md);
+            font-family: var(--font-family);
+            font-size: 1rem;
+            color: var(--color-text-primary);
+            background: var(--color-surface);
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .filter-select:focus {
+            outline: none;
+            border-color: var(--color-primary);
+            box-shadow: 0 0 0 3px var(--color-primary-light);
+        }
+
+        .filter-actions {
+            display: flex;
+            gap: var(--spacing-sm);
+            align-items: center;
+        }
+
+        .filter-count {
+            font-size: 0.875rem;
+            color: var(--color-text-muted);
+            margin-left: auto;
+        }
+
+        .btn-clear-filters {
+            padding: var(--spacing-sm) var(--spacing-md);
+            background: transparent;
+            border: 2px solid var(--color-border);
+            border-radius: var(--radius-md);
+            color: var(--color-text-secondary);
+            font-weight: 500;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .btn-clear-filters:hover {
+            border-color: var(--color-primary);
+            color: var(--color-primary);
+        }
+
+        /* Courses Grid */
+        .courses-section {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: var(--spacing-xl) var(--spacing-md);
+        }
+
+        .courses-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            gap: var(--spacing-lg);
+        }
+
+        .course-card {
+            background: var(--color-surface);
+            border-radius: var(--radius-lg);
+            overflow: hidden;
+            box-shadow: var(--shadow-md);
+            transition: var(--transition);
+            cursor: pointer;
+            border: 2px solid transparent;
+        }
+
+        .course-card:hover {
+            transform: translateY(-4px);
+            box-shadow: var(--shadow-lg);
+            border-color: var(--color-primary);
+        }
+
+        .course-card__header {
+            padding: var(--spacing-md);
+            background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-primary-hover) 100%);
+            color: white;
+        }
+
+        .course-card__type {
+            font-size: 0.75rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            opacity: 0.9;
+            margin-bottom: var(--spacing-xs);
+        }
+
+        .course-card__title {
+            font-size: 1.25rem;
+            font-weight: 600;
+            margin-bottom: var(--spacing-xs);
+        }
+
+        .course-card__format {
+            font-size: 0.875rem;
+            opacity: 0.9;
+        }
+
+        .course-card__body {
+            padding: var(--spacing-md);
+        }
+
+        .course-card__meta {
+            display: flex;
+            flex-wrap: wrap;
+            gap: var(--spacing-md);
+            margin-bottom: var(--spacing-md);
+            font-size: 0.875rem;
+            color: var(--color-text-secondary);
+        }
+
+        .course-card__meta-item {
+            display: flex;
+            align-items: center;
+            gap: var(--spacing-xs);
+        }
+
+        .course-card__description {
+            font-size: 0.9375rem;
+            color: var(--color-text-secondary);
+            margin-bottom: var(--spacing-md);
+            line-height: 1.6;
+        }
+
+        .course-card__pricing {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding-top: var(--spacing-md);
+            border-top: 1px solid var(--color-border);
+        }
+
+        .pricing__main {
+            display: flex;
+            flex-direction: column;
+            gap: var(--spacing-xs);
+        }
+
+        .pricing__regular {
+            font-size: 1.25rem;
+            font-weight: 600;
+            color: var(--color-text-primary);
+        }
+
+        .pricing__early {
+            font-size: 0.875rem;
+            color: var(--color-accent);
+            font-weight: 500;
+        }
+
+        .btn-book {
+            padding: var(--spacing-sm) var(--spacing-lg);
+            background: var(--color-primary);
+            color: white;
+            border: none;
+            border-radius: var(--radius-md);
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .btn-book:hover {
+            background: var(--color-primary-hover);
+            transform: translateX(4px);
+        }
+
+        /* Empty State */
+        .empty-state {
+            text-align: center;
+            padding: var(--spacing-2xl);
+            color: var(--color-text-muted);
+        }
+
+        .empty-state__icon {
+            font-size: 4rem;
+            margin-bottom: var(--spacing-md);
+        }
+
+        /* Trust Wall */
+        .trust-wall {
+            background: var(--color-surface);
+            padding: var(--spacing-2xl) var(--spacing-md);
+            margin-top: var(--spacing-2xl);
+        }
+
+        .trust-wall__container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .trust-wall__title {
+            text-align: center;
+            font-size: 2rem;
+            font-weight: 600;
+            margin-bottom: var(--spacing-md);
+        }
+
+        .trust-wall__subtitle {
+            text-align: center;
+            font-size: 1.125rem;
+            color: var(--color-text-secondary);
+            margin-bottom: var(--spacing-xl);
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .certifications-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: var(--spacing-lg);
+            margin-bottom: var(--spacing-2xl);
+        }
+
+        .certification-badge {
+            background: var(--color-surface);
+            border: 2px solid var(--color-border);
+            border-radius: var(--radius-lg);
+            padding: var(--spacing-md);
+            text-align: center;
+            transition: var(--transition);
+        }
+
+        .certification-badge:hover {
+            border-color: var(--color-primary);
+            transform: translateY(-2px);
+        }
+
+        .certification-badge__icon {
+            font-size: 2.5rem;
+            margin-bottom: var(--spacing-sm);
+        }
+
+        .certification-badge__name {
+            font-weight: 600;
+            margin-bottom: var(--spacing-xs);
+        }
+
+        /* Modal */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            z-index: 1000;
+            align-items: center;
+            justify-content: center;
+            padding: var(--spacing-md);
+        }
+
+        .modal.active {
+            display: flex;
+        }
+
+        .modal__overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.5);
+            backdrop-filter: blur(2px);
+        }
+
+        .modal__content {
+            position: relative;
+            background: var(--color-surface);
+            border-radius: var(--radius-lg);
+            max-width: 900px;
+            width: 100%;
+            max-height: 90vh;
+            overflow-y: auto;
+            box-shadow: var(--shadow-lg);
+        }
+
+        .modal__close {
+            position: absolute;
+            top: var(--spacing-md);
+            right: var(--spacing-md);
+            width: 40px;
+            height: 40px;
+            border: none;
+            background: var(--color-background);
+            border-radius: 50%;
+            font-size: 1.5rem;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 10;
+            transition: var(--transition);
+        }
+
+        .modal__close:hover {
+            background: var(--color-border);
+            transform: rotate(90deg);
+        }
+
+        /* Course Detail */
+        .course-detail {
+            padding: var(--spacing-xl);
+        }
+
+        .course-detail__header {
+            margin-bottom: var(--spacing-xl);
+        }
+
+        .course-detail__type {
+            font-size: 0.875rem;
+            font-weight: 600;
+            color: var(--color-primary);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: var(--spacing-xs);
+        }
+
+        .course-detail__title {
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: var(--spacing-sm);
+        }
+
+        .course-detail__meta {
+            display: flex;
+            flex-wrap: wrap;
+            gap: var(--spacing-lg);
+            margin: var(--spacing-lg) 0;
+            padding: var(--spacing-lg);
+            background: var(--color-background);
+            border-radius: var(--radius-md);
+        }
+
+        .meta-item {
+            display: flex;
+            flex-direction: column;
+            gap: var(--spacing-xs);
+        }
+
+        .meta-item__label {
+            font-size: 0.75rem;
+            color: var(--color-text-muted);
+            text-transform: uppercase;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+        }
+
+        .meta-item__value {
+            font-size: 1rem;
+            color: var(--color-text-primary);
+            font-weight: 600;
+        }
+
+        .course-detail__section {
+            margin-bottom: var(--spacing-xl);
+        }
+
+        .course-detail__section-title {
+            font-size: 1.25rem;
+            font-weight: 600;
+            margin-bottom: var(--spacing-md);
+            color: var(--color-text-primary);
+        }
+
+        .course-detail__content {
+            color: var(--color-text-secondary);
+            line-height: 1.8;
+        }
+
+        .course-detail__content ul {
+            margin-left: var(--spacing-lg);
+        }
+
+        .course-detail__content li {
+            margin-bottom: var(--spacing-xs);
+        }
+
+        .prerequisites-list {
+            background: var(--color-accent-light);
+            padding: var(--spacing-md);
+            border-radius: var(--radius-md);
+            border-left: 4px solid var(--color-accent);
+        }
+
+        .btn-primary {
+            display: inline-flex;
+            align-items: center;
+            gap: var(--spacing-sm);
+            padding: var(--spacing-md) var(--spacing-xl);
+            background: var(--color-primary);
+            color: white;
+            border: none;
+            border-radius: var(--radius-md);
+            font-size: 1.125rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .btn-primary:hover {
+            background: var(--color-primary-hover);
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-md);
+        }
+
+        .btn-secondary {
+            padding: var(--spacing-sm) var(--spacing-lg);
+            background: transparent;
+            color: var(--color-primary);
+            border: 2px solid var(--color-border);
+            border-radius: var(--radius-md);
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .btn-secondary:hover {
+            border-color: var(--color-primary);
+            background: var(--color-primary-light);
+        }
+
+        /* Booking Form */
+        .booking-form {
+            padding: var(--spacing-xl);
+        }
+
+        .progress-stepper {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: var(--spacing-xl);
+            padding: var(--spacing-lg) 0;
+            border-bottom: 2px solid var(--color-border);
+        }
+
+        .progress-stepper__step {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: var(--spacing-xs);
+            position: relative;
+        }
+
+        .progress-stepper__number {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: var(--color-background);
+            border: 2px solid var(--color-border);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 600;
+            color: var(--color-text-muted);
+            transition: var(--transition);
+        }
+
+        .progress-stepper__step.active .progress-stepper__number {
+            background: var(--color-primary);
+            border-color: var(--color-primary);
+            color: white;
+        }
+
+        .progress-stepper__step.completed .progress-stepper__number {
+            background: var(--color-accent);
+            border-color: var(--color-accent);
+            color: white;
+        }
+
+        .progress-stepper__label {
+            font-size: 0.875rem;
+            color: var(--color-text-muted);
+            font-weight: 500;
+        }
+
+        .progress-stepper__step.active .progress-stepper__label {
+            color: var(--color-primary);
+            font-weight: 600;
+        }
+
+        .progress-stepper__line {
+            width: 80px;
+            height: 2px;
+            background: var(--color-border);
+            margin: 0 var(--spacing-xs);
+        }
+
+        .booking-form__step {
+            display: none;
+        }
+
+        .booking-form__step.active {
+            display: block;
+        }
+
+        .booking-form__title {
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-bottom: var(--spacing-md);
+        }
+
+        .form-group {
+            margin-bottom: var(--spacing-lg);
+        }
+
+        .form-label {
+            display: block;
+            font-weight: 600;
+            margin-bottom: var(--spacing-xs);
+            color: var(--color-text-primary);
+        }
+
+        .form-required {
+            color: #E57373;
+        }
+
+        .form-input,
+        .form-select,
+        .form-textarea {
+            width: 100%;
+            padding: var(--spacing-sm) var(--spacing-md);
+            border: 2px solid var(--color-border);
+            border-radius: var(--radius-md);
+            font-family: var(--font-family);
+            font-size: 1rem;
+            transition: var(--transition);
+        }
+
+        .form-input:focus,
+        .form-select:focus,
+        .form-textarea:focus {
+            outline: none;
+            border-color: var(--color-primary);
+            box-shadow: 0 0 0 3px var(--color-primary-light);
+        }
+
+        .form-textarea {
+            min-height: 100px;
+            resize: vertical;
+        }
+
+        .form-help {
+            font-size: 0.875rem;
+            color: var(--color-text-muted);
+            margin-top: var(--spacing-xs);
+        }
+
+        .invoice-preview {
+            background: var(--color-background);
+            padding: var(--spacing-lg);
+            border-radius: var(--radius-md);
+            border: 2px solid var(--color-border);
+        }
+
+        .invoice-preview__title {
+            font-size: 1.125rem;
+            font-weight: 600;
+            margin-bottom: var(--spacing-md);
+        }
+
+        .invoice-preview__row {
+            display: flex;
+            justify-content: space-between;
+            padding: var(--spacing-sm) 0;
+            border-bottom: 1px solid var(--color-border);
+        }
+
+        .invoice-preview__row--total {
+            border-bottom: none;
+            border-top: 2px solid var(--color-border);
+            font-size: 1.125rem;
+            font-weight: 600;
+            color: var(--color-primary);
+            margin-top: var(--spacing-sm);
+        }
+
+        .review-summary {
+            background: var(--color-background);
+            padding: var(--spacing-lg);
+            border-radius: var(--radius-md);
+        }
+
+        .review-section {
+            margin-bottom: var(--spacing-lg);
+            padding-bottom: var(--spacing-lg);
+            border-bottom: 1px solid var(--color-border);
+        }
+
+        .review-section:last-child {
+            border-bottom: none;
+        }
+
+        .review-section__title {
+            font-size: 1rem;
+            font-weight: 600;
+            margin-bottom: var(--spacing-md);
+            color: var(--color-primary);
+        }
+
+        .review-row {
+            display: flex;
+            justify-content: space-between;
+            padding: var(--spacing-xs) 0;
+        }
+
+        .review-row__label {
+            color: var(--color-text-muted);
+        }
+
+        .review-row__value {
+            font-weight: 500;
+            color: var(--color-text-primary);
+            text-align: right;
+        }
+
+        .booking-form__actions {
+            display: flex;
+            gap: var(--spacing-md);
+            justify-content: space-between;
+            margin-top: var(--spacing-xl);
+            padding-top: var(--spacing-xl);
+            border-top: 2px solid var(--color-border);
+        }
+
+        /* Confirmation */
+        .confirmation {
+            padding: var(--spacing-xl);
+            text-align: center;
+        }
+
+        .confirmation__icon {
+            width: 80px;
+            height: 80px;
+            margin: 0 auto var(--spacing-lg);
+            background: var(--color-accent);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3rem;
+            color: white;
+        }
+
+        .confirmation__title {
+            font-size: 2rem;
+            font-weight: 600;
+            margin-bottom: var(--spacing-md);
+        }
+
+        .confirmation__message {
+            font-size: 1.125rem;
+            color: var(--color-text-secondary);
+            margin-bottom: var(--spacing-xl);
+        }
+
+        .confirmation__next-steps {
+            background: var(--color-background);
+            padding: var(--spacing-lg);
+            border-radius: var(--radius-md);
+            margin: var(--spacing-xl) 0;
+            text-align: left;
+        }
+
+        .confirmation__subtitle {
+            font-size: 1.125rem;
+            font-weight: 600;
+            margin-bottom: var(--spacing-md);
+        }
+
+        .confirmation__list {
+            list-style: none;
+            padding: 0;
+        }
+
+        .confirmation__list li {
+            padding: var(--spacing-sm) 0;
+            padding-left: var(--spacing-lg);
+            position: relative;
+        }
+
+        .confirmation__list li::before {
+            content: "✓";
+            position: absolute;
+            left: 0;
+            color: var(--color-accent);
+            font-weight: 600;
+        }
+
+        .sr-only {
+            position: absolute;
+            width: 1px;
+            height: 1px;
+            padding: 0;
+            margin: -1px;
+            overflow: hidden;
+            clip: rect(0, 0, 0, 0);
+            border: 0;
+        }
+
+        @media (max-width: 768px) {
+            .hero__headline {
+                font-size: 1.75rem;
+            }
+
+            .filter-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .courses-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .progress-stepper {
+                flex-direction: column;
+                gap: var(--spacing-md);
+            }
+
+            .progress-stepper__line {
+                width: 2px;
+                height: 40px;
+                transform: rotate(90deg);
+            }
+
+            .booking-form__actions {
+                flex-direction: column-reverse;
+            }
+
+            .btn-primary,
+            .btn-secondary {
+                width: 100%;
+                justify-content: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <a href="#main-content" class="skip-link">Zum Hauptinhalt springen</a>
+
+    <a href="../index.html" class="back-to-catalog">← Zurück zum Katalog</a>
+
+    <!-- Hero Section -->
+    <section class="hero" id="main-content" role="banner" aria-labelledby="hero-headline">
+        <div class="hero__container">
+            <h1 id="hero-headline" class="hero__headline">
+                <span class="hero__headline-emphasis">BKiD-Zertifizierte</span> Fortbildungen
+            </h1>
+            <p class="hero__subheadline">
+                Professionelle Weiterbildung für Fachkräfte in der psychosozialen Kinderwunschberatung.
+                Anerkannte Zertifizierung nach höchsten Qualitätsstandards.
+            </p>
+            <div class="hero__trust-badges">
+                <div class="trust-badge">
+                    <svg class="trust-badge__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
+                    </svg>
+                    <span>BKiD-Akkreditiert</span>
+                </div>
+                <div class="trust-badge">
+                    <svg class="trust-badge__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <circle cx="12" cy="8" r="7"></circle>
+                        <polyline points="8.21 13.89 7 23 12 20 17 23 15.79 13.88"></polyline>
+                    </svg>
+                    <span>Zertifizierte Dozent:innen</span>
+                </div>
+                <div class="trust-badge">
+                    <svg class="trust-badge__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
+                        <circle cx="9" cy="7" r="4"></circle>
+                        <path d="M23 21v-2a4 4 0 0 0-3-3.87"></path>
+                        <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
+                    </svg>
+                    <span>500+ Teilnehmer:innen</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Filter Section -->
+    <section class="filter-section" role="search" aria-label="Kursfilter">
+        <div class="filter-container">
+            <div class="filter-grid">
+                <div class="filter-group">
+                    <label for="filter-type" class="filter-label">Kurstyp</label>
+                    <select id="filter-type" class="filter-select">
+                        <option value="">Alle Kurstypen</option>
+                        <option value="grundkurs">Grundkurs</option>
+                        <option value="aufbaukurs">Aufbaukurs</option>
+                        <option value="spezialkurs">Spezialkurs</option>
+                    </select>
+                </div>
+                <div class="filter-group">
+                    <label for="filter-format" class="filter-label">Format</label>
+                    <select id="filter-format" class="filter-select">
+                        <option value="">Alle Formate</option>
+                        <option value="online">Online</option>
+                        <option value="praesenz">Präsenz</option>
+                        <option value="hybrid">Hybrid</option>
+                    </select>
+                </div>
+                <div class="filter-group">
+                    <label for="filter-profession" class="filter-label">Zielgruppe</label>
+                    <select id="filter-profession" class="filter-select">
+                        <option value="">Alle Berufsgruppen</option>
+                        <option value="psychologen">Psycholog:innen</option>
+                        <option value="aerzte">Ärzt:innen</option>
+                        <option value="berater">Berater:innen</option>
+                        <option value="alle">Alle Fachkräfte</option>
+                    </select>
+                </div>
+            </div>
+            <div class="filter-actions">
+                <button type="button" id="btn-clear-filters" class="btn-clear-filters">Filter zurücksetzen</button>
+                <span class="filter-count" id="filter-count">12 Kurse gefunden</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- Courses Grid -->
+    <section class="courses-section" aria-label="Verfügbare Kurse">
+        <div class="courses-grid" id="courses-grid">
+            <!-- Courses will be rendered here by JavaScript -->
+        </div>
+        <div class="empty-state" id="empty-state" style="display: none;">
+            <div class="empty-state__icon">🔍</div>
+            <h2>Keine Kurse gefunden</h2>
+            <p>Versuchen Sie, Ihre Filterkriterien anzupassen.</p>
+            <button type="button" class="btn-secondary" onclick="clearFilters()">Filter zurücksetzen</button>
+        </div>
+    </section>
+
+    <!-- Trust Wall -->
+    <section class="trust-wall" aria-labelledby="trust-wall-title">
+        <div class="trust-wall__container">
+            <h2 id="trust-wall-title" class="trust-wall__title">Anerkannte Qualität</h2>
+            <p class="trust-wall__subtitle">
+                Unsere Fortbildungen entsprechen den höchsten Standards der psychosozialen Kinderwunschberatung
+            </p>
+            <div class="certifications-grid">
+                <div class="certification-badge">
+                    <div class="certification-badge__icon">🏆</div>
+                    <h3 class="certification-badge__name">BKiD-Akkreditierung</h3>
+                    <p class="certification-badge__description">Offiziell anerkannt</p>
+                </div>
+                <div class="certification-badge">
+                    <div class="certification-badge__icon">📜</div>
+                    <h3 class="certification-badge__name">Zertifikat</h3>
+                    <p class="certification-badge__description">Nach jedem Kurs</p>
+                </div>
+                <div class="certification-badge">
+                    <div class="certification-badge__icon">👥</div>
+                    <h3 class="certification-badge__name">Expert:innen</h3>
+                    <p class="certification-badge__description">Erfahrene Dozent:innen</p>
+                </div>
+                <div class="certification-badge">
+                    <div class="certification-badge__icon">💼</div>
+                    <h3 class="certification-badge__name">Praxisnah</h3>
+                    <p class="certification-badge__description">Direkt anwendbar</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Course Detail Modal -->
+    <div class="modal" id="course-detail-modal" role="dialog" aria-modal="true" aria-labelledby="course-detail-title">
+        <div class="modal__overlay" onclick="closeModal('course-detail-modal')"></div>
+        <div class="modal__content">
+            <button type="button" class="modal__close" onclick="closeModal('course-detail-modal')" aria-label="Schließen">×</button>
+            <div class="course-detail" id="course-detail-content">
+                <!-- Content will be populated by JavaScript -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Booking Modal -->
+    <div class="modal" id="booking-modal" role="dialog" aria-modal="true" aria-labelledby="booking-title">
+        <div class="modal__overlay" onclick="closeModal('booking-modal')"></div>
+        <div class="modal__content">
+            <button type="button" class="modal__close" onclick="closeModal('booking-modal')" aria-label="Schließen">×</button>
+
+            <div class="sr-only" role="status" aria-live="polite" aria-atomic="true" id="step-announcer"></div>
+
+            <form class="booking-form" id="booking-form">
+                <div class="progress-stepper" id="progress-stepper">
+                    <div class="progress-stepper__step active" data-step="1">
+                        <div class="progress-stepper__number">1</div>
+                        <div class="progress-stepper__label">Teilnehmer:in</div>
+                    </div>
+                    <div class="progress-stepper__line"></div>
+                    <div class="progress-stepper__step" data-step="2">
+                        <div class="progress-stepper__number">2</div>
+                        <div class="progress-stepper__label">Rechnungsdaten</div>
+                    </div>
+                    <div class="progress-stepper__line"></div>
+                    <div class="progress-stepper__step" data-step="3">
+                        <div class="progress-stepper__number">3</div>
+                        <div class="progress-stepper__label">Bestätigung</div>
+                    </div>
+                </div>
+
+                <h2 id="booking-title" class="booking-form__title">Anmeldung</h2>
+                <p id="booking-course-name" style="color: var(--color-text-secondary); margin-bottom: var(--spacing-xl);"></p>
+
+                <!-- Step 1: Participant Details -->
+                <div class="booking-form__step active" id="step-1" data-step="1">
+                    <div class="form-group">
+                        <label for="participant-name" class="form-label">Name <span class="form-required">*</span></label>
+                        <input type="text" id="participant-name" name="name" class="form-input" required placeholder="Vorname Nachname">
+                    </div>
+                    <div class="form-group">
+                        <label for="participant-email" class="form-label">E-Mail <span class="form-required">*</span></label>
+                        <input type="email" id="participant-email" name="email" class="form-input" required placeholder="ihre.email@beispiel.de">
+                    </div>
+                    <div class="form-group">
+                        <label for="participant-profession" class="form-label">Berufsbezeichnung <span class="form-required">*</span></label>
+                        <select id="participant-profession" name="profession" class="form-select" required>
+                            <option value="">Bitte wählen</option>
+                            <option value="psychologe">Psycholog:in</option>
+                            <option value="arzt">Ärzt:in</option>
+                            <option value="berater">Berater:in</option>
+                            <option value="andere">Andere Fachkraft</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="participant-institution" class="form-label">Institution/Praxis</label>
+                        <input type="text" id="participant-institution" name="institution" class="form-input" placeholder="Name Ihrer Einrichtung">
+                    </div>
+                </div>
+
+                <!-- Step 2: Billing Information -->
+                <div class="booking-form__step" id="step-2" data-step="2">
+                    <div class="form-group">
+                        <label for="billing-email" class="form-label">Rechnungs-E-Mail</label>
+                        <input type="email" id="billing-email" name="billing_email" class="form-input" placeholder="Falls abweichend">
+                        <p class="form-help">Leer lassen, um die Teilnehmer-E-Mail zu verwenden</p>
+                    </div>
+                    <div class="form-group">
+                        <label for="billing-address" class="form-label">Rechnungsadresse</label>
+                        <textarea id="billing-address" name="address" class="form-textarea" rows="3" placeholder="Straße, Hausnummer&#10;PLZ Ort"></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label for="special-requirements" class="form-label">Besondere Anforderungen</label>
+                        <textarea id="special-requirements" name="requirements" class="form-textarea" rows="2" placeholder="z.B. Ernährungseinschränkungen, Barrierefreiheit..."></textarea>
+                    </div>
+                    <div class="form-group">
+                        <div class="invoice-preview">
+                            <h3 class="invoice-preview__title">Rechnungsvorschau</h3>
+                            <div class="invoice-preview__row">
+                                <span class="invoice-preview__label">Kurs:</span>
+                                <span class="invoice-preview__value" id="invoice-course"></span>
+                            </div>
+                            <div class="invoice-preview__row">
+                                <span class="invoice-preview__label">Umfang:</span>
+                                <span class="invoice-preview__value" id="invoice-duration"></span>
+                            </div>
+                            <div class="invoice-preview__row">
+                                <span class="invoice-preview__label">Termin:</span>
+                                <span class="invoice-preview__value" id="invoice-date"></span>
+                            </div>
+                            <div class="invoice-preview__row">
+                                <span class="invoice-preview__label">Normalpreis:</span>
+                                <span class="invoice-preview__value" id="invoice-regular"></span>
+                            </div>
+                            <div class="invoice-preview__row" id="early-bird-row">
+                                <span class="invoice-preview__label">Frühbucher (bis <span id="early-deadline"></span>):</span>
+                                <span class="invoice-preview__value" id="invoice-early" style="color: var(--color-accent); font-weight: 600;"></span>
+                            </div>
+                            <div class="invoice-preview__row invoice-preview__row--total">
+                                <span class="invoice-preview__label">Gesamtbetrag:</span>
+                                <span class="invoice-preview__value" id="invoice-total"></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Step 3: Review -->
+                <div class="booking-form__step" id="step-3" data-step="3">
+                    <div class="review-summary">
+                        <div class="review-section">
+                            <h3 class="review-section__title">Kursdetails</h3>
+                            <div class="review-row">
+                                <span class="review-row__label">Kurs:</span>
+                                <span class="review-row__value" id="review-course"></span>
+                            </div>
+                            <div class="review-row">
+                                <span class="review-row__label">Termin:</span>
+                                <span class="review-row__value" id="review-date"></span>
+                            </div>
+                            <div class="review-row">
+                                <span class="review-row__label">Format:</span>
+                                <span class="review-row__value" id="review-format"></span>
+                            </div>
+                            <div class="review-row">
+                                <span class="review-row__label">Preis:</span>
+                                <span class="review-row__value" id="review-price"></span>
+                            </div>
+                        </div>
+                        <div class="review-section">
+                            <h3 class="review-section__title">Teilnehmer:in</h3>
+                            <div class="review-row">
+                                <span class="review-row__label">Name:</span>
+                                <span class="review-row__value" id="review-name"></span>
+                            </div>
+                            <div class="review-row">
+                                <span class="review-row__label">E-Mail:</span>
+                                <span class="review-row__value" id="review-email"></span>
+                            </div>
+                            <div class="review-row">
+                                <span class="review-row__label">Beruf:</span>
+                                <span class="review-row__value" id="review-profession"></span>
+                            </div>
+                            <div class="review-row" id="review-institution-row">
+                                <span class="review-row__label">Institution:</span>
+                                <span class="review-row__value" id="review-institution"></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Form Actions -->
+                <div class="booking-form__actions">
+                    <button type="button" id="btn-prev" class="btn-secondary" style="display: none;" onclick="previousStep()">
+                        ← Zurück
+                    </button>
+                    <button type="button" id="btn-next" class="btn-primary" onclick="nextStep()">
+                        Weiter →
+                    </button>
+                    <button type="submit" id="btn-submit" class="btn-primary" style="display: none;">
+                        Verbindlich anmelden
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Confirmation Modal -->
+    <div class="modal" id="confirmation-modal" role="dialog" aria-modal="true" aria-labelledby="confirmation-title">
+        <div class="modal__overlay"></div>
+        <div class="modal__content">
+            <div class="confirmation">
+                <div class="confirmation__icon">✓</div>
+                <h2 id="confirmation-title" class="confirmation__title">Anmeldung erfolgreich!</h2>
+                <p class="confirmation__message">
+                    Vielen Dank für Ihre Anmeldung. Wir freuen uns auf Ihre Teilnahme!
+                </p>
+                <div class="confirmation__next-steps">
+                    <h3 class="confirmation__subtitle">Wie geht es weiter?</h3>
+                    <ul class="confirmation__list">
+                        <li>Sie erhalten innerhalb von 24 Stunden eine Anmeldebestätigung per E-Mail</li>
+                        <li>Die Rechnung wird Ihnen separat zugesendet</li>
+                        <li>Kursmaterialien erhalten Sie 7 Tage vor Kursbeginn</li>
+                        <li>Bei Online-Kursen erhalten Sie rechtzeitig die Zugangsdaten</li>
+                    </ul>
+                </div>
+                <button type="button" class="btn-primary" onclick="closeConfirmation()">
+                    Weitere Kurse ansehen
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Course Data
+        const courses = [
+            {
+                id: 1,
+                type: 'grundkurs',
+                title: 'Psychosoziale Kinderwunschberatung - Grundlagen',
+                format: 'online',
+                hours: 32,
+                date: '15.-17. März 2025',
+                earlyDate: '15. Februar 2025',
+                price: 890,
+                earlyPrice: 790,
+                profession: 'alle',
+                description: 'Grundlagenkurs zur psychosozialen Beratung von Paaren und Einzelpersonen mit unerfülltem Kinderwunsch.',
+                prerequisites: 'Keine Vorkenntnisse erforderlich',
+                content: [
+                    'Medizinische Grundlagen der Reproduktionsmedizin',
+                    'Psychologische Aspekte bei unerfülltem Kinderwunsch',
+                    'Beratungsansätze und Gesprächsführung',
+                    'Ethische und rechtliche Rahmenbedingungen'
+                ],
+                instructor: 'Dr. med. Sarah Müller'
+            },
+            {
+                id: 2,
+                type: 'aufbaukurs',
+                title: 'Spezielle Beratungssituationen im Kinderwunsch',
+                format: 'hybrid',
+                hours: 24,
+                date: '10.-12. Mai 2025',
+                earlyDate: '10. April 2025',
+                price: 750,
+                earlyPrice: 650,
+                profession: 'psychologen',
+                description: 'Vertiefung der Beratungskompetenzen für komplexe Situationen und Kriseninterventionen.',
+                prerequisites: 'Grundkurs oder gleichwertige Qualifikation',
+                content: [
+                    'Krisenintervention bei erfolgloser Behandlung',
+                    'Beratung bei Samenspende und Eizellspende',
+                    'Umgang mit wiederholten Fehlgeburten',
+                    'Paarberatung in Belastungssituationen'
+                ],
+                instructor: 'Prof. Dr. Anna Weber'
+            },
+            {
+                id: 3,
+                type: 'spezialkurs',
+                title: 'Medizinische Aspekte für Berater:innen',
+                format: 'praesenz',
+                hours: 16,
+                date: '20.-21. Juni 2025',
+                earlyDate: '20. Mai 2025',
+                price: 580,
+                earlyPrice: 480,
+                profession: 'berater',
+                description: 'Medizinisches Fachwissen für eine fundierte Beratung im Kinderwunschkontext.',
+                prerequisites: 'Grundkurs empfohlen',
+                content: [
+                    'Diagnostik bei unerfülltem Kinderwunsch',
+                    'Behandlungsmethoden der Reproduktionsmedizin',
+                    'Hormonelle Regulation und Störungen',
+                    'Kommunikation mit behandelnden Ärzt:innen'
+                ],
+                instructor: 'Dr. med. Thomas Schmidt'
+            },
+            {
+                id: 4,
+                type: 'spezialkurs',
+                title: 'Trauerarbeit nach Fehlgeburt',
+                format: 'online',
+                hours: 16,
+                date: '5.-6. September 2025',
+                earlyDate: '5. August 2025',
+                price: 520,
+                earlyPrice: 450,
+                profession: 'alle',
+                description: 'Begleitung von Paaren und Einzelpersonen nach Fehlgeburt und Schwangerschaftsverlust.',
+                prerequisites: 'Keine',
+                content: [
+                    'Trauerprozesse verstehen und begleiten',
+                    'Rituale und Abschiedsgestaltung',
+                    'Unterschiedliche Trauerverarbeitung in Paaren',
+                    'Ressourcenorientierte Gesprächsführung'
+                ],
+                instructor: 'Dipl.-Psych. Maria Klein'
+            },
+            {
+                id: 5,
+                type: 'grundkurs',
+                title: 'Einführung in die Kinderwunschberatung',
+                format: 'praesenz',
+                hours: 32,
+                date: '12.-14. Oktober 2025',
+                earlyDate: '12. September 2025',
+                price: 920,
+                earlyPrice: 820,
+                profession: 'aerzte',
+                description: 'Kompaktkurs für Ärzt:innen zur Integration psychosozialer Beratung in die medizinische Praxis.',
+                prerequisites: 'Medizinische Approbation',
+                content: [
+                    'Psychosoziale Aspekte in der Reproduktionsmedizin',
+                    'Patientenzentrierte Kommunikation',
+                    'Erkennen von Belastungssituationen',
+                    'Interdisziplinäre Zusammenarbeit'
+                ],
+                instructor: 'Dr. med. Lisa Hoffmann'
+            },
+            {
+                id: 6,
+                type: 'aufbaukurs',
+                title: 'Systemische Ansätze in der Kinderwunschberatung',
+                format: 'hybrid',
+                hours: 20,
+                date: '25.-27. November 2025',
+                earlyDate: '25. Oktober 2025',
+                price: 680,
+                earlyPrice: 580,
+                profession: 'psychologen',
+                description: 'Systemische Methoden für die Beratung von Paaren mit Kinderwunsch.',
+                prerequisites: 'Grundkurs oder psychotherapeutische Ausbildung',
+                content: [
+                    'Systemische Fragetechniken',
+                    'Genogramm-Arbeit im Kinderwunschkontext',
+                    'Paardynamiken verstehen',
+                    'Lösungsorientierte Kurzberatung'
+                ],
+                instructor: 'Dipl.-Psych. Michael Berger'
+            }
+        ];
+
+        let currentCourse = null;
+        let currentStep = 1;
+        let filteredCourses = [...courses];
+
+        // Initialize
+        document.addEventListener('DOMContentLoaded', () => {
+            renderCourses();
+            setupFilters();
+        });
+
+        // Render courses
+        function renderCourses() {
+            const grid = document.getElementById('courses-grid');
+            const emptyState = document.getElementById('empty-state');
+
+            if (filteredCourses.length === 0) {
+                grid.style.display = 'none';
+                emptyState.style.display = 'block';
+                return;
+            }
+
+            grid.style.display = 'grid';
+            emptyState.style.display = 'none';
+
+            grid.innerHTML = filteredCourses.map(course => `
+                <article class="course-card" onclick="showCourseDetail(${course.id})">
+                    <div class="course-card__header">
+                        <div class="course-card__type">${formatType(course.type)}</div>
+                        <h3 class="course-card__title">${course.title}</h3>
+                        <div class="course-card__format">${formatFormat(course.format)}</div>
+                    </div>
+                    <div class="course-card__body">
+                        <div class="course-card__meta">
+                            <div class="course-card__meta-item">
+                                <span>📅 ${course.date}</span>
+                            </div>
+                            <div class="course-card__meta-item">
+                                <span>⏱ ${course.hours} UE</span>
+                            </div>
+                        </div>
+                        <p class="course-card__description">${course.description}</p>
+                        <div class="course-card__pricing">
+                            <div class="pricing__main">
+                                <div class="pricing__regular">${course.price}€</div>
+                                <div class="pricing__early">Frühbucher: ${course.earlyPrice}€</div>
+                            </div>
+                            <button type="button" class="btn-book" onclick="event.stopPropagation(); openBooking(${course.id})">
+                                Buchen →
+                            </button>
+                        </div>
+                    </div>
+                </article>
+            `).join('');
+
+            document.getElementById('filter-count').textContent = `${filteredCourses.length} Kurse gefunden`;
+        }
+
+        // Format helpers
+        function formatType(type) {
+            const types = {
+                'grundkurs': 'Grundkurs',
+                'aufbaukurs': 'Aufbaukurs',
+                'spezialkurs': 'Spezialkurs'
+            };
+            return types[type] || type;
+        }
+
+        function formatFormat(format) {
+            const formats = {
+                'online': '💻 Online',
+                'praesenz': '🏢 Präsenz',
+                'hybrid': '🔀 Hybrid'
+            };
+            return formats[format] || format;
+        }
+
+        function formatProfession(profession) {
+            const professions = {
+                'psychologen': 'Psycholog:innen',
+                'aerzte': 'Ärzt:innen',
+                'berater': 'Berater:innen',
+                'alle': 'Alle Fachkräfte',
+                'psychologe': 'Psycholog:in',
+                'arzt': 'Ärzt:in',
+                'andere': 'Andere Fachkraft'
+            };
+            return professions[profession] || profession;
+        }
+
+        // Setup filters
+        function setupFilters() {
+            const typeFilter = document.getElementById('filter-type');
+            const formatFilter = document.getElementById('filter-format');
+            const professionFilter = document.getElementById('filter-profession');
+
+            [typeFilter, formatFilter, professionFilter].forEach(filter => {
+                filter.addEventListener('change', applyFilters);
+            });
+
+            document.getElementById('btn-clear-filters').addEventListener('click', clearFilters);
+        }
+
+        function applyFilters() {
+            const type = document.getElementById('filter-type').value;
+            const format = document.getElementById('filter-format').value;
+            const profession = document.getElementById('filter-profession').value;
+
+            filteredCourses = courses.filter(course => {
+                if (type && course.type !== type) return false;
+                if (format && course.format !== format) return false;
+                if (profession && course.profession !== profession && course.profession !== 'alle') return false;
+                return true;
+            });
+
+            renderCourses();
+        }
+
+        function clearFilters() {
+            document.getElementById('filter-type').value = '';
+            document.getElementById('filter-format').value = '';
+            document.getElementById('filter-profession').value = '';
+            filteredCourses = [...courses];
+            renderCourses();
+        }
+
+        // Show course detail
+        function showCourseDetail(courseId) {
+            const course = courses.find(c => c.id === courseId);
+            if (!course) return;
+
+            currentCourse = course;
+
+            const modal = document.getElementById('course-detail-modal');
+            const content = document.getElementById('course-detail-content');
+
+            content.innerHTML = `
+                <div class="course-detail__header">
+                    <div class="course-detail__type">${formatType(course.type)}</div>
+                    <h2 class="course-detail__title" id="course-detail-title">${course.title}</h2>
+
+                    <div class="course-detail__meta">
+                        <div class="meta-item">
+                            <div class="meta-item__label">Termin</div>
+                            <div class="meta-item__value">${course.date}</div>
+                        </div>
+                        <div class="meta-item">
+                            <div class="meta-item__label">Umfang</div>
+                            <div class="meta-item__value">${course.hours} UE</div>
+                        </div>
+                        <div class="meta-item">
+                            <div class="meta-item__label">Format</div>
+                            <div class="meta-item__value">${formatFormat(course.format)}</div>
+                        </div>
+                        <div class="meta-item">
+                            <div class="meta-item__label">Dozent:in</div>
+                            <div class="meta-item__value">${course.instructor}</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="course-detail__section">
+                    <h3 class="course-detail__section-title">Beschreibung</h3>
+                    <div class="course-detail__content">
+                        <p>${course.description}</p>
+                    </div>
+                </div>
+
+                <div class="course-detail__section">
+                    <h3 class="course-detail__section-title">Inhalte</h3>
+                    <div class="course-detail__content">
+                        <ul>
+                            ${course.content.map(item => `<li>${item}</li>`).join('')}
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="course-detail__section">
+                    <h3 class="course-detail__section-title">Voraussetzungen</h3>
+                    <div class="course-detail__content prerequisites-list">
+                        <p>${course.prerequisites}</p>
+                    </div>
+                </div>
+
+                <div class="course-detail__section">
+                    <div style="display: flex; justify-content: space-between; align-items: center; gap: var(--spacing-lg); flex-wrap: wrap;">
+                        <div>
+                            <div style="font-size: 1.5rem; font-weight: 600; color: var(--color-text-primary); margin-bottom: var(--spacing-xs);">
+                                ${course.price}€
+                            </div>
+                            <div style="color: var(--color-accent); font-weight: 600;">
+                                Frühbucher bis ${course.earlyDate}: ${course.earlyPrice}€
+                            </div>
+                        </div>
+                        <button type="button" class="btn-primary" onclick="openBookingFromDetail()">
+                            Jetzt anmelden →
+                        </button>
+                    </div>
+                </div>
+            `;
+
+            modal.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+
+        // Open booking
+        function openBooking(courseId) {
+            const course = courses.find(c => c.id === courseId);
+            if (!course) return;
+
+            currentCourse = course;
+            currentStep = 1;
+
+            document.getElementById('booking-course-name').textContent = course.title;
+
+            updateInvoicePreview();
+            updateStepDisplay();
+
+            document.getElementById('booking-modal').classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function openBookingFromDetail() {
+            closeModal('course-detail-modal');
+            setTimeout(() => openBooking(currentCourse.id), 300);
+        }
+
+        // Update invoice preview
+        function updateInvoicePreview() {
+            if (!currentCourse) return;
+
+            document.getElementById('invoice-course').textContent = currentCourse.title;
+            document.getElementById('invoice-duration').textContent = `${currentCourse.hours} Unterrichtseinheiten`;
+            document.getElementById('invoice-date').textContent = currentCourse.date;
+            document.getElementById('invoice-regular').textContent = `${currentCourse.price}€`;
+            document.getElementById('invoice-early').textContent = `${currentCourse.earlyPrice}€`;
+            document.getElementById('early-deadline').textContent = currentCourse.earlyDate;
+            document.getElementById('invoice-total').textContent = `${currentCourse.earlyPrice}€`;
+        }
+
+        // Step navigation
+        function nextStep() {
+            if (currentStep < 3) {
+                // Validate current step
+                const currentStepElement = document.querySelector(`#step-${currentStep}`);
+                const inputs = currentStepElement.querySelectorAll('input[required], select[required]');
+                let valid = true;
+
+                inputs.forEach(input => {
+                    if (!input.value) {
+                        valid = false;
+                        input.style.borderColor = '#E57373';
+                    } else {
+                        input.style.borderColor = '';
+                    }
+                });
+
+                if (!valid) return;
+
+                if (currentStep === 2) {
+                    updateReviewSection();
+                }
+
+                currentStep++;
+                updateStepDisplay();
+            }
+        }
+
+        function previousStep() {
+            if (currentStep > 1) {
+                currentStep--;
+                updateStepDisplay();
+            }
+        }
+
+        function updateStepDisplay() {
+            // Update stepper
+            document.querySelectorAll('.progress-stepper__step').forEach((step, index) => {
+                step.classList.remove('active', 'completed');
+                if (index + 1 === currentStep) {
+                    step.classList.add('active');
+                } else if (index + 1 < currentStep) {
+                    step.classList.add('completed');
+                }
+            });
+
+            // Update form steps
+            document.querySelectorAll('.booking-form__step').forEach((step, index) => {
+                step.classList.remove('active');
+                if (index + 1 === currentStep) {
+                    step.classList.add('active');
+                }
+            });
+
+            // Update buttons
+            const prevBtn = document.getElementById('btn-prev');
+            const nextBtn = document.getElementById('btn-next');
+            const submitBtn = document.getElementById('btn-submit');
+
+            prevBtn.style.display = currentStep > 1 ? 'block' : 'none';
+            nextBtn.style.display = currentStep < 3 ? 'block' : 'none';
+            submitBtn.style.display = currentStep === 3 ? 'block' : 'none';
+
+            // Announce to screen readers
+            const announcer = document.getElementById('step-announcer');
+            announcer.textContent = `Schritt ${currentStep} von 3`;
+        }
+
+        function updateReviewSection() {
+            if (!currentCourse) return;
+
+            document.getElementById('review-course').textContent = currentCourse.title;
+            document.getElementById('review-date').textContent = currentCourse.date;
+            document.getElementById('review-format').textContent = formatFormat(currentCourse.format);
+            document.getElementById('review-price').textContent = `${currentCourse.earlyPrice}€ (Frühbucher)`;
+
+            document.getElementById('review-name').textContent = document.getElementById('participant-name').value;
+            document.getElementById('review-email').textContent = document.getElementById('participant-email').value;
+
+            const professionSelect = document.getElementById('participant-profession');
+            document.getElementById('review-profession').textContent =
+                professionSelect.options[professionSelect.selectedIndex]?.text || '';
+
+            const institution = document.getElementById('participant-institution').value;
+            const institutionRow = document.getElementById('review-institution-row');
+            if (institution) {
+                document.getElementById('review-institution').textContent = institution;
+                institutionRow.style.display = 'flex';
+            } else {
+                institutionRow.style.display = 'none';
+            }
+        }
+
+        // Form submission
+        document.getElementById('booking-form').addEventListener('submit', (e) => {
+            e.preventDefault();
+
+            closeModal('booking-modal');
+
+            setTimeout(() => {
+                document.getElementById('confirmation-modal').classList.add('active');
+            }, 300);
+        });
+
+        // Close modals
+        function closeModal(modalId) {
+            document.getElementById(modalId).classList.remove('active');
+            document.body.style.overflow = '';
+        }
+
+        function closeConfirmation() {
+            closeModal('confirmation-modal');
+            document.getElementById('booking-form').reset();
+            currentStep = 1;
+            updateStepDisplay();
+        }
+
+        // Keyboard accessibility
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') {
+                const activeModal = document.querySelector('.modal.active');
+                if (activeModal) {
+                    closeModal(activeModal.id);
+                }
+            }
+        });
+    </script>
+</body>
+</html>
