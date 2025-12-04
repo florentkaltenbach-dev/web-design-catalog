@@ -148,10 +148,11 @@ body {
     text-align: center;
 }
 
-.catalog-grid {
+.catalog-list {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
     gap: var(--spacing-lg);
+    list-style: none;
 }
 
 .catalog-grid h2 {
