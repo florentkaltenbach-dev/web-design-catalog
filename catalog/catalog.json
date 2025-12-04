@@ -1,6 +1,6 @@
 {
   "catalog_name": "Web Design Pattern Catalog",
-  "version": "1.0.0",
+  "version": "2.0.0",
   "design_system": {
     "philosophy": "Calm, trust-building, warm, accessible design",
     "accessibility": "WCAG AA compliant",
@@ -12,6 +12,50 @@
       "Provide accessible experiences for all"
     ]
   },
+  "taxonomy": {
+    "use_cases": [
+      {
+        "id": "first_impression",
+        "label": "Make a First Impression",
+        "description": "Landing and hero patterns for new visitors",
+        "icon": "✨",
+        "pattern_ids": [1, 2]
+      },
+      {
+        "id": "navigation_help",
+        "label": "Help Users Navigate",
+        "description": "Help users find what they need",
+        "icon": "🧭",
+        "pattern_ids": [3, 4, 6]
+      },
+      {
+        "id": "trust_building",
+        "label": "Build Trust",
+        "description": "Social proof and credibility",
+        "icon": "🛡️",
+        "pattern_ids": [5, 7, 8]
+      },
+      {
+        "id": "booking_forms",
+        "label": "Create Booking Flows",
+        "description": "Booking, onboarding, and data entry",
+        "icon": "📅",
+        "pattern_ids": [11, 12, 13, 14, 15]
+      },
+      {
+        "id": "content_onboarding",
+        "label": "Present Content",
+        "description": "Editorial and informational layouts",
+        "icon": "📖",
+        "pattern_ids": [9, 10]
+      }
+    ],
+    "emotional_filters": [
+      { "id": "calming", "label": "Calming & Trust-building", "min_capturing": 70 },
+      { "id": "efficient", "label": "Efficient & Conversion-focused", "max_capturing": 40 },
+      { "id": "balanced", "label": "Balanced & Versatile", "min_capturing": 40, "max_capturing": 70 }
+    ]
+  },
   "entries": [
     {
       "id": 1,
@@ -19,6 +63,10 @@
       "emotional_axis": "Clarity + Calm + Trust",
       "audience": ["First-time visitors", "Help-seekers", "Family members"],
       "component_file": "components/ultra-clear-value-hero.html",
+      "use_cases": ["first_impression"],
+      "tags": ["Hero", "Homepage", "Landing"],
+      "search_keywords": ["hero", "landing", "homepage", "value proposition", "clarity", "first impression", "welcome"],
+      "best_for": "First-time visitors who need immediate clarity about what you offer",
       "dual_inclusion": {
         "capturing_ratio": 70,
         "pushing_ratio": 30,
@@ -35,6 +83,10 @@
       "emotional_axis": "Confidence + Safety + Quality",
       "audience": ["Anxiety-prone visitors", "Those avoiding clinical imagery", "Design-conscious users"],
       "component_file": "components/still-life-confidence-hero.html",
+      "use_cases": ["first_impression"],
+      "tags": ["Hero", "Homepage", "Landing"],
+      "search_keywords": ["hero", "landing", "homepage", "confidence", "safety", "imagery", "photography", "calming"],
+      "best_for": "Anxiety-prone visitors who need gentle, non-clinical visual comfort",
       "dual_inclusion": {
         "capturing_ratio": 75,
         "pushing_ratio": 25,
@@ -51,6 +103,10 @@
       "emotional_axis": "Empowerment + Self-Identification + Guidance",
       "audience": ["Users unsure where to start", "Goal-oriented visitors", "Non-German speakers (with translations)"],
       "component_file": "components/outcome-based-help.html",
+      "use_cases": ["navigation_help"],
+      "tags": ["Navigation", "Help", "Discovery"],
+      "search_keywords": ["navigation", "help", "i want to", "goals", "outcomes", "discovery", "wayfinding", "menu"],
+      "best_for": "Users who know their goal but not your terminology or site structure",
       "dual_inclusion": {
         "capturing_ratio": 70,
         "pushing_ratio": 30,
@@ -67,6 +123,10 @@
       "emotional_axis": "Independence + Confidence + Discovery",
       "audience": ["Self-directed users", "Researchers", "Returning visitors"],
       "component_file": "components/solution-hub.html",
+      "use_cases": ["navigation_help"],
+      "tags": ["Navigation", "Search", "Help Center"],
+      "search_keywords": ["search", "filter", "help center", "resources", "faq", "knowledge base", "self-service"],
+      "best_for": "Self-directed users who prefer to find answers independently",
       "dual_inclusion": {
         "capturing_ratio": 60,
         "pushing_ratio": 40,
@@ -83,6 +143,10 @@
       "emotional_axis": "Purpose + Authenticity + Connection",
       "audience": ["Values-driven visitors", "Partnership inquiries", "Job seekers"],
       "component_file": "components/mission-narrative-panel.html",
+      "use_cases": ["trust_building"],
+      "tags": ["About", "Story", "Mission"],
+      "search_keywords": ["about", "mission", "story", "values", "narrative", "purpose", "team", "who we are"],
+      "best_for": "Values-driven visitors evaluating your organization's purpose and authenticity",
       "dual_inclusion": {
         "capturing_ratio": 80,
         "pushing_ratio": 20,
@@ -99,6 +163,10 @@
       "emotional_axis": "Support + Clarity + Empowerment",
       "audience": ["Form users", "First-time visitors", "Users encountering terminology"],
       "component_file": "components/inline-contextual-help.html",
+      "use_cases": ["navigation_help"],
+      "tags": ["Forms", "Help", "Tooltips"],
+      "search_keywords": ["tooltip", "help", "hint", "explanation", "form help", "contextual", "popover", "guidance"],
+      "best_for": "Users encountering unfamiliar terms or complex form fields",
       "dual_inclusion": null,
       "content_notes": "Three types: tooltip (brief), popover (detailed), inline-expandable (in-flow). Use supportive, non-clinical tone. Include keyboard support.",
       "placement_recommendation": "Forms, terminology, complex processes, feature explanations"
@@ -109,6 +177,10 @@
       "emotional_axis": "Credibility + Social Proof + Reassurance",
       "audience": ["Decision-makers", "Skeptical visitors", "Comparison shoppers"],
       "component_file": "components/trust-wall.html",
+      "use_cases": ["trust_building"],
+      "tags": ["Social Proof", "Testimonials", "Trust"],
+      "search_keywords": ["testimonials", "reviews", "social proof", "trust", "credibility", "logos", "partners", "certifications"],
+      "best_for": "Skeptical visitors who need third-party validation before committing",
       "dual_inclusion": {
         "capturing_ratio": 70,
         "pushing_ratio": 30,
@@ -125,6 +197,10 @@
       "emotional_axis": "Trust + Longevity + Vision",
       "audience": ["History-curious visitors", "Partnership evaluators", "Investors"],
       "component_file": "components/brand-progress-timeline.html",
+      "use_cases": ["trust_building"],
+      "tags": ["Timeline", "History", "Story"],
+      "search_keywords": ["timeline", "history", "milestones", "progress", "journey", "about", "company history"],
+      "best_for": "Evaluators assessing your organization's track record and vision",
       "dual_inclusion": {
         "capturing_ratio": 75,
         "pushing_ratio": 25,
@@ -141,6 +217,10 @@
       "emotional_axis": "Safety + Control + Progress",
       "audience": ["New users", "Registration flows", "Multi-step processes"],
       "component_file": "components/transparent-step-list-onboarding.html",
+      "use_cases": ["content_onboarding"],
+      "tags": ["Onboarding", "Forms", "Progress"],
+      "search_keywords": ["onboarding", "steps", "wizard", "registration", "signup", "progress", "multi-step", "form"],
+      "best_for": "New users who need visibility into the full process before committing",
       "dual_inclusion": {
         "capturing_ratio_start": 80,
         "pushing_ratio_start": 20,
@@ -159,6 +239,10 @@
       "emotional_axis": "Authority + Engagement + Reflection",
       "audience": ["Long-form readers", "Educational content consumers", "Resource seekers"],
       "component_file": "components/magazine-editorial-layout.html",
+      "use_cases": ["content_onboarding"],
+      "tags": ["Content", "Blog", "Editorial"],
+      "search_keywords": ["blog", "article", "editorial", "content", "reading", "magazine", "long-form", "typography"],
+      "best_for": "Long-form readers who value well-crafted, authoritative content",
       "dual_inclusion": null,
       "content_notes": "Use drop caps, pull quotes, sidebars, and inline images. Serif typography for warmth. Include byline with author info and reading time.",
       "placement_recommendation": "Blog posts, resources, guides, educational content"
@@ -170,6 +254,10 @@
       "emotional_position": { "curiosity_clarity": 95, "spark_friction": 95, "exploration_efficiency": 95 },
       "audience": ["Busy professionals", "Returning customers", "Decisive users"],
       "component_file": "components/booking-fast-flow.html",
+      "use_cases": ["booking_forms"],
+      "tags": ["Booking", "Forms", "Efficiency"],
+      "search_keywords": ["booking", "fast", "quick", "efficient", "appointment", "schedule", "reserve", "minimal"],
+      "best_for": "Busy professionals who know what they want and value speed",
       "dual_inclusion": {
         "capturing_ratio": 20,
         "pushing_ratio": 80,
@@ -187,6 +275,10 @@
       "emotional_position": { "curiosity_clarity": 15, "spark_friction": 10, "exploration_efficiency": 10 },
       "audience": ["Newcomers", "Career explorers", "First-time learners"],
       "component_file": "components/booking-discovery.html",
+      "use_cases": ["booking_forms"],
+      "tags": ["Booking", "Discovery", "Exploration"],
+      "search_keywords": ["discovery", "explore", "browse", "courses", "inspiration", "journey", "learning"],
+      "best_for": "Newcomers exploring options who value inspiration over speed",
       "dual_inclusion": {
         "capturing_ratio": 85,
         "pushing_ratio": 15,
@@ -204,6 +296,10 @@
       "emotional_position": { "curiosity_clarity": 50, "spark_friction": 50, "exploration_efficiency": 50 },
       "audience": ["Mixed audiences", "Both explorers and deciders", "Returning and new users"],
       "component_file": "components/booking-balanced.html",
+      "use_cases": ["booking_forms"],
+      "tags": ["Booking", "Forms", "Balanced"],
+      "search_keywords": ["booking", "balanced", "flexible", "appointment", "schedule", "reserve", "progressive"],
+      "best_for": "Mixed audiences with varying needs - works for both explorers and deciders",
       "dual_inclusion": {
         "capturing_ratio": 50,
         "pushing_ratio": 50,
@@ -221,6 +317,10 @@
       "emotional_position": { "curiosity_clarity": 85, "spark_friction": 70, "exploration_efficiency": 60 },
       "audience": ["HR professionals", "Team leads", "Corporate buyers", "Advanced learners"],
       "component_file": "components/booking-advisor.html",
+      "use_cases": ["booking_forms"],
+      "tags": ["Booking", "Enterprise", "Professional"],
+      "search_keywords": ["enterprise", "corporate", "HR", "professional", "advisor", "bulk", "team", "business"],
+      "best_for": "HR professionals and corporate buyers who need data-rich decision support",
       "dual_inclusion": {
         "capturing_ratio": 40,
         "pushing_ratio": 60,
@@ -238,6 +338,10 @@
       "emotional_position": { "curiosity_clarity": 40, "spark_friction": 30, "exploration_efficiency": 25 },
       "audience": ["First-time visitors", "Hesitant users", "Those new to professional training"],
       "component_file": "components/booking-onboarding.html",
+      "use_cases": ["booking_forms"],
+      "tags": ["Booking", "Onboarding", "Guided"],
+      "search_keywords": ["first time", "beginner", "guided", "onboarding", "help", "step by step", "new user"],
+      "best_for": "First-time visitors who need guidance and reassurance throughout the process",
       "dual_inclusion": {
         "capturing_ratio": 75,
         "pushing_ratio": 25,

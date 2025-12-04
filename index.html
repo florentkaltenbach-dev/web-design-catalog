@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Web Design Pattern Catalog</title>
     <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/filter-ui.css">
 </head>
 <body>
     <a href="#catalog" class="skip-link">Skip to patterns</a>
@@ -44,14 +45,90 @@
             </div>
         </section>
 
-        <section class="catalog-grid" aria-labelledby="patterns-heading">
-            <h2 id="patterns-heading">Design Patterns</h2>
+        <!-- Filter Section -->
+        <section class="filter-section" aria-label="Filter patterns">
+            <div class="filter-container">
+                <!-- Search Box -->
+                <div class="search-box">
+                    <svg class="search-box__icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                        <circle cx="11" cy="11" r="8"/>
+                        <path d="M21 21l-4.35-4.35"/>
+                    </svg>
+                    <input
+                        type="search"
+                        id="pattern-search"
+                        class="search-box__input"
+                        placeholder="Search patterns (e.g., 'booking', 'hero', 'trust')..."
+                        aria-controls="catalog-grid"
+                        aria-describedby="results-count"
+                    >
+                    <button
+                        type="button"
+                        id="search-clear"
+                        class="search-box__clear"
+                        hidden
+                        aria-label="Clear search"
+                    >
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                            <path d="M18 6L6 18M6 6l12 12"/>
+                        </svg>
+                    </button>
+                </div>
+
+                <!-- Use Case Filters -->
+                <div class="filter-group">
+                    <span class="filter-group__label" id="filter-use-case-label">I want to...</span>
+                    <div
+                        class="filter-pills"
+                        id="use-case-filters"
+                        role="group"
+                        aria-labelledby="filter-use-case-label"
+                    >
+                        <!-- Populated by JavaScript from catalog.json taxonomy -->
+                        <button class="filter-pill" data-filter="useCase" data-value="all" aria-pressed="true">All Patterns</button>
+                        <button class="filter-pill" data-filter="useCase" data-value="first_impression" aria-pressed="false">
+                            <span class="filter-pill__icon">✨</span> Make a First Impression
+                        </button>
+                        <button class="filter-pill" data-filter="useCase" data-value="navigation_help" aria-pressed="false">
+                            <span class="filter-pill__icon">🧭</span> Help Users Navigate
+                        </button>
+                        <button class="filter-pill" data-filter="useCase" data-value="trust_building" aria-pressed="false">
+                            <span class="filter-pill__icon">🛡️</span> Build Trust
+                        </button>
+                        <button class="filter-pill" data-filter="useCase" data-value="booking_forms" aria-pressed="false">
+                            <span class="filter-pill__icon">📅</span> Create Booking Flows
+                        </button>
+                        <button class="filter-pill" data-filter="useCase" data-value="content_onboarding" aria-pressed="false">
+                            <span class="filter-pill__icon">📖</span> Present Content
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Results Count -->
+                <div id="results-count" class="results-count" aria-live="polite" aria-atomic="true">
+                    Showing <span class="results-count__number">15</span> of 15 patterns
+                </div>
+            </div>
+        </section>
+
+        <!-- Empty State -->
+        <div id="empty-state" class="empty-state" hidden>
+            <div class="empty-state__icon">🔍</div>
+            <h3 class="empty-state__title">No patterns match your filters</h3>
+            <p class="empty-state__message">Try adjusting your search or clearing the filters to see all patterns.</p>
+            <button type="button" id="reset-filters" class="empty-state__reset">
+                Clear all filters
+            </button>
+        </div>
+
+        <section class="catalog-grid" id="catalog-grid" aria-labelledby="patterns-heading">
+            <h2 id="patterns-heading" class="visually-hidden">Design Patterns</h2>
             <nav aria-label="Pattern catalog">
                 <ul class="catalog-list" role="list">
 
             <!-- Pattern 1 -->
             <li>
-            <article class="catalog-card" id="pattern-01">
+            <article class="catalog-card" id="pattern-01" data-pattern-id="1">
                 <div class="card-header">
                     <span class="card-number" aria-hidden="true">01</span>
                     <h3>Ultra-Clear Value Hero</h3>
@@ -61,6 +138,7 @@
                     <span class="tag">Homepage</span>
                 </div>
                 <p class="card-description">Primary hero section with instant value proposition clarity. Single CTA focus with optional trust signals.</p>
+                <p class="best-for">First-time visitors who need immediate clarity about what you offer</p>
                 <div class="dual-inclusion">
                     <div class="ratio">
                         <span class="capturing" style="width: 70%">70% Capturing</span>
@@ -74,7 +152,7 @@
 
             <!-- Pattern 2 -->
             <li>
-            <article class="catalog-card" id="pattern-02">
+            <article class="catalog-card" id="pattern-02" data-pattern-id="2">
                 <div class="card-header">
                     <span class="card-number" aria-hidden="true">02</span>
                     <h3>Still-Life Confidence Hero</h3>
@@ -84,6 +162,7 @@
                     <span class="tag">Imagery</span>
                 </div>
                 <p class="card-description">Hero using still-life photography (objects, not people) to build confidence without triggering comparison.</p>
+                <p class="best-for">Anxiety-prone visitors who need gentle, non-clinical visual comfort</p>
                 <div class="dual-inclusion">
                     <div class="ratio">
                         <span class="capturing" style="width: 75%">75% Capturing</span>
@@ -97,7 +176,7 @@
 
             <!-- Pattern 3 -->
             <li>
-            <article class="catalog-card" id="pattern-03">
+            <article class="catalog-card" id="pattern-03" data-pattern-id="3">
                 <div class="card-header">
                     <span class="card-number" aria-hidden="true">03</span>
                     <h3>Outcome-Based Help</h3>
@@ -107,6 +186,7 @@
                     <span class="tag">Interactive</span>
                 </div>
                 <p class="card-description">"Ich möchte..." / "I want to..." navigation pattern. User goals framed as outcomes with 4-8 options.</p>
+                <p class="best-for">Users who know their goal but not your terminology or site structure</p>
                 <div class="dual-inclusion">
                     <div class="ratio">
                         <span class="capturing" style="width: 70%">70% Capturing</span>
@@ -120,7 +200,7 @@
 
             <!-- Pattern 4 -->
             <li>
-            <article class="catalog-card" id="pattern-04">
+            <article class="catalog-card" id="pattern-04" data-pattern-id="4">
                 <div class="card-header">
                     <span class="card-number" aria-hidden="true">04</span>
                     <h3>Self-Serve Solution Hub</h3>
@@ -130,6 +210,7 @@
                     <span class="tag">Search</span>
                 </div>
                 <p class="card-description">Self-service portal with search, filters, categorized cards, and quick-access shortcuts for independent help-seeking.</p>
+                <p class="best-for">Self-directed users who prefer to find answers independently</p>
                 <div class="dual-inclusion">
                     <div class="ratio">
                         <span class="capturing" style="width: 60%">60% Capturing</span>
@@ -143,7 +224,7 @@
 
             <!-- Pattern 5 -->
             <li>
-            <article class="catalog-card" id="pattern-05">
+            <article class="catalog-card" id="pattern-05" data-pattern-id="5">
                 <div class="card-header">
                     <span class="card-number" aria-hidden="true">05</span>
                     <h3>Mission Narrative Panel</h3>
@@ -153,6 +234,7 @@
                     <span class="tag">About</span>
                 </div>
                 <p class="card-description">Rich editorial storytelling with mission statement, narrative body, values grid, and optional team imagery.</p>
+                <p class="best-for">Values-driven visitors evaluating your organization's purpose and authenticity</p>
                 <div class="dual-inclusion">
                     <div class="ratio">
                         <span class="capturing" style="width: 80%">80% Capturing</span>
@@ -166,7 +248,7 @@
 
             <!-- Pattern 6 -->
             <li>
-            <article class="catalog-card" id="pattern-06">
+            <article class="catalog-card" id="pattern-06" data-pattern-id="6">
                 <div class="card-header">
                     <span class="card-number" aria-hidden="true">06</span>
                     <h3>Inline Contextual Help</h3>
@@ -176,6 +258,7 @@
                     <span class="tag">Forms</span>
                 </div>
                 <p class="card-description">Three types: tooltips, popovers, and inline expandable. Supportive help without disrupting user flow.</p>
+                <p class="best-for">Users encountering unfamiliar terms or complex form fields</p>
                 <div class="dual-inclusion">
                     <div class="ratio na">
                         <span>Utility Component - N/A</span>
@@ -188,7 +271,7 @@
 
             <!-- Pattern 7 -->
             <li>
-            <article class="catalog-card" id="pattern-07">
+            <article class="catalog-card" id="pattern-07" data-pattern-id="7">
                 <div class="card-header">
                     <span class="card-number" aria-hidden="true">07</span>
                     <h3>Trust-Wall</h3>
@@ -198,6 +281,7 @@
                     <span class="tag">Testimonials</span>
                 </div>
                 <p class="card-description">Social proof section with testimonial carousel, certification badges, partner logos, and calm statistics.</p>
+                <p class="best-for">Skeptical visitors who need third-party validation before committing</p>
                 <div class="dual-inclusion">
                     <div class="ratio">
                         <span class="capturing" style="width: 70%">70% Capturing</span>
@@ -211,7 +295,7 @@
 
             <!-- Pattern 8 -->
             <li>
-            <article class="catalog-card" id="pattern-08">
+            <article class="catalog-card" id="pattern-08" data-pattern-id="8">
                 <div class="card-header">
                     <span class="card-number" aria-hidden="true">08</span>
                     <h3>Brand Progress Timeline</h3>
@@ -221,6 +305,7 @@
                     <span class="tag">History</span>
                 </div>
                 <p class="card-description">Chronological timeline with milestones, scroll-triggered animation, and future vision inviting participation.</p>
+                <p class="best-for">Evaluators assessing your organization's track record and vision</p>
                 <div class="dual-inclusion">
                     <div class="ratio">
                         <span class="capturing" style="width: 75%">75% Capturing</span>
@@ -234,7 +319,7 @@
 
             <!-- Pattern 9 -->
             <li>
-            <article class="catalog-card" id="pattern-09">
+            <article class="catalog-card" id="pattern-09" data-pattern-id="9">
                 <div class="card-header">
                     <span class="card-number" aria-hidden="true">09</span>
                     <h3>Step-List Onboarding</h3>
@@ -244,6 +329,7 @@
                     <span class="tag">Forms</span>
                 </div>
                 <p class="card-description">Transparent multi-step process with all steps visible, progress tracking, time estimates, and back navigation.</p>
+                <p class="best-for">New users who need visibility into the full process before committing</p>
                 <div class="dual-inclusion">
                     <div class="ratio adaptive">
                         <span>80/20 Start → 30/70 End</span>
@@ -256,7 +342,7 @@
 
             <!-- Pattern 10 -->
             <li>
-            <article class="catalog-card" id="pattern-10">
+            <article class="catalog-card" id="pattern-10" data-pattern-id="10">
                 <div class="card-header">
                     <span class="card-number" aria-hidden="true">10</span>
                     <h3>Magazine-Editorial Layout</h3>
@@ -266,6 +352,7 @@
                     <span class="tag">Editorial</span>
                 </div>
                 <p class="card-description">Rich editorial layout with drop caps, pull quotes, sidebars, bylines, and print-friendly styling.</p>
+                <p class="best-for">Long-form readers who value well-crafted, authoritative content</p>
                 <div class="dual-inclusion">
                     <div class="ratio na">
                         <span>Content Layout - N/A</span>
@@ -278,7 +365,7 @@
 
             <!-- Pattern 11 -->
             <li>
-            <article class="catalog-card" id="pattern-11">
+            <article class="catalog-card" id="pattern-11" data-pattern-id="11">
                 <div class="card-header">
                     <span class="card-number" aria-hidden="true">11</span>
                     <h3>Lightning Booking (Fast Flow)</h3>
@@ -288,6 +375,7 @@
                     <span class="tag">Efficiency</span>
                 </div>
                 <p class="card-description">15-second booking flow for busy professionals. Minimal course cards, single-page form, instant confirmation with calendar export.</p>
+                <p class="best-for">Busy professionals who know what they want and value speed</p>
                 <div class="dual-inclusion">
                     <div class="ratio">
                         <span class="capturing" style="width: 20%">20% Capturing</span>
@@ -301,7 +389,7 @@
 
             <!-- Pattern 12 -->
             <li>
-            <article class="catalog-card" id="pattern-12">
+            <article class="catalog-card" id="pattern-12" data-pattern-id="12">
                 <div class="card-header">
                     <span class="card-number" aria-hidden="true">12</span>
                     <h3>Course Discovery (Exploration)</h3>
@@ -311,6 +399,7 @@
                     <span class="tag">Discovery</span>
                 </div>
                 <p class="card-description">Exploration-focused booking for newcomers. Visual cards, instructor stories, multi-step form, celebration confirmation.</p>
+                <p class="best-for">Newcomers exploring options who value inspiration over speed</p>
                 <div class="dual-inclusion">
                     <div class="ratio">
                         <span class="capturing" style="width: 85%">85% Capturing</span>
@@ -324,7 +413,7 @@
 
             <!-- Pattern 13 -->
             <li>
-            <article class="catalog-card" id="pattern-13">
+            <article class="catalog-card" id="pattern-13" data-pattern-id="13">
                 <div class="card-header">
                     <span class="card-number" aria-hidden="true">13</span>
                     <h3>Smart Booking (Balanced)</h3>
@@ -334,6 +423,7 @@
                     <span class="tag">Flexible</span>
                 </div>
                 <p class="card-description">Balanced booking for mixed audiences. Two-panel layout with sidebar, progressive disclosure, serves both quick bookers and explorers.</p>
+                <p class="best-for">Mixed audiences with varying needs - works for both explorers and deciders</p>
                 <div class="dual-inclusion">
                     <div class="ratio">
                         <span class="capturing" style="width: 50%">50% Capturing</span>
@@ -347,7 +437,7 @@
 
             <!-- Pattern 14 -->
             <li>
-            <article class="catalog-card" id="pattern-14">
+            <article class="catalog-card" id="pattern-14" data-pattern-id="14">
                 <div class="card-header">
                     <span class="card-number" aria-hidden="true">14</span>
                     <h3>Expert Advisor Booking</h3>
@@ -357,6 +447,7 @@
                     <span class="tag">Professional</span>
                 </div>
                 <p class="card-description">Professional-grade booking for HR and team leads. Filter bar, comparison mode, multi-step form with billing/invoicing.</p>
+                <p class="best-for">HR professionals and corporate buyers who need data-rich decision support</p>
                 <div class="dual-inclusion">
                     <div class="ratio">
                         <span class="capturing" style="width: 40%">40% Capturing</span>
@@ -370,7 +461,7 @@
 
             <!-- Pattern 15 -->
             <li>
-            <article class="catalog-card" id="pattern-15">
+            <article class="catalog-card" id="pattern-15" data-pattern-id="15">
                 <div class="card-header">
                     <span class="card-number" aria-hidden="true">15</span>
                     <h3>Guided First Booking</h3>
@@ -380,6 +471,7 @@
                     <span class="tag">Onboarding</span>
                 </div>
                 <p class="card-description">Friendly onboarding for first-time visitors. "How it works" guide, helpful hints, multi-step form with celebration confirmation.</p>
+                <p class="best-for">First-time visitors who need guidance and reassurance throughout the process</p>
                 <div class="dual-inclusion">
                     <div class="ratio">
                         <span class="capturing" style="width: 75%">75% Capturing</span>
@@ -412,11 +504,12 @@
 
     <footer class="site-footer">
         <div class="container">
-            <p>Web Design Pattern Catalog v1.0</p>
+            <p>Web Design Pattern Catalog v2.0</p>
             <p>Calm, Trust-Building, Accessible Design Patterns</p>
         </div>
     </footer>
 
     <script src="js/main.js"></script>
+    <script src="js/catalog-navigation.js"></script>
 </body>
 </html>
